@@ -2,7 +2,6 @@
 # OS X
 ############################
 
-.DS_Store
 .AppleDouble
 .LSOverride
 Icon
@@ -82,6 +81,8 @@ ssl
 nbproject
 public/uploads/*
 !public/uploads/.gitkeep
+.DS_Store
+*.pem
 
 ############################
 # Node.js
@@ -92,9 +93,15 @@ lcov.info
 pids
 logs
 results
-node_modules
 .node_history
 package-lock.json
+
+############################
+# Dependencies
+############################
+node_modules
+.pnp
+.pnp.js
 
 ############################
 # Tests
@@ -107,9 +114,37 @@ coverage
 # Strapi
 ############################
 
-.env
 license.txt
 exports
 *.cache
 build
 .strapi-updater.json
+
+############################
+# NextJS
+############################
+.next/
+out/
+.swc/
+
+############################
+# Debug
+############################
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+############################
+# Envs
+############################
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+# ui
+dist/
