@@ -8,6 +8,7 @@
   "scripts": {
     "build": "turbo build",
     "cms:build": "cd cms && pnpm run build",
+    "cms:start": "cd cms && pnpm run start",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
