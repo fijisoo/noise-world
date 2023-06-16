@@ -5,10 +5,15 @@
   "repository": "https://github.com/fijisoo/noise-world.git",
   "author": "Dominik <bendominik@gmail.com>",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo build",
-    "cms:build": "turbo build --filter=apps --filter=cms --include-dependencies --no-deps",
-    "cms:start": "turbo start --filter=apps --filter=cms --include-dependencies --no-deps",
+    "cms:build": "turbo build --filter=apps --filter=cms",
+    "cms:start": "turbo start --filter=apps --filter=cms",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
@@ -16,10 +21,10 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
+    "eslint-config-custom": "*",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
     "turbo": "^1.9.3"
   },
-  "packageManager": "pnpm@7.15.0"
+  "packageManager": "yarn@1.22.19"
 }
