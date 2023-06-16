@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "build": "turbo build",
-    "cms:build": "cd cms && pnpm run build",
-    "cms:start": "cd cms && pnpm run start",
+    "cms:build": "turbo build --filter=apps --filter=cms",
+    "cms:start": "turbo start --filter=apps --filter=cms",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
