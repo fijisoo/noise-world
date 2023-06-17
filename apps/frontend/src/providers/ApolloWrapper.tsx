@@ -44,7 +44,7 @@ export function ApolloWrapper({
 
     function makeClient() {
         const httpLink = new HttpLink({
-            uri: "https://main--hack-the-e-commerce.apollographos.net/graphql",
+            uri: "https://noise-world-production.up.railway.app/graphql",
             fetchOptions: { cache: "no-store" },
         });
 

@@ -1,7 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { cookies } from "next/headers";
-import { ApolloWrapper } from "./providers/ApolloWrapper";
+import { ApolloWrapper } from "@/providers/ApolloWrapper";
 
 const inter = Inter({ subsets: ['latin'] })
 

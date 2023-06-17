@@ -14,6 +14,8 @@
     "build": "turbo build",
     "cms:build": "turbo build --filter=apps --filter=cms",
     "cms:start": "turbo start --filter=apps --filter=cms",
+    "web:build": "turbo build --filter=apps --filter=frontend",
+    "web:start": "turbo start --filter=apps --filter=frontend",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",

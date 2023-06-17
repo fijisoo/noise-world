@@ -6,7 +6,8 @@
     "dev": "next dev -p 3020",
     "build": "next build",
     "start": "next start -p 3020",
-    "lint": "next lint"
+    "lint": "next lint",
+    "graphql:generate-types": "gql-gen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": ">=3.8.0-beta.2",
@@ -28,6 +29,10 @@
     "ts-invariant": "^0.10.3",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
-    "@types/react-dom": "18.2.5"
+    "@types/react-dom": "18.2.5",
+    "@graphql-codegen/cli": "3.2.2",
+    "@graphql-codegen/introspection": "3.0.1",
+    "@graphql-codegen/typescript": "3.0.2",
+    "graphql-codegen-typescript-common": "0.18.2"
   }
 }
