@@ -19,7 +19,8 @@
     "react": "18.2.0",
     "graphql": "^16.6.0",
     "react-dom": "18.2.0",
-    "ui": "*"
+    "ui": "workspace:*",
+    "tailwind-config": "workspace:*"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
@@ -33,6 +34,8 @@
     "@graphql-codegen/cli": "3.2.2",
     "@graphql-codegen/introspection": "3.0.1",
     "@graphql-codegen/typescript": "3.0.2",
-    "graphql-codegen-typescript-common": "0.18.2"
+    "graphql-codegen-typescript-common": "0.18.2",
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
   }
 }
