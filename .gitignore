@@ -148,3 +148,9 @@ yarn-error.log*
 
 # ui
 dist/
+
+#codegen
+codegen-outputs
+
+#mesh
+.mesh

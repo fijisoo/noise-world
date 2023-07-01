@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 3020",
     "lint": "next lint",
-    "graphql:generate-types": "gql-gen --config codegen.yml"
+    "prestart": "yarn build"
   },
   "dependencies": {
     "@apollo/client": ">=3.8.0-beta.2",
