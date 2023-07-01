@@ -2,17 +2,18 @@
   "name": "gql-mesh",
   "version": "1.0.0",
   "private": true,
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "mesh start",
     "build": "mesh build",
-    "prestart": "mesh build",
     "dev": "mesh dev"
   },
   "dependencies": {
     "@graphql-mesh/cli": "0.82.35",
     "@graphql-mesh/graphql": "^0.94.2",
     "@graphql-mesh/transform-prefix": "0.94.2",
-    "graphql": "^16.6.0"
+    "@graphql-mesh/cache-localforage": "0.93.1",
+    "graphql": "^16.6.0",
+    "express": "^4.18.2"
   }
 }

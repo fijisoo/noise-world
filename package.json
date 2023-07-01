@@ -1,7 +1,6 @@
 {
   "name": "noise.world",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/fijisoo/noise-world.git",
   "author": "Dominik <bendominik@gmail.com>",
   "license": "MIT",
