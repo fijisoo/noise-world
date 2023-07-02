@@ -8,7 +8,8 @@
         "dist/**",
         ".next/**",
         "!.next/cache/**",
-        "storybook-static/**"
+        "storybook-static/**",
+        ".mesh/**"
       ]
     },
     "start": {
