@@ -2,24 +2,20 @@
   "name": "gql-mesh",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "mesh build && npx tsc",
-    "start": "mesh start"
+    "build": "mesh build",
+    "start": "mesh start",
+    "dev": "mesh dev"
   },
   "dependencies": {
     "@graphql-mesh/cache-localforage": "0.93.1",
     "@graphql-mesh/cli": "0.82.35",
     "@graphql-mesh/graphql": "^0.94.2",
     "@graphql-mesh/transform-prefix": "0.94.2",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
     "graphql": "^16.6.0"
   },
-  "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/node": "^20.3.3",
-    "typescript": "^5.1.6"
+  "resolutions": {
+    "graphql": "16.6.0"
   }
 }
