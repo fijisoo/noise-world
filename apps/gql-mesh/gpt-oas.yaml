@@ -1,0 +1,104 @@
+openapi: 3.0.3
+info:
+  title: OpenAI Chat Completions API
+  version: 1.0.0
+
+servers:
+  - url: 'https://api.openai.com/v1'
+
+paths:
+  /chat/completions:
+    post:
+      summary: Generate chat completions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatCompletionRequest"
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatCompletionResponse"
+
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ChatCompletionRequest:
+      type: object
+      properties:
+        model:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageInput"
+        temperature:
+          type: number
+        max_tokens:
+          type: integer
+        top_p:
+          type: number
+        n:
+          type: integer
+        stop:
+          type: string
+
+    MessageInput:
+      type: object
+      properties:
+        role:
+          type: string
+        content:
+          type: string
+
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatCompletionChoice"
+
+    ChatCompletionChoice:
+      type: object
+      properties:
+        message:
+          $ref: "#/components/schemas/MessageInput"
+        finish_reason:
+          type: string
+        index:
+          type: integer
+        logprobs:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: number
+              format: double
+        text:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string

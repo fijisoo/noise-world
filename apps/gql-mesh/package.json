@@ -12,6 +12,8 @@
     "@graphql-mesh/cache-localforage": "0.93.1",
     "@graphql-mesh/cli": "0.82.35",
     "@graphql-mesh/graphql": "^0.94.2",
+    "@graphql-mesh/openapi": "^0.94.6",
+    "@graphql-mesh/plugin-http-details-extensions": "^0.94.2",
     "@graphql-mesh/transform-prefix": "0.94.2",
     "graphql": "^16.6.0"
   },
