@@ -3,6 +3,10 @@ sources:
     handler:
       graphql:
         endpoint: https://noise-world-production.up.railway.app/graphql
+    transforms:
+      - prefix:
+          value: strapi_
+          includeRootOperations: true
   - name: github
     handler:
       graphql:
@@ -16,5 +20,26 @@ sources:
       - prefix:
           value: github_
           includeRootOperations: true
+  - name: chatGPT
+    handler:
+      openapi:
+        source: ./gpt-oas.yaml
+        selectQueryOrMutationField:
+          - fieldName: "createChatCompletion" # OAS field name
+            type: Mutation # switch method GET from default Mutation into Query
+        operationHeaders:
+          Authorization: Bearer {env.GPT_ACCESS_TOKEN}
+          User-Agent: GraphQL Mesh
+    transforms:
+      - prefix:
+          value: chat_GPT_
+          includeRootOperations: true
+
 serve:
   playground: true
+cache:
+  localforage:
+    driver: [WEBSQL, INDEXEDDB, LOCALSTORAGE]
+plugins:
+  - httpDetailsExtensions:
+      if: "env.NODE_ENV === 'development'"
