@@ -32,7 +32,8 @@
     "eslint-config-custom": "*",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
-    "turbo": "^1.10.7"
+    "turbo": "^1.10.7",
+    "netlify-cli": "^15.8.0"
   },
   "resolutions": {
     "graphql": "16.6.0"

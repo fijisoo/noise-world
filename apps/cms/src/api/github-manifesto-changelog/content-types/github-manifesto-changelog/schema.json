@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "github_manifesto_changelogs",
+  "info": {
+    "singularName": "github-manifesto-changelog",
+    "pluralName": "github-manifesto-changelogs",
+    "displayName": "github_manifesto_changelog"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "ManifestoArticle": {
+      "displayName": "manifestoArticle",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "github.manifesto-article"
+    }
+  }
+}

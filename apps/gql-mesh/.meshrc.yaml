@@ -2,7 +2,11 @@ sources:
   - name: strapi
     handler:
       graphql:
-        endpoint: https://noise-world-production.up.railway.app/graphql
+        endpoint: http://localhost:1337/graphql
+    transforms:
+      - prefix:
+          value: strapi_
+          includeRootOperations: true
   - name: github
     handler:
       graphql:
@@ -28,7 +32,7 @@ sources:
           User-Agent: GraphQL Mesh
     transforms:
       - prefix:
-          value: CHAT_GPT_
+          value: chat_GPT_
           includeRootOperations: true
 
 serve:

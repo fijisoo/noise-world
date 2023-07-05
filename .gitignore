@@ -154,3 +154,5 @@ codegen-outputs
 
 #mesh
 .mesh
+# Local Netlify folder
+.netlify

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_github_manifesto_articles",
+  "info": {
+    "displayName": "manifestoArticle",
+    "icon": "write"
+  },
+  "options": {},
+  "attributes": {
+    "Description": {
+      "type": "richtext"
+    },
+    "UpdateDate": {
+      "type": "date"
+    },
+    "Version": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    }
+  }
+}
