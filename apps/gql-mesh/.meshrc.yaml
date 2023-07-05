@@ -2,7 +2,7 @@ sources:
   - name: strapi
     handler:
       graphql:
-        endpoint: http://localhost:1337/graphql
+        endpoint: https://noise-world-production.up.railway.app/graphql
     transforms:
       - prefix:
           value: strapi_
