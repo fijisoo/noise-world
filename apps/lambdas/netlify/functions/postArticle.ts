@@ -17,16 +17,14 @@ const handler: Handler = async (
       ?.defaultBranchRef?.target?.history?.edges;
 
   const latestIOD =
-    githubManifestoChangesAndLastArticleOID?.data
-      ?.strapi_githubManifestoChangelogs?.data[0]?.attributes?.ManifestoArticle
-      ?.Version;
+    githubManifestoChangesAndLastArticleOID?.data?.strapi_githubManifestoChangelogs?.data?.[0]?.attributes?.ManifestoArticle?.Version?.toString();
 
   const getTextByArrIndex = (arr, index) =>
-    arr[index]?.node?.tree?.entries[0]?.object?.text;
+    arr[index]?.node?.tree?.entries?.[0]?.object?.text;
 
   //sorted: newest first
   const text1 = getTextByArrIndex(textArr, 0);
-  const text1_oid = textArr[0]?.node?.oid;
+  const text1_oid = textArr?.[0]?.node?.oid?.toString();
 
   const text2 = getTextByArrIndex(textArr, 1);
 
@@ -36,11 +34,11 @@ const handler: Handler = async (
     );
 
     const articleContentText =
-      article?.data?.chat_GPT_post_chat_completions?.choices[0]?.message
+      article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
         ?.content;
 
-    const title = articleContentText.split("@@@@")[0];
-    const description = articleContentText.split("@@@@")[1] | "";
+    const title = articleContentText.split("@@@@")?.[0]?.toString();
+    const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
 
     const pushedData = await graphqlFetch(
       postManifestUpdateArticleQuery(title, description, text1_oid)
