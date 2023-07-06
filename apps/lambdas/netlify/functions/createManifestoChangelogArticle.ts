@@ -27,6 +27,8 @@ const handler: Handler = async (
       ),
     });
 
+    await setTimeout(() => {}, 2000)
+
     return {
       statusCode: 200,
       body: JSON.stringify({
