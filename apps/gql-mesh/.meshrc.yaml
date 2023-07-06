@@ -3,6 +3,9 @@ sources:
     handler:
       graphql:
         endpoint: https://noise-world-production.up.railway.app/graphql
+        operationHeaders:
+          Authorization: Bearer {env.GQL_MESH_ACCESS_TOKEN}
+          User-Agent: GraphQL Mesh
     transforms:
       - prefix:
           value: strapi_
