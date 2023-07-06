@@ -5,9 +5,9 @@ const handler: Handler = async (
   event: HandlerEvent,
   context: HandlerContext
 ) => {
-  const { query } = event.queryStringParameters;
+  const { query } = JSON.parse(event.body);
 
-  const pushedData = await graphqlFetch(decodeURIComponent(query));
+  const pushedData = await graphqlFetch(decodeURIComponent(query.data));
 
   return {
     statusCode: 200,

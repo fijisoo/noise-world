@@ -1,16 +1,18 @@
 import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { graphqlFetch } from "../utils/graphqlFetch";
-import fetch from "node-fetch";
 import { postManifestUpdateArticleQuery } from "../queries/cms/postManifestUpdateArticleQuery";
+import { lambdaFetch } from "../utils/lambdaFetch";
 
 const handler: Handler = async (
   event: HandlerEvent,
   context: HandlerContext
 ) => {
-  const { query, latestIOD, newVersion } = event.queryStringParameters;
+  const { query } = JSON.parse(event.body);
 
-  if (latestIOD !== newVersion) {
-    const article = await graphqlFetch(decodeURIComponent(query));
+  console.log(event.body, "---------", query);
+
+  if (query.latestIOD !== query.newVersion) {
+    const article = await graphqlFetch(decodeURIComponent(query.data));
 
     const articleContentText =
       article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
@@ -19,25 +21,26 @@ const handler: Handler = async (
     const title = articleContentText.split("@@@@")?.[0]?.toString();
     const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
 
-    await fetch(
-      process.env.STRAPI_POST_MANIFESTO_URI +
-        "?query=" +
-        encodeURIComponent(
-          postManifestUpdateArticleQuery(title, description, newVersion)
-        )
-    );
+    await lambdaFetch("strapiPostManifestoArticle", {
+      data: encodeURIComponent(
+        postManifestUpdateArticleQuery(title, description, query.newVersion)
+      ),
+    });
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         message: {
           article,
-          chainURI:
-            process.env.STRAPI_POST_MANIFESTO_URI +
-            "?query=" +
-            encodeURIComponent(
-              postManifestUpdateArticleQuery(title, description, newVersion)
+          query: {
+            postedData: encodeURIComponent(
+              postManifestUpdateArticleQuery(
+                title,
+                description,
+                query.newVersion
+              )
             ),
+          },
         },
       }),
     };
