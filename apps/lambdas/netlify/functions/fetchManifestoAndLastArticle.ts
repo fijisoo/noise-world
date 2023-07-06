@@ -28,7 +28,7 @@ const handler: Handler = async (
 
   const text2 = getTextByArrIndex(textArr, 1);
 
-  await lambdaFetch("createManifestoChangelogArticle", {
+  lambdaFetch("createManifestoChangelogArticle", {
     data: encodeURIComponent(createManifestoDiffArticleQuery(text2, text1)),
     latestOID,
     newVersion: text1_oid,

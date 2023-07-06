@@ -21,7 +21,7 @@ const handler: Handler = async (
     const title = articleContentText.split("@@@@")?.[0]?.toString();
     const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
 
-    await lambdaFetch("strapiPostManifestoArticle", {
+    lambdaFetch("strapiPostManifestoArticle", {
       data: encodeURIComponent(
         postManifestUpdateArticleQuery(title, description, query.newVersion)
       ),
