@@ -12,6 +12,11 @@ const handler: Handler = async (
     manifestoDiffQuery
   );
 
+  console.log(
+    "githubManifestoChangesAndLastArticleOID",
+    githubManifestoChangesAndLastArticleOID
+  );
+
   const textArr =
     githubManifestoChangesAndLastArticleOID?.data?.github_repository
       ?.defaultBranchRef?.target?.history?.edges;
@@ -32,29 +37,28 @@ const handler: Handler = async (
     "createManifestoDiffArticleQuery(text2, text1)",
     createManifestoDiffArticleQuery(text2, text1)
   );
+
   if (latestIOD !== text1_oid) {
-    // const article = await graphqlFetch(
-    //   createManifestoDiffArticleQuery(text2, text1)
-    // );
-    //
-    // console.log("article", article);
-    //
-    // const articleContentText =
-    //   article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
-    //     ?.content;
-    //
-    // console.log("articleContentText", articleContentText);
-    //
-    // const title = articleContentText.split("@@@@")?.[0]?.toString();
-    // const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
-    //
-    // const pushedData = await graphqlFetch(
-    //   postManifestUpdateArticleQuery(title, description, text1_oid)
-    // );
+    const article = await graphqlFetch(
+      createManifestoDiffArticleQuery(text2, text1)
+    );
+
+    console.log("article", article);
+
+    const articleContentText =
+      article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
+        ?.content;
+
+    const title = articleContentText.split("@@@@")?.[0]?.toString();
+    const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
+
+    const pushedData = await graphqlFetch(
+      postManifestUpdateArticleQuery(title, description, text1_oid)
+    );
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "pushedData" }),
+      body: JSON.stringify({ message: pushedData }),
     };
   }
 
