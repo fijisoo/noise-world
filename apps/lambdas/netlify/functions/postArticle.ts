@@ -23,30 +23,38 @@ const handler: Handler = async (
     arr[index]?.node?.tree?.entries?.[0]?.object?.text;
 
   //sorted: newest first
-  const text1 = getTextByArrIndex(textArr, 0);
+  const text1 = getTextByArrIndex(textArr, 0).trim();
   const text1_oid = textArr?.[0]?.node?.oid?.toString();
 
   const text2 = getTextByArrIndex(textArr, 1);
 
+  console.log(
+    "createManifestoDiffArticleQuery(text2, text1)",
+    createManifestoDiffArticleQuery(text2, text1)
+  );
   if (latestIOD !== text1_oid) {
-    const article = await graphqlFetch(
-      createManifestoDiffArticleQuery(text2, text1)
-    );
-
-    const articleContentText =
-      article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
-        ?.content;
-
-    const title = articleContentText.split("@@@@")?.[0]?.toString();
-    const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
-
-    const pushedData = await graphqlFetch(
-      postManifestUpdateArticleQuery(title, description, text1_oid)
-    );
+    // const article = await graphqlFetch(
+    //   createManifestoDiffArticleQuery(text2, text1)
+    // );
+    //
+    // console.log("article", article);
+    //
+    // const articleContentText =
+    //   article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
+    //     ?.content;
+    //
+    // console.log("articleContentText", articleContentText);
+    //
+    // const title = articleContentText.split("@@@@")?.[0]?.toString();
+    // const description = articleContentText.split("@@@@")?.[1]?.toString() | "";
+    //
+    // const pushedData = await graphqlFetch(
+    //   postManifestUpdateArticleQuery(title, description, text1_oid)
+    // );
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: pushedData }),
+      body: JSON.stringify({ message: "pushedData" }),
     };
   }
 
