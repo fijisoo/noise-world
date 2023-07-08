@@ -47,13 +47,22 @@ export async function GET(request: NextRequest, response: NextResponse) {
       postManifestUpdateArticleQuery(title, description, text1_oid)
     );
 
-    response.setHeader('Cache-Control', 's-maxage=0');
     return NextResponse.json({
       body: JSON.stringify({ message: pushedData }),
+      headers: {
+        'Cache-Control': 'public, s-maxage=1',
+        'CDN-Cache-Control': 'public, s-maxage=60',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+      },
     });
   }
 
   return NextResponse.json({
     body: JSON.stringify({ message: "Added last changelog" }),
+    headers: {
+      'Cache-Control': 'public, s-maxage=1',
+      'CDN-Cache-Control': 'public, s-maxage=60',
+      'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+    },
   });
 }
