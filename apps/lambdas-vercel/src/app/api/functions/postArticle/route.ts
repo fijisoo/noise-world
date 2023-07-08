@@ -6,6 +6,8 @@ import { manifestoDiffQuery } from "../queries/github/manifestoDiffQuery";
 import { createManifestoDiffArticleQuery } from "../queries/chatGPT/createManifestoDiffArticleQuery";
 import { postManifestUpdateArticleQuery } from "../queries/cms/postManifestUpdateArticleQuery";
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest, response: NextResponse) {
   const githubManifestoChangesAndLastArticleOID = await graphqlFetch(
     manifestoDiffQuery
