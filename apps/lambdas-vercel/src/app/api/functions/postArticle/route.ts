@@ -6,7 +6,7 @@ import { manifestoDiffQuery } from "../queries/github/manifestoDiffQuery";
 import { createManifestoDiffArticleQuery } from "../queries/chatGPT/createManifestoDiffArticleQuery";
 import { postManifestUpdateArticleQuery } from "../queries/cms/postManifestUpdateArticleQuery";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, response: NextResponse) {
   const githubManifestoChangesAndLastArticleOID = await graphqlFetch(
     manifestoDiffQuery
   );
@@ -47,6 +47,7 @@ export async function GET(request: NextRequest) {
       postManifestUpdateArticleQuery(title, description, text1_oid)
     );
 
+    response.setHeader('Cache-Control', 's-maxage=0');
     return NextResponse.json({
       body: JSON.stringify({ message: pushedData }),
     });
