@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 export const graphqlFetch = (query) =>
-  fetch(process.env.API_GATEWAY_URL, {
+  fetch(process.env.API_GATEWAY_URL as any, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

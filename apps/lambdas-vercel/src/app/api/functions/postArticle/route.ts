@@ -12,11 +12,11 @@ export async function GET(request: NextRequest) {
   );
 
   const textArr =
-    githubManifestoChangesAndLastArticleOID?.data?.github_repository
+      (githubManifestoChangesAndLastArticleOID as any)?.data?.github_repository
       ?.defaultBranchRef?.target?.history?.edges;
 
   const latestIOD =
-    githubManifestoChangesAndLastArticleOID?.data?.strapi_githubManifestoChangelogs?.data?.[0]?.attributes?.ManifestoArticle?.Version?.toString();
+      (githubManifestoChangesAndLastArticleOID as any)?.data?.strapi_githubManifestoChangelogs?.data?.[0]?.attributes?.ManifestoArticle?.Version?.toString();
 
   const getTextByArrIndex = (arr, index) =>
     arr[index]?.node?.tree?.entries?.[0]?.object?.text;
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     );
 
     const articleContentText =
-      article?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
+        (article as any)?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
         ?.content;
 
     const [title, description] = articleContentText?.split("@@@@");
