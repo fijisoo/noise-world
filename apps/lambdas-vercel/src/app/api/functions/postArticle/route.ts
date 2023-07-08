@@ -49,9 +49,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
     return NextResponse.json({
       body: JSON.stringify({ message: pushedData }),
       headers: {
-        "Cache-Control": "public, s-maxage=10",
-        "CDN-Cache-Control": "public, s-maxage=60",
-        "Vercel-CDN-Cache-Control": "public, s-maxage=3600",
+        "Cache-Control": "no-cache",
+        "CDN-Cache-Control": "no-cache",
+        "Vercel-CDN-Cache-Control": "no-cache",
       },
     });
   }
@@ -63,9 +63,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
       text1_oid,
     }),
     headers: {
-      "Cache-Control": "public, s-maxage=10",
-      "CDN-Cache-Control": "public, s-maxage=60",
-      "Vercel-CDN-Cache-Control": "public, s-maxage=3600",
+      "Cache-Control": "no-cache",
+      "CDN-Cache-Control": "no-cache",
+      "Vercel-CDN-Cache-Control": "no-cache",
     },
   });
 }
