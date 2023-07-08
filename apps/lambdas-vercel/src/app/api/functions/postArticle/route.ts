@@ -11,12 +11,12 @@ export async function GET(request: NextRequest, response: NextResponse) {
     manifestoDiffQuery
   );
 
-  const textArr =
-      (githubManifestoChangesAndLastArticleOID as any)?.data?.github_repository
-      ?.defaultBranchRef?.target?.history?.edges;
+  const textArr = (githubManifestoChangesAndLastArticleOID as any)?.data
+    ?.github_repository?.defaultBranchRef?.target?.history?.edges;
 
-  const latestIOD =
-      (githubManifestoChangesAndLastArticleOID as any)?.data?.strapi_githubManifestoChangelogs?.data?.[0]?.attributes?.ManifestoArticle?.Version?.toString();
+  const latestIOD = (
+    githubManifestoChangesAndLastArticleOID as any
+  )?.data?.strapi_githubManifestoChangelogs?.data?.[0]?.attributes?.ManifestoArticle?.Version?.toString();
 
   const getTextByArrIndex = (arr, index) =>
     arr[index]?.node?.tree?.entries?.[0]?.object?.text;
@@ -37,9 +37,8 @@ export async function GET(request: NextRequest, response: NextResponse) {
       createManifestoDiffArticleQuery(text2, text1)
     );
 
-    const articleContentText =
-        (article as any)?.data?.chat_GPT_post_chat_completions?.choices?.[0]?.message
-        ?.content;
+    const articleContentText = (article as any)?.data
+      ?.chat_GPT_post_chat_completions?.choices?.[0]?.message?.content;
 
     const [title, description] = articleContentText?.split("@@@@");
 
@@ -50,19 +49,23 @@ export async function GET(request: NextRequest, response: NextResponse) {
     return NextResponse.json({
       body: JSON.stringify({ message: pushedData }),
       headers: {
-        'Cache-Control': 'public, s-maxage=1',
-        'CDN-Cache-Control': 'public, s-maxage=60',
-        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+        "Cache-Control": "public, s-maxage=10",
+        "CDN-Cache-Control": "public, s-maxage=60",
+        "Vercel-CDN-Cache-Control": "public, s-maxage=3600",
       },
     });
   }
 
   return NextResponse.json({
-    body: JSON.stringify({ message: "Added last changelog" }),
+    body: JSON.stringify({
+      message: "Added last changelog",
+      latestIOD,
+      text1_oid,
+    }),
     headers: {
-      'Cache-Control': 'public, s-maxage=1',
-      'CDN-Cache-Control': 'public, s-maxage=60',
-      'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+      "Cache-Control": "public, s-maxage=10",
+      "CDN-Cache-Control": "public, s-maxage=60",
+      "Vercel-CDN-Cache-Control": "public, s-maxage=3600",
     },
   });
 }
