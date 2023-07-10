@@ -1,14 +1,16 @@
 import * as React from "react";
 
-export const Button = () => {
+export const Button = ({ text, href, withArrow }: any) => {
   return (
-    <div className="rounded-md ">
-      <a href="/manifesto">
-        <div className="ui-flex ui-w-full ui-items-center ui-justify-center ui-rounded-md ui-border ui-border-transparent ui-px-8 ui-py-3 ui-text-base ui-font-medium ui-no-underline ui-bg-white ui-text-black hover:ui-bg-gray-300 md:ui-py-3 md:ui-px-10 md:ui-text-lg md:ui-leading-6">
-          Read the docs
-          <span className="ui-ml-2 ui-bg-gradient-to-r ui-from-brandred ui-to-brandblue ui-bg-clip-text ui-text-transparent">
-            →
-          </span>
+    <div className="rounded-md">
+      <a href={href}>
+        <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-3 py-2 text-base font-medium text-black no-underline hover:bg-gray-300 md:px-3 md:py-2 md:text-lg md:leading-6">
+          {text}
+          {withArrow && (
+            <span className="ml-2 bg-gradient-to-r from-brandred to-brandblue bg-clip-text text-transparent">
+              →
+            </span>
+          )}
         </div>
       </a>
     </div>

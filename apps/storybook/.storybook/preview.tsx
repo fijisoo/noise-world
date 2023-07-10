@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react";
 import "../../../packages/ui/dist/index.css";
 
+/** @type { import('@storybook/react').Preview } */
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -10,7 +11,7 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-  },
+  }
 };
 
 export default preview;

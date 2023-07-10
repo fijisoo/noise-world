@@ -17,5 +17,8 @@ export const Primary: Story = {
   args: {
     primary: true,
     label: 'Button',
+    text: 'shiiit',
+    href:'eee',
+    withArrow: false,
   },
 };

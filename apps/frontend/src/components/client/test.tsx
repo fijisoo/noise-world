@@ -6,13 +6,31 @@ export const dynamic = "force-dynamic";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 const query = gql`
-  query {
-    test {
-      data {
-        attributes {
-          Text_test
+  query Manifesto {
+    github_repository(owner: "syncArt", name: "manifesto") {
+      defaultBranchRef {
+        target {
+          ... on github_Commit {
+            history(first: 1) {
+              edges {
+                node {
+                  oid
+                  commitUrl
+                  tree {
+                    entries {
+                      name
+                      object {
+                        ... on github_Blob {
+                          text
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
-        id
       }
     }
   }
@@ -20,6 +38,9 @@ const query = gql`
 
 export default function PollPage() {
   const { data } = useSuspenseQuery(query);
-  console.log(data);
-  return <div>{data.test.data.attributes.Text_test}</div>;
+  const textArr =
+    data?.github_repository?.defaultBranchRef?.target?.history?.edges[0]?.node
+      ?.tree?.entries?.[0]?.object?.text;
+  console.log(textArr);
+  return <div>{textArr}</div>;
 }

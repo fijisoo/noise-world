@@ -37,9 +37,9 @@ const query = gql`
 export default function Manifesto() {
   const { data } = useSuspenseQuery(query);
   return (
-    <div className="markdown-body">
+    <div className="z-10 markdown-body">
       <ReactMarkdown>
-        {data.github_repository.object.entries[0].object.text}
+        {(data as any).github_repository.object.entries[0].object.text}
       </ReactMarkdown>
     </div>
   );
