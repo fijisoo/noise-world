@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "manifesto_intls",
+  "info": {
+    "singularName": "manifesto-intl",
+    "pluralName": "manifesto-intls",
+    "displayName": "manifesto_intl",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "manifesto_text": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
