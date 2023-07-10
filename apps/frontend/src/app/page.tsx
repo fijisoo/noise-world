@@ -12,7 +12,6 @@ export default function Home() {
             items={[
               { name: "EN", href: "/en" },
               { name: "PL", href: "/pl" },
-              { name: "DE", href: "/de" },
             ]}
             selectedLanguage="EN"
           />
