@@ -38,9 +38,8 @@ const query = gql`
 
 export default function PollPage() {
   const { data } = useSuspenseQuery(query);
-  const textArr =
-    data?.github_repository?.defaultBranchRef?.target?.history?.edges[0]?.node
-      ?.tree?.entries?.[0]?.object?.text;
+  const textArr = (data as any)?.github_repository?.defaultBranchRef?.target
+    ?.history?.edges[0]?.node?.tree?.entries?.[0]?.object?.text;
   console.log(textArr);
   return <div>{textArr}</div>;
 }

@@ -8,38 +8,31 @@ export const dynamic = "force-dynamic";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
 const query = gql`
-  query MyQuery {
-    github_repository(owner: "syncArt", name: "manifesto") {
-      object(expression: "HEAD:") {
-        ... on github_Tree {
-          entries {
-            ...github_TreeEntryFragment
-          }
+  query MyQuery($locale: strapi_I18NLocaleCode!) {
+    strapi_manifestoIntls(locale: $locale) {
+      data {
+        attributes {
+          manifesto_text
         }
-      }
-    }
-  }
-
-  fragment github_TreeEntryFragment on github_TreeEntry {
-    name
-    type
-    mode
-    object {
-      ... on github_Blob {
-        byteSize
-        text
-        isBinary
       }
     }
   }
 `;
 
-export default function Manifesto() {
-  const { data } = useSuspenseQuery(query);
+export default function Manifesto({ locale }: any) {
+  const data = useSuspenseQuery(query, {
+    variables: {
+      locale: locale,
+    },
+    errorPolicy: "all",
+  });
   return (
-    <div className="z-10 markdown-body">
+    <div className="markdown-body">
       <ReactMarkdown>
-        {(data as any).github_repository.object.entries[0].object.text}
+        {
+          (data as any)?.data?.strapi_manifestoIntls?.data?.[0]?.attributes
+            ?.manifesto_text
+        }
       </ReactMarkdown>
     </div>
   );
