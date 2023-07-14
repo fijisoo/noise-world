@@ -5,7 +5,7 @@ import Manifesto from "../client/manifesto";
 
 export const HomeTemplate = (params: any) => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-24">
+    <main className="flex min-h-screen flex-col items-center justify-start px-4 pt-6 pb-24 md:p-24">
       <div className="z-11 mb-10 w-full items-start justify-between font-mono text-sm lg:mb-0 lg:flex">
         <div className="w-auto items-center justify-start gap-3 lg:flex">
           <LanguagesDropdown
