@@ -21,11 +21,11 @@ const getLanguagesQuery = gql`
 export const LanguagesDropdown = ({ lang }: any) => {
   const { data } = useSuspenseQuery(getLanguagesQuery);
 
-  const filteredDefault = (data as any)?.strapi_i18NLocales?.data.filter(
+  const filteredDefault = (data as any)?.strapi_i18NLocales?.data?.filter(
     (el: any) => el.attributes.code === lang
   );
 
-  const parsedData = (data as any)?.strapi_i18NLocales?.data.map((el: any) => {
+  const parsedData = (data as any)?.strapi_i18NLocales?.data?.map((el: any) => {
     return { name: el.attributes.name, href: `/${el.attributes.code}` };
   });
 
