@@ -7,7 +7,7 @@ import { updateManifestoIntl } from "../queries/cms/updateManifestoIntlQuery";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest, response: NextResponse) {
   const githubManifestoChangesAndLastArticleOID = await graphqlFetch(
     manifestoQuery
   );
