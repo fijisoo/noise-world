@@ -3,6 +3,15 @@ export const manifestoQuery = `
       github_repository(owner: "syncArt", name: "manifesto") {
         object(expression: "HEAD:") {
           ... on github_Tree {
+            repository {
+              releases(first: 1) {
+                nodes {
+                  tag {
+                    name
+                  }
+                }
+              }
+            }
             entries {
               name
               type
