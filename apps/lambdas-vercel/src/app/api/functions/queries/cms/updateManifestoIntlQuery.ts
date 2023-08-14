@@ -3,7 +3,7 @@ export const updateManifestoIntl = (text, locale) => {
       mutation UpdateManifestoIntl {
         strapi_updateManifestoIntl(
         id: 1
-        locale: ${locale}
+        locale: "${locale}"
         data: {manifesto_text: ${text}}
         ) {
           data {
@@ -13,6 +13,5 @@ export const updateManifestoIntl = (text, locale) => {
             }
           }
         }
-      }
     `;
 };

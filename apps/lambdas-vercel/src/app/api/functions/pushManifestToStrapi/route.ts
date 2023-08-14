@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     ?.github_repository?.object?.entries?.[0]?.object.text;
 
   const article = await graphqlFetch(
-    updateManifestoIntl(githubManifesto, "en")
+    updateManifestoIntl(JSON.stringify(githubManifesto), "en")
   );
 
   return NextResponse.json({
