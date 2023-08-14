@@ -8,15 +8,16 @@ import { updateManifestoIntl } from "../queries/cms/updateManifestoIntlQuery";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  const githubManifestoChangesAndLastArticleOID = await graphqlFetch(
-    manifestoQuery
-  );
+  const githubManifesto = await graphqlFetch(manifestoQuery);
 
-  const githubManifesto = (githubManifestoChangesAndLastArticleOID as any)?.data
-    ?.github_repository?.object?.entries?.[0]?.object.text;
+  const githubManifestoText = (
+    githubManifesto as any
+  )?.data?.github_repository?.object?.entries.find(
+    (el) => el.name === "README.md"
+  ).object?.text;
 
   const article = await graphqlFetch(
-    updateManifestoIntl(JSON.stringify(githubManifesto), "en")
+    updateManifestoIntl(JSON.stringify(githubManifestoText), "en")
   );
 
   return NextResponse.json({
