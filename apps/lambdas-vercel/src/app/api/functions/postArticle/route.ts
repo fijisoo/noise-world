@@ -29,11 +29,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
   const text2 = getTextByArrIndex(textArr, 1);
 
-  console.log(
-    "createManifestoDiffArticleQuery(text2, text1)",
-    createManifestoDiffArticleQuery(text2, text1)
-  );
-
   if (latestIOD !== text1_oid) {
     const article = await graphqlFetch(
       createManifestoDiffArticleQuery(text2, text1)
