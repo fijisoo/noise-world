@@ -31,7 +31,7 @@ export const Dropdown = ({ selectedLanguage, items }: any) => {
           <div className="py-1">
             {items.map(({ name, href }: any) => {
               return (
-                <Menu.Item>
+                <Menu.Item key={`${name}-${href}`}>
                   {({ active }) => (
                     <a
                       href={href}

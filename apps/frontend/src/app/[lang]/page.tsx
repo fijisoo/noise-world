@@ -1,5 +1,8 @@
 import { HomeTemplate } from "../../components/templates/HomeTemplate";
 
-export default function Home(params: any) {
-  return <HomeTemplate {...params} />;
+export const dynamic = 'force-dynamic'
+
+export default function Home() {
+
+  return <HomeTemplate />;
 }

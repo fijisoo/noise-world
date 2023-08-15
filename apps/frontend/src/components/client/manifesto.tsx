@@ -1,31 +1,22 @@
 "use client";
-import { gql } from "@apollo/client";
 import ReactMarkdown from "react-markdown";
 import "./github-markdown.css";
 
-export const dynamic = "force-dynamic";
-
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { GET_MANIFEST_TEXT } from "../../requests/queries/getManifestTextQuery";
+import { i18n } from "../../../i18n-config";
+import { useParams } from "next/navigation";
 
-const query = gql`
-  query MyQuery($locale: strapi_I18NLocaleCode!) {
-    strapi_manifestoIntls(locale: $locale) {
-      data {
-        attributes {
-          manifesto_text
-        }
-      }
-    }
-  }
-`;
+export default function Manifesto() {
+  const params = useParams();
+  const lang = params.lang || i18n.defaultLocale;
 
-export default function Manifesto({ locale }: any) {
-  const data = useSuspenseQuery(query, {
+  const data = useSuspenseQuery(GET_MANIFEST_TEXT, {
     variables: {
-      locale: locale,
+      locale: lang as any,
     },
-    errorPolicy: "all",
   });
+
   return (
     <div className="markdown-body">
       <ReactMarkdown>

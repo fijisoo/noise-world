@@ -1,25 +1,14 @@
 "use client";
-
 import { Dropdown } from "ui";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { GET_LANGUAGES_QUERY } from "../../requests/queries/getLanguagesListQuery";
+import { i18n } from "../../../i18n-config";
+import { useParams } from 'next/navigation'
 
-import { gql } from "@apollo/client";
-
-const getLanguagesQuery = gql`
-  query LanguagesList {
-    strapi_i18NLocales {
-      data {
-        attributes {
-          code
-          name
-        }
-      }
-    }
-  }
-`;
-
-export const LanguagesDropdown = ({ lang }: any) => {
-  const { data } = useSuspenseQuery(getLanguagesQuery);
+export const LanguagesDropdown = () => {
+  const params = useParams();
+  const lang = params.lang || i18n.defaultLocale;
+  const { data } = useSuspenseQuery(GET_LANGUAGES_QUERY);
 
   const filteredDefault = (data as any)?.strapi_i18NLocales?.data?.filter(
     (el: any) => el.attributes.code === lang
