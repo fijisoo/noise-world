@@ -19,8 +19,10 @@ export async function GET(request: NextRequest, response: NextResponse) {
     compareManifestoVersionsQuery(locale)
   );
 
+  console.log('manifestoVersionsData?.data', manifestoVersionsData?.data)
   const { enManifesto: enManifestoData, xManifesto: xManifestoData } =
-    manifestoVersionsData?.data;
+    manifestoVersionsData?.data || { enManifesto: null, xManifesto: null };
+
 
   const ejectFromData = (data) => {
     return data?.data?.[0]?.attributes?.version;
