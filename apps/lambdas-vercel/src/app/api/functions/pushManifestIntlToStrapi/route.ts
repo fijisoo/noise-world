@@ -39,9 +39,8 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
   if (enManifestoVersion !== xManifestoVersion) {
     const originalTextData = await graphqlFetch(getManifestoTextQuery("en"));
-    const originalText =
-      originalTextData?.data?.strapi_manifestoIntls?.data?.[0]?.attributes
-        ?.manifesto_text;
+    const originalText = (originalTextData as any)?.data?.strapi_manifestoIntls
+      ?.data?.[0]?.attributes?.manifesto_text;
 
     const translationData = await graphqlFetch(
       translateTextQuery(originalText, locale)
@@ -54,7 +53,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
       const article = await graphqlFetch(
         updateManifestoIntl(
           JSON.stringify(translation),
-          enManifestoVersion,
+          xManifestoVersion,
           locale
         )
       );
@@ -72,7 +71,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
       const article = await graphqlFetch(
         createManifestoIntl(
           JSON.stringify(translation),
-          enManifestoVersion,
+          xManifestoVersion,
           locale
         )
       );
