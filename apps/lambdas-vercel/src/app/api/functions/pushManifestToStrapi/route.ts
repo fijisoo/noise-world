@@ -24,7 +24,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       getManifestoVersionQuery("en")
   );
   const oldManifestoVersion =
-      oldManifestoVersionData?.data?.strapi_manifestoIntls?.data?.[0]?.attributes?.version;
+      (oldManifestoVersionData as any)?.data?.strapi_manifestoIntls?.data?.[0]?.attributes?.version;
 
   if (oldManifestoVersion != newVersion) {
     const article = await graphqlFetch(
