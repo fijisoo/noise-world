@@ -14,12 +14,14 @@ export default function CheckSync() {
       locale: lang as any,
       defaultLocale: i18n.defaultLocale as any,
     },
+    skip: !lang,
   });
 
-  const { enManifesto: enManifestoData, xManifesto: xManifestoData } =
-    data?.data;
+  const { enManifesto: enManifestoData, xManifesto: xManifestoData } = (
+    data as any
+  )?.data;
 
-  const ejectFromData = (data) => {
+  const ejectFromData = (data: any) => {
     return data?.data?.[0]?.attributes?.version;
   };
 

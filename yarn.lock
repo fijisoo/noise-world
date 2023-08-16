@@ -20,10 +20,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@apollo/client@>=3.8.0-beta.6":
-  version "3.8.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.0-rc.0.tgz#b55f16c65e54bf47f66c35539d5903b4dadaa951"
-  integrity sha512-vyhXul1GxTw7hUoPl3eE48SneAKddhsYDYlrZ4046mJQtPJHGA1oqRAmuCKA9Gbx+clYetk+fDtd5ujBH8Nqnw==
+"@apollo/client@^3.8.0-rc.2":
+  version "3.8.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.0-rc.2.tgz#3ba6f1fb6fff23a08800c4733d09b89428111b09"
+  integrity sha512-OQhMbYhNscVwqfxb9diOZpra4m4Vr+CbzkHZGdg51+BADzUeQCEaQyeKhClJqh1HAH3kIqRf+pD9otzuMDhcSg==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.1"
     "@wry/context" "^0.7.3"
@@ -39,10 +39,10 @@
     tslib "^2.3.0"
     zen-observable-ts "^1.2.5"
 
-"@apollo/experimental-nextjs-app-support@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@apollo/experimental-nextjs-app-support/-/experimental-nextjs-app-support-0.2.1.tgz#6a2b03991e9678c5b9303fd736e1604a8e0b6d15"
-  integrity sha512-Dykrn/AWuaO4zt+DlZsPx7pQr86Z/F/3n3Hi1kQFhdLFksWu/TCuM90JLr7NZBF4DNn5vSodama6nhWf7DlyVg==
+"@apollo/experimental-nextjs-app-support@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@apollo/experimental-nextjs-app-support/-/experimental-nextjs-app-support-0.4.1.tgz#03662bb284ba2e677cb979c741d7783a55586e74"
+  integrity sha512-xW+RVxaeOboJvol4HUhgP6YZvwamIz8Gqba3II5Uviy1++kqsE0I/q2WT03laIEwTB8YBO25tY9EmQ1mImRWyw==
   dependencies:
     superjson "^1.12.2"
     ts-invariant "^0.10.3"
@@ -4214,13 +4214,6 @@
     "@netlify/zip-it-and-ship-it" "9.12.0"
     cpy "^9.0.0"
     path-exists "^5.0.0"
-
-"@netlify/functions@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-1.6.0.tgz#c373423e6fef0e6f7422ac0345e8bbf2cb692366"
-  integrity sha512-6G92AlcpFrQG72XU8YH8pg94eDnq7+Q0YJhb8x4qNpdGsvuzvrfHWBmqFGp/Yshmv4wex9lpsTRZOocdrA2erQ==
-  dependencies:
-    is-promise "^4.0.0"
 
 "@netlify/git-utils@^5.1.1":
   version "5.1.1"
@@ -15893,11 +15886,6 @@ is-promise@^2.1.0:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.2.2.tgz#39ab959ccbf9a774cf079f7b40c7a26f763135f1"
   integrity sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==
-
-is-promise@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-4.0.0.tgz#42ff9f84206c1991d26debf520dd5c01042dd2f3"
-  integrity sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
 
 is-regex@^1.1.4:
   version "1.1.4"

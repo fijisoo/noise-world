@@ -53,15 +53,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-  const delay = Number(
-    cookieStore.get("apollo-x-custom-delay" as any)?.value ?? 1000
-  );
-
   return (
     <html lang="en">
       <body className={`${inter.className} ${teko.className}`}>
-        <ApolloWrapper delay={delay}>{children}</ApolloWrapper>
+        <ApolloWrapper>{children}</ApolloWrapper>
       </body>
     </html>
   );

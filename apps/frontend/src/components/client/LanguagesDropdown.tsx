@@ -3,7 +3,7 @@ import { Dropdown } from "ui";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { GET_LANGUAGES_QUERY } from "../../requests/queries/getLanguagesListQuery";
 import { i18n } from "../../../i18n-config";
-import { useParams } from 'next/navigation'
+import { useParams } from "next/navigation";
 
 export const LanguagesDropdown = () => {
   const params = useParams();
