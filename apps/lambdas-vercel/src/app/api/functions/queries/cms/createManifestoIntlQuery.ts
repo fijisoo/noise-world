@@ -3,7 +3,7 @@ export const createManifestoIntl = (text, version, locale) => {
       mutation CreateManifestoIntl {
         strapi_createManifestoIntl(
         locale: "${locale}"
-        data: {manifesto_text: ${text}, version: ${version}}
+        data: {manifesto_text: ${text}, version: "${version}"}
         ) {
           data {
               attributes {

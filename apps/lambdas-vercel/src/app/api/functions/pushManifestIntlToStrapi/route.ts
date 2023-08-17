@@ -9,6 +9,7 @@ import { updateManifestoIntl } from "@/app/api/functions/queries/cms/updateManif
 import { createManifestoIntl } from "@/app/api/functions/queries/cms/createManifestoIntlQuery";
 
 export const dynamic = "force-dynamic";
+export const runtime = 'edge'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   const locale = new URLSearchParams(request.nextUrl.searchParams).get(
@@ -63,6 +64,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
           "Cache-Control": "no-cache",
           "CDN-Cache-Control": "no-cache",
           "Vercel-CDN-Cache-Control": "no-cache",
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         },
       });
     } else {
@@ -82,6 +86,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
           "Cache-Control": "no-cache",
           "CDN-Cache-Control": "no-cache",
           "Vercel-CDN-Cache-Control": "no-cache",
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         },
       });
     }
@@ -95,6 +102,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
       "Cache-Control": "no-cache",
       "CDN-Cache-Control": "no-cache",
       "Vercel-CDN-Cache-Control": "no-cache",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
   });
 }

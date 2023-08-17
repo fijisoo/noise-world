@@ -7,6 +7,7 @@ import { updateManifestoIntl } from "../queries/cms/updateManifestoIntlQuery";
 import { getManifestoVersionQuery } from "@/app/api/functions/queries/cms/getManifestoVersionQuery";
 
 export const dynamic = "force-dynamic";
+export const runtime = 'edge'
 
 export async function POST(request: NextRequest, response: NextResponse) {
   const githubManifesto = await graphqlFetch(manifestoQuery);
@@ -43,6 +44,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
         "Cache-Control": "no-cache",
         "CDN-Cache-Control": "no-cache",
         "Vercel-CDN-Cache-Control": "no-cache",
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       },
     });
   }
@@ -53,6 +57,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
       "Cache-Control": "no-cache",
       "CDN-Cache-Control": "no-cache",
       "Vercel-CDN-Cache-Control": "no-cache",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
   });
 }
