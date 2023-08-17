@@ -3,18 +3,16 @@
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { GET_MANIFEST_VERSIONS_COMPARISON } from "../../requests/queries/getManifestVersionsComparisonQuery";
 import { i18n } from "../../../i18n-config";
-import { useParams } from "next/navigation";
 
-export default function CheckSync() {
-  const params = useParams();
-  const lang = params.lang || i18n.defaultLocale;
+export default function CheckSync({ lang }: any) {
+  const langVar = lang || i18n.defaultLocale;
 
   const data = useSuspenseQuery(GET_MANIFEST_VERSIONS_COMPARISON, {
     variables: {
-      locale: lang as any,
+      locale: langVar as any,
       defaultLocale: i18n.defaultLocale as any,
     },
-    skip: !lang,
+    skip: !langVar,
   });
 
   const { enManifesto: enManifestoData, xManifesto: xManifestoData } = (
