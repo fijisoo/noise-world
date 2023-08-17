@@ -37,6 +37,32 @@ sources:
       - prefix:
           value: chat_GPT_
           includeRootOperations: true
+  - name: deepl
+    handler:
+      openapi:
+        source: ./deepl-oas.yaml
+        selectQueryOrMutationField:
+          - fieldName: "TranslateText" # OAS field name
+            type: Query # switch method GET from default Mutation into Query
+    transforms:
+      - prefix:
+          value: deepl_translation_
+          includeRootOperations: true
+additionalTypeDefs: |
+  input TRANSLATIONInput {
+     text: String!
+     source_lang: String
+     target_lang: String!
+   }
+  type TRANSLATIONResponse {
+    text: String
+    detectedSourceLang: String
+  }
+  extend type Mutation {
+    TRANSLATION_translation_TRANSLATION_translation(input: TRANSLATIONInput!): TRANSLATIONResponse!
+  }
+additionalResolvers:
+  - ./additional-resolvers.ts
 
 serve:
   playground: true

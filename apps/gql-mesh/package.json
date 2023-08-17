@@ -15,6 +15,7 @@
     "@graphql-mesh/openapi": "^0.94.6",
     "@graphql-mesh/plugin-http-details-extensions": "^0.94.2",
     "@graphql-mesh/transform-prefix": "0.94.2",
+    "deepl-node": "^1.10.2",
     "graphql": "^16.6.0"
   },
   "resolutions": {
