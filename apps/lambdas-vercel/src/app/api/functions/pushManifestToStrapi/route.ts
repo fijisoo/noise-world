@@ -21,14 +21,21 @@ export async function POST(request: NextRequest, response: NextResponse) {
     ?.repository?.releases?.nodes?.[0]?.tag?.name;
 
   const oldManifestoVersionData = await graphqlFetch(
-      getManifestoVersionQuery("en")
+    getManifestoVersionQuery("en")
   );
-  const oldManifestoVersion =
-      (oldManifestoVersionData as any)?.data?.strapi_manifestoIntls?.data?.[0]?.attributes?.version;
+  const oldManifestoVersion = (oldManifestoVersionData as any)?.data
+    ?.strapi_manifestoIntls?.data?.[0]?.attributes?.version;
+  const oldManifestoId = (oldManifestoVersionData as any)?.data
+    ?.strapi_manifestoIntls?.data?.[0]?.id;
 
   if (oldManifestoVersion != newVersion) {
     const article = await graphqlFetch(
-      updateManifestoIntl(JSON.stringify(githubManifestoText), newVersion, "en")
+      updateManifestoIntl(
+        JSON.stringify(githubManifestoText),
+        newVersion,
+        "en",
+        oldManifestoId
+      )
     );
     return NextResponse.json({
       body: JSON.stringify({ message: article }),
@@ -41,7 +48,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   }
 
   return NextResponse.json({
-    body: JSON.stringify({ message: "PULLED LAST VERSION" }),
+    body: JSON.stringify({ message: "NO CHANGES TO LAST VERSION" }),
     headers: {
       "Cache-Control": "no-cache",
       "CDN-Cache-Control": "no-cache",

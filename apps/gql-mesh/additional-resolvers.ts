@@ -19,14 +19,11 @@ const resolvers = {
       const sourceLang = args?.input?.source_lang.toLowerCase();
       const targetLang = args?.input?.target_lang.toLowerCase();
 
-      const result = await translator.translateText(
+      return await translator.translateText(
         args?.input?.text,
           sourceLang,
           targetLang
       );
-      console.log(result);
-
-      return result;
     },
   },
 };

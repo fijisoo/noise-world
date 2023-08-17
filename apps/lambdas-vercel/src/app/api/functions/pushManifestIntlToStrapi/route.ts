@@ -19,42 +19,40 @@ export async function GET(request: NextRequest, response: NextResponse) {
     compareManifestoVersionsQuery(locale)
   );
 
-  console.log(
-    "manifestoVersionsData?.data",
-    (manifestoVersionsData as any)?.data
-  );
-
   const { enManifesto: enManifestoData, xManifesto: xManifestoData } = (
     manifestoVersionsData as any
   )?.data || { enManifesto: null, xManifesto: null };
 
   const ejectFromData = (data) => {
-    return data?.data?.[0]?.attributes?.version;
+    return {
+      version: data?.data?.[0]?.attributes?.version,
+      id: data?.data?.[0]?.id,
+    };
   };
 
   const isXManifestoExists = xManifestoData?.data?.length > 0;
 
-  const enManifestoVersion = ejectFromData(enManifestoData);
-  const xManifestoVersion = ejectFromData(xManifestoData);
+  const enManifesto = ejectFromData(enManifestoData);
+  const xManifesto = ejectFromData(xManifestoData);
 
-  if (enManifestoVersion !== xManifestoVersion) {
+  if (enManifesto.version !== xManifesto.version) {
     const originalTextData = await graphqlFetch(getManifestoTextQuery("en"));
     const originalText = (originalTextData as any)?.data?.strapi_manifestoIntls
       ?.data?.[0]?.attributes?.manifesto_text;
 
     const translationData = await graphqlFetch(
-      translateTextQuery(originalText, locale)
+      translateTextQuery(JSON.stringify(originalText), locale)
     );
 
-    const translation = (translationData as any)?.data
-      ?.chat_GPT_post_chat_completions?.choices?.[0]?.message?.content;
+    const translation = (translationData as any)?.data?.TRANSLATION_translation_TRANSLATION_translation?.text
 
     if (isXManifestoExists) {
       const article = await graphqlFetch(
         updateManifestoIntl(
           JSON.stringify(translation),
-          xManifestoVersion,
-          locale
+          enManifesto.version,
+          locale,
+          xManifesto.id
         )
       );
       return NextResponse.json({
@@ -71,7 +69,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
       const article = await graphqlFetch(
         createManifestoIntl(
           JSON.stringify(translation),
-          xManifestoVersion,
+          enManifesto.version,
           locale
         )
       );

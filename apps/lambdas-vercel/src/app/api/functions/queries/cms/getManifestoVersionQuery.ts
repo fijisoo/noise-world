@@ -5,6 +5,7 @@ export const getManifestoVersionQuery = (locale) => {
       attributes {
         version
       }
+      id
     }
   }
 }`;

@@ -1,11 +1,12 @@
 export const compareManifestoVersionsQuery = (locale) => {
-    return `
+  return `
         query ManifestoVersionComparasion {
           enManifesto: strapi_manifestoIntls(locale: "en") {
             data {
               attributes {
                 version
               }
+              id
             }
           }
           
@@ -14,8 +15,9 @@ export const compareManifestoVersionsQuery = (locale) => {
               attributes {
                 version
               }
+              id
             }
           }
         }
     `;
-}
+};
