@@ -7,7 +7,6 @@ import { updateManifestoIntl } from "../queries/cms/updateManifestoIntlQuery";
 import { getManifestoVersionQuery } from "@/app/api/functions/queries/cms/getManifestoVersionQuery";
 
 export const dynamic = "force-dynamic";
-export const runtime = 'edge'
 
 export async function POST(request: NextRequest, response: NextResponse) {
   const githubManifesto = await graphqlFetch(manifestoQuery);

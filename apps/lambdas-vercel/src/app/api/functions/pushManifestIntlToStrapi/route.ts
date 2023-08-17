@@ -9,7 +9,6 @@ import { updateManifestoIntl } from "@/app/api/functions/queries/cms/updateManif
 import { createManifestoIntl } from "@/app/api/functions/queries/cms/createManifestoIntlQuery";
 
 export const dynamic = "force-dynamic";
-export const runtime = 'edge'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   const locale = new URLSearchParams(request.nextUrl.searchParams).get(
