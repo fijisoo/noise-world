@@ -34,9 +34,11 @@ export default function CheckSync({ lang }: any) {
     console.log("xxx", x);
   };
 
+  const checkIfStale = xManifestoVersion !== enManifestoVersion;
+
   return (
     <div>
-      {xManifestoVersion !== enManifestoVersion ? (
+      {checkIfStale ? (
         <button onClick={handleSync}>Sync!</button>
       ) : (
         <p>is synced</p>

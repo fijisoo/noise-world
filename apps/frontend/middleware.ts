@@ -19,9 +19,7 @@ function getLocale(request: NextRequest): string | undefined {
         locales
     )
 
-    const locale = matchLocale(languages, locales, i18n.defaultLocale)
-
-    return locale
+    return matchLocale(languages, locales, i18n.defaultLocale)
 }
 
 export function middleware(request: NextRequest) {
@@ -50,15 +48,16 @@ export function middleware(request: NextRequest) {
         // e.g. incoming request is /products
         // The new URL is now /en-US/products
         return NextResponse.redirect(
-            new URL(
-                `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-                request.url
-            )
+            new URL(`/${locale}/${pathname}`, request.url)
         )
     }
 }
 
 export const config = {
-    // Matcher ignoring `/_next/` and `/api/`
-    matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+    matcher: [
+        // Skip all internal paths (_next)
+        '/((?!_next).*)',
+        // Optional: only run on root (/) URL
+        // '/'
+    ],
 }

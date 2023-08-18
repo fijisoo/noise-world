@@ -12,7 +12,11 @@ export const LanguagesDropdown = ({ lang }: any) => {
     (el: any) => el.attributes.code === langVar
   );
 
-  const parsedData = (data as any)?.strapi_i18NLocales?.data?.map((el: any) => {
+  const availableLocales = (data as any)?.strapi_i18NLocales?.data?.filter(
+    (el) => i18n.locales?.includes(el.attributes.code)
+  );
+
+  const parsedData = availableLocales.map((el: any) => {
     return { name: el.attributes.name, href: `/${el.attributes.code}` };
   });
 

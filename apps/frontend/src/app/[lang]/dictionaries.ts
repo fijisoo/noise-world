@@ -1,17 +1,7 @@
+import { i18n } from "../../../i18n-config";
+
 const dictionaries = () => {
-  const supportedLanguages = [
-    "en",
-    "de",
-    "pl",
-    "ar",
-    "it",
-    "zh",
-    "ja",
-    "vi",
-    "fr",
-    "es",
-    "tr",
-  ];
+  const supportedLanguages = i18n.locales;
   const newObj: any = {};
 
   supportedLanguages.forEach((lng: string) => {
@@ -27,6 +17,5 @@ const dictionaries = () => {
 
 export const getDictionary = async (locale: string) => {
   const dics = dictionaries();
-
   return dics[locale]();
 };
