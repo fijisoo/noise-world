@@ -26,7 +26,8 @@
     "lint": "turbo lint",
     "clean": "turbo clean && rm -rf node_modules/ && rm -rf apps/*/node_modules/ && rm -rf packages/*/node_modules/",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "codegen": "gql-gen --config codegen.yml"
+    "codegen": "gql-gen --config codegen.yml",
+    "tscheck": "yarn workspace frontend run tscheck"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

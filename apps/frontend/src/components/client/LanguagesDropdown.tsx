@@ -13,7 +13,7 @@ export const LanguagesDropdown = ({ lang }: any) => {
   );
 
   const availableLocales = (data as any)?.strapi_i18NLocales?.data?.filter(
-    (el) => i18n.locales?.includes(el.attributes.code)
+    (el: any) => i18n.locales?.includes(el.attributes.code)
   );
 
   const parsedData = availableLocales.map((el: any) => {
