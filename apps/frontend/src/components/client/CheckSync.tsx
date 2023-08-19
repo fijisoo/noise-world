@@ -1,23 +1,18 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { GET_MANIFEST_VERSIONS_COMPARISON } from "../../requests/queries/getManifestVersionsComparisonQuery";
-import { i18n } from "../../../i18n-config";
+import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-export default function CheckSync({ lang }: any) {
-  const langVar = lang || i18n.defaultLocale;
+export default function CheckSync({
+  lang,
+  queryRef,
+  refetchManifestoText,
+}: any) {
+  const { data } = useReadQuery(queryRef);
 
-  const data = useSuspenseQuery(GET_MANIFEST_VERSIONS_COMPARISON, {
-    variables: {
-      locale: langVar as any,
-      defaultLocale: i18n.defaultLocale as any,
-    },
-    skip: !langVar,
-  });
+  const toExtract = (data as any);
 
-  const { enManifesto: enManifestoData, xManifesto: xManifestoData } = (
-    data as any
-  )?.data;
+  const { enManifesto: enManifestoData, xManifesto: xManifestoData } =
+    toExtract || { enManifesto: null, xManifesto: null };
 
   const ejectFromData = (data: any) => {
     return data?.data?.[0]?.attributes?.version;
@@ -27,11 +22,12 @@ export default function CheckSync({ lang }: any) {
   const xManifestoVersion = ejectFromData(xManifestoData);
 
   const handleSync = async () => {
-    const x = await fetch(
+    await fetch(
       `https://noise-world-lambdas.vercel.app/api/functions/pushManifestIntlToStrapi?locale=${lang}`
-    );
-
-    console.log("xxx", x);
+    ).then((data) => {
+      refetchManifestoText();
+      console.log("xxx", data);
+    });
   };
 
   const checkIfStale = xManifestoVersion !== enManifestoVersion;

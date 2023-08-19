@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export const Button = ({ text, href, withArrow }: any) => {
   return (
     <div className="rounded-md">

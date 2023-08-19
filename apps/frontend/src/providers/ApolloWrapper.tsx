@@ -1,4 +1,3 @@
-// lib/apollo-provider.js
 "use client";
 
 import { ApolloLink, HttpLink } from "@apollo/client";
@@ -11,7 +10,7 @@ import {
 
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: process.env.API_GATEWAY_URL,
+    uri: process.env.NEXT_PUBLIC_API_GATEWAY_URL,
   });
 
   return new NextSSRApolloClient({

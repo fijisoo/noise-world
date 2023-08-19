@@ -1,15 +1,15 @@
 "use client";
-import { Dropdown } from "ui";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { GET_LANGUAGES_QUERY } from "../../requests/queries/getLanguagesListQuery";
-import { i18n } from "../../../i18n-config";
 
-export const LanguagesDropdown = ({ lang }: any) => {
-  const langVar = lang || i18n.defaultLocale;
-  const { data } = useSuspenseQuery(GET_LANGUAGES_QUERY);
+import { Dropdown } from "ui";
+import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { i18n } from "../../../i18n-config";
+import Link from "next/link";
+
+export const LanguagesDropdown = ({ lang, queryRef }: any) => {
+  const { data } = useReadQuery(queryRef);
 
   const filteredDefault = (data as any)?.strapi_i18NLocales?.data?.filter(
-    (el: any) => el.attributes.code === langVar
+    (el: any) => el.attributes.code === lang
   );
 
   const availableLocales = (data as any)?.strapi_i18NLocales?.data?.filter(
@@ -24,6 +24,7 @@ export const LanguagesDropdown = ({ lang }: any) => {
     <Dropdown
       items={parsedData}
       selectedLanguage={filteredDefault?.[0]?.attributes?.name}
+      linkComponent={Link}
     />
   );
 };

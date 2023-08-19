@@ -1,63 +1,44 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import acceptLanguage from "accept-language";
+import { i18n } from "./i18n-config";
 
-import { i18n } from './i18n-config'
-
-import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
-
-function getLocale(request: NextRequest): string | undefined {
-    // Negotiator expects plain object so we need to transform headers
-    const negotiatorHeaders: Record<string, string> = {}
-    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
-
-    // @ts-ignore locales are readonly
-    const locales: string[] = i18n.locales
-
-    // Use negotiator and intl-localematcher to get best locale
-    let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-        locales
-    )
-
-    return matchLocale(languages, locales, i18n.defaultLocale)
-}
-
-export function middleware(request: NextRequest) {
-    const pathname = request.nextUrl.pathname
-
-    // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
-    // // If you have one
-    // if (
-    //   [
-    //     '/manifest.json',
-    //     '/favicon.ico',
-    //     // Your other files in `public`
-    //   ].includes(pathname)
-    // )
-    //   return
-
-    // Check if there is any supported locale in the pathname
-    const pathnameIsMissingLocale = i18n.locales.every(
-        (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-    )
-
-    // Redirect if there is no locale
-    if (pathnameIsMissingLocale) {
-        const locale = getLocale(request)
-
-        // e.g. incoming request is /products
-        // The new URL is now /en-US/products
-        return NextResponse.redirect(
-            new URL(`/${locale}/${pathname}`, request.url)
-        )
-    }
-}
+acceptLanguage.languages(i18n.locales);
 
 export const config = {
-    matcher: [
-        // Skip all internal paths (_next)
-        '/((?!_next).*)',
-        // Optional: only run on root (/) URL
-        // '/'
-    ],
+  // matcher: '/:lng*'
+  matcher: ["/((?!api|_next|graphql/static|_next/image|assets|favicon.ico|sw.js).*)"],
+};
+
+const cookieName = "i18next";
+
+export function middleware(req: any) {
+
+  let lng;
+  if (req.cookies.has(cookieName))
+    lng = acceptLanguage.get(req.cookies.get(cookieName).value);
+  if (!lng) lng = acceptLanguage.get(req.headers.get("Accept-Language"));
+  if (!lng) lng = i18n.defaultLocale;
+
+  // Redirect if lng in path is not supported
+  if (
+    !i18n.locales.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
+    !req.nextUrl.pathname.startsWith("/_next")
+  ) {
+    return NextResponse.redirect(
+      new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
+    );
+  }
+
+  if (req.headers.has("referer")) {
+    const refererUrl = new URL(req.headers.get("referer"));
+    const lngInReferer = i18n.locales.find((l) =>
+      refererUrl.pathname.startsWith(`/${l}`)
+    );
+    const response = NextResponse.next();
+    if (lngInReferer)
+      response.cookies.set(cookieName as any, lngInReferer as any);
+    return response;
+  }
+
+  return NextResponse.next();
 }

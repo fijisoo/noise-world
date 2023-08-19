@@ -1,15 +1,13 @@
 "use client";
 
-import * as React from "react";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Dropdown = ({ selectedLanguage, items }: any) => {
+export const Dropdown = ({ selectedLanguage, items, linkComponent: LinkComponent }: any) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -33,7 +31,7 @@ export const Dropdown = ({ selectedLanguage, items }: any) => {
               return (
                 <Menu.Item key={`${name}-${href}`}>
                   {({ active }) => (
-                    <a
+                    <LinkComponent
                       href={href}
                       className={classNames(
                         active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -41,7 +39,7 @@ export const Dropdown = ({ selectedLanguage, items }: any) => {
                       )}
                     >
                       {name}
-                    </a>
+                    </LinkComponent>
                   )}
                 </Menu.Item>
               );
