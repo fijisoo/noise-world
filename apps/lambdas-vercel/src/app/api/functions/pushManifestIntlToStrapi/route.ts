@@ -55,13 +55,11 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const translationData = await graphqlFetch(
       translateTextQuery(JSON.stringify(originalText), locale)
     );
+    console.log('--------------------------------')
+    console.log('translation WORKS?', translationData)
+    console.log('--------------------------------')
 
     const translation = (translationData as any)?.data?.TRANSLATION_translation_TRANSLATION_translation?.text
-
-    console.log('--------------------------------')
-    console.log('translation WORKS?', translation)
-    console.log('--------------------------------')
-
 
     console.log('--------------------------------')
     console.log('xManifesto.id', xManifesto.id)
