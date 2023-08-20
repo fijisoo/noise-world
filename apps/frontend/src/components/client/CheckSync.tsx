@@ -1,6 +1,7 @@
 "use client";
 
 import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { i18n } from "../../../i18n-config";
 
 export default function CheckSync({
   lang,
@@ -9,7 +10,7 @@ export default function CheckSync({
 }: any) {
   const { data } = useReadQuery(queryRef);
 
-  const toExtract = (data as any);
+  const toExtract = data as any;
 
   const { enManifesto: enManifestoData, xManifesto: xManifestoData } =
     toExtract || { enManifesto: null, xManifesto: null };
@@ -32,10 +33,20 @@ export default function CheckSync({
 
   const checkIfStale = xManifestoVersion !== enManifestoVersion;
 
+  if (lang === i18n.defaultLocale) {
+    return (
+      <div>
+        <a target="_blank" href="https://github.com/syncArt/manifesto">
+          Collaborate
+        </a>
+      </div>
+    );
+  }
+
   return (
     <div>
       {checkIfStale ? (
-        <button onClick={handleSync}>Sync!</button>
+        <button onClick={handleSync}>sync!</button>
       ) : (
         <p>is synced</p>
       )}
