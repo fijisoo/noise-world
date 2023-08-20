@@ -47,7 +47,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const originalText = (originalTextData as any)?.data?.strapi_manifestoIntls
       ?.data?.[0]?.attributes?.manifesto_text;
 
-
     console.log('--------------------------------')
     console.log('originalTextData WORKS?', JSON.stringify(originalTextData))
     console.log('--------------------------------')
