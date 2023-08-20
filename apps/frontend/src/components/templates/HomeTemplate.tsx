@@ -43,13 +43,15 @@ export const HomeTemplate = ({ lang }: any) => {
     <main className="flex min-h-screen flex-col items-center justify-start px-4 pb-24 pt-6 md:p-24">
       <div className="z-11 mb-10 w-full items-start justify-between font-mono text-sm lg:mb-0 lg:flex">
         <div className="w-auto items-center justify-start gap-3 lg:flex">
-          <ErrorBoundary fallback={<div>Couldnt load data</div>}>
-            <Suspense>
+          <ErrorBoundary
+            fallback={<div className="text-white">Couldnt load data</div>}
+          >
+            <Suspense fallback={<div className="text-white">Loading...</div>}>
               <LanguagesDropdown lang={lang} queryRef={languagesQuery} />
             </Suspense>
           </ErrorBoundary>
           <ErrorBoundary fallback={<div>Couldnt load data</div>}>
-            <Suspense>
+            <Suspense fallback={<div className="text-white">Loading...</div>}>
               <CheckSync
                 lang={lang}
                 queryRef={manifestoVersionsComparisonQuery}
@@ -78,7 +80,7 @@ export const HomeTemplate = ({ lang }: any) => {
       </div>
       <div className="markdown-body z-5 pb-14 lg:pb-0">
         <ErrorBoundary fallback={<div>Couldnt load data</div>}>
-          <Suspense>
+          <Suspense fallback={<div className="text-white">Loading...</div>}>
             <Manifesto queryRef={manifestTextQuery} />
           </Suspense>
         </ErrorBoundary>
