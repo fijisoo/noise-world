@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { ApolloWrapper } from "../../providers/ApolloWrapper";
 import { site } from "../../../config/site";
-import { Analytics } from "@vercel/analytics/dist/react/index";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 const teko = localFont({
