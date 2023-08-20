@@ -5,6 +5,7 @@ import { dir } from "i18next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { ApolloWrapper } from "../../providers/ApolloWrapper";
+import { site } from "../../../config/site";
 
 const inter = Inter({ subsets: ["latin"] });
 const teko = localFont({
@@ -44,12 +45,37 @@ const teko = localFont({
 });
 
 export const metadata = {
-  title: "syncArt - keep your concert memories with you",
-  description:
-      "Scan qr code before the concert to receive a virtual stamp and access exclusives after the concert",
+  title: site.title,
+  description: site.description,
+  icon: ["./favicon.ico"],
+  keywords: [
+    "art",
+    "concert",
+    "web3",
+    "decentralization",
+    "festival",
+    "streaming services",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://sync.art/og-syncart.png",
+    title: site.name,
+    description: site.description,
+    siteName: site.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.name,
+    description: site.description,
+    images: [site.ogImage],
+    creator: "@fijisoo",
+  },
   icons: {
-    icon: ['./../favicon.ico'],
-  }
+    icon: "/favicon.ico",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default async function RootLayout({ children, params }: any) {
