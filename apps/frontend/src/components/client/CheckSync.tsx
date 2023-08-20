@@ -23,7 +23,7 @@ export default function CheckSync({
 
   const handleSync = async () => {
     await fetch(
-      `https://noise-world-lambdas.vercel.app/api/functions/pushManifestIntlToStrapi?locale=${lang}`
+      `https://noise-world-lambdas-vercel.vercel.app/api/functions/pushManifestIntlToStrapi?locale=${lang}`
     ).then((data) => {
       refetchManifestoText();
       console.log("xxx", data);
