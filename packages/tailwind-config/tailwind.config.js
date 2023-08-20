@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         brandblue: colors.blue[500],
         brandred: colors.red[500],
+        ...colors,
       },
       fontFamily: {
         teko: ["var(--font-teko)"],

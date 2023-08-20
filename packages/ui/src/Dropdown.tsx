@@ -7,15 +7,16 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Dropdown = ({ selectedLanguage, items, linkComponent: LinkComponent }: any) => {
+export const Dropdown = ({
+  selectedLanguage,
+  items,
+  linkComponent: LinkComponent,
+}: any) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-300 px-3 py-2 text-base font-medium text-black no-underline hover:bg-white">
-          {selectedLanguage}
-        </Menu.Button>
-      </div>
-
+      <Menu.Button className="flex bg-gray-300 w-full items-center justify-center rounded-md border border-transparent px-3 py-2 text-base font-medium text-black no-underline hover:bg-white">
+        {selectedLanguage}
+      </Menu.Button>
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
