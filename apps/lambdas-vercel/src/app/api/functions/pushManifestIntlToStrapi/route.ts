@@ -15,6 +15,8 @@ export async function GET(request: NextRequest, response: NextResponse) {
     "locale"
   );
 
+  console.log('locale', locale)
+
   const manifestoVersionsData = await graphqlFetch(
     compareManifestoVersionsQuery(locale)
   );
@@ -22,6 +24,11 @@ export async function GET(request: NextRequest, response: NextResponse) {
   const { enManifesto: enManifestoData, xManifesto: xManifestoData } = (
     manifestoVersionsData as any
   )?.data || { enManifesto: null, xManifesto: null };
+
+  console.log('--------------------------------')
+  console.log('enManifestoData', JSON.stringify(enManifestoData))
+  console.log('xManifestoData', JSON.stringify(xManifestoData))
+  console.log('--------------------------------')
 
   const ejectFromData = (data) => {
     return {
@@ -40,11 +47,29 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const originalText = (originalTextData as any)?.data?.strapi_manifestoIntls
       ?.data?.[0]?.attributes?.manifesto_text;
 
+
+    console.log('--------------------------------')
+    console.log('originalTextData WORKS?', JSON.stringify(originalTextData))
+    console.log('--------------------------------')
+
     const translationData = await graphqlFetch(
       translateTextQuery(JSON.stringify(originalText), locale)
     );
 
     const translation = (translationData as any)?.data?.TRANSLATION_translation_TRANSLATION_translation?.text
+
+    console.log('--------------------------------')
+    console.log('translation WORKS?', translation)
+    console.log('--------------------------------')
+
+
+    console.log('--------------------------------')
+    console.log('xManifesto.id', xManifesto.id)
+    console.log('locale', locale)
+
+    console.log('--------------------------------')
+    console.log('isXManifestoExists', isXManifestoExists)
+    console.log('--------------------------------')
 
     if (isXManifestoExists) {
       const article = await graphqlFetch(

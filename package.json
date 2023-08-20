@@ -16,6 +16,8 @@
     "mesh:dev": "turbo build --filter=apps --filter=gql-mesh --force --no-cache",
     "mesh:start": "turbo start --filter=apps --filter=gql-mesh --force --no-cache",
     "mesh:build": "turbo build --filter=apps --filter=gql-mesh --force --no-cache",
+    "lambda:start": "turbo start --filter=apps --filter=lambdas-vercel --force --no-cache",
+    "lambda:build": "turbo build --filter=apps --filter=lambdas-vercel --force --no-cache",
     "cms:dev": "turbo dev --filter=apps --filter=cms",
     "cms:build": "turbo build --filter=apps --filter=cms",
     "cms:start": "turbo start --filter=apps --filter=cms",
