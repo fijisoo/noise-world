@@ -35,7 +35,7 @@ export default function CheckSync({
 
   if (lang === i18n.defaultLocale) {
     return (
-      <div>
+      <div className="ml-4 inline-block">
         <a target="_blank" href="https://github.com/syncArt/manifesto">
           Collaborate
         </a>
@@ -44,7 +44,7 @@ export default function CheckSync({
   }
 
   return (
-    <div>
+    <div className="ml-4 inline-block">
       {checkIfStale ? (
         <button onClick={handleSync}>sync!</button>
       ) : (
