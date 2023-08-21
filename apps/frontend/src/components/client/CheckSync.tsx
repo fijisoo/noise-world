@@ -2,12 +2,15 @@
 
 import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { i18n } from "../../../i18n-config";
+import { useState } from "react";
 
 export default function CheckSync({
   lang,
   queryRef,
   refetchManifestoText,
 }: any) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { data } = useReadQuery(queryRef);
 
   const toExtract = data as any;
@@ -23,11 +26,12 @@ export default function CheckSync({
   const xManifestoVersion = ejectFromData(xManifestoData);
 
   const handleSync = async () => {
+    setIsLoading(true);
     await fetch(
       `https://noise-world-lambdas-vercel.vercel.app/api/functions/pushManifestIntlToStrapi?locale=${lang}`
     ).then((data) => {
       refetchManifestoText();
-      console.log("xxx", data);
+      setIsLoading(false);
     });
   };
 
@@ -46,7 +50,9 @@ export default function CheckSync({
   return (
     <div className="ml-4 inline-block">
       {checkIfStale ? (
-        <button onClick={handleSync}>sync!</button>
+        <button onClick={handleSync}>
+          {isLoading ? "please wait..." : "sync!"}
+        </button>
       ) : (
         <p>is synced</p>
       )}
