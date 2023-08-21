@@ -47,7 +47,7 @@ const teko = localFont({
 export const metadata = {
   title: site.title,
   description: site.description,
-  icon: ["./favicon.ico"],
+  icon: ["./icon.ico"],
   keywords: [
     "art",
     "concert",
@@ -72,9 +72,9 @@ export const metadata = {
     creator: "@fijisoo",
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "https://sync.art/icon.ico",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
