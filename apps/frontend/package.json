@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3020",
-    "build": "next build",
+    "dev": "concurrently \"next dev -p 3020\" \"tailwindcss --input ./src/styles/globals.css --output ./src/styles/output.css --watch\"",
+    "build": "tailwindcss ./src/styles/globals.css --output ./src/styles/output.css && next build",
     "start": "next start -p 3020",
     "lint": "next lint",
     "prestart": "yarn build",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.2",
     "@apollo/experimental-nextjs-app-support": "^0.4.1",
+    "@headlessui/react": "^1.7.17",
     "@vercel/analytics": "^1.0.2",
     "accept-language": "^3.0.18",
     "autoprefixer": "10.4.14",
@@ -28,6 +29,7 @@
     "react-i18next": "^13.1.2",
     "react-markdown": "^8.0.7",
     "tailwind-config": "workspace:*",
+    "tailwindcss": "^3.3.2",
     "ui": "workspace:*"
   },
   "devDependencies": {
@@ -39,6 +41,7 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
+    "concurrently": "^8.2.0",
     "eslint": "8.42.0",
     "eslint-config-custom": "*",
     "eslint-config-next": "13.4.5",

@@ -1,6 +1,6 @@
 "use client";
 
-import { Dropdown } from "ui";
+import { Dropdown } from "./Dropdown";
 import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { i18n } from "../../../i18n-config";
 import Link from "next/link";

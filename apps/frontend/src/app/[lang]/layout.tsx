@@ -1,5 +1,4 @@
-import "ui/styles.css";
-import "./../../styles/globals.css";
+import "./../../styles/output.css";
 
 import { dir } from "i18next";
 import { Inter } from "next/font/google";
