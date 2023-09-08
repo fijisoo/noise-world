@@ -3,25 +3,58 @@
 @tailwind utilities;
 
 :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-    }
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
 body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-            to bottom,
-            transparent,
-            rgb(var(--background-end-rgb))
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+/* The flipper element */
+.flipper {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d; /* Ensure 3D transformations */
+  transition: transform 0.5s; /* Add a smooth transition effect */
+}
+
+/* Front and back faces of the flipper */
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* Hide the back face initially */
+}
+
+/* Styling for the front face */
+.front {
+  background-color: #3498db;
+}
+
+/* Styling for the back face */
+.back {
+  background-color: #e74c3c;
+  transform: rotateY(180deg); /* Rotate the back face to be initially hidden */
+}
+
+/* Hover effect to flip the div */
+.flip-container:hover .flipper {
+  transform: rotateY(180deg); /* Rotate the flipper 180 degrees on hover */
 }

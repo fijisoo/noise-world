@@ -1,14 +1,10 @@
 "use client";
 
-import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { i18n } from "../../../i18n-config";
 import { useState } from "react";
+import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { i18n } from "../../../../i18n-config";
 
-export default function CheckSync({
-  lang,
-  queryRef,
-  refetchManifestoText,
-}: any) {
+export const CheckSync = ({ lang, queryRef, refetchManifestoText }: any) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data } = useReadQuery(queryRef);
@@ -28,7 +24,7 @@ export default function CheckSync({
   const handleSync = async () => {
     setIsLoading(true);
     await fetch(
-      `https://noise-world-lambdas-vercel.vercel.app/api/functions/pushManifestIntlToStrapi?locale=${lang}`
+      `${process.env.NEXT_PUBLIC_API_FUNCTIONS_URL}pushManifestIntlToStrapi?locale=${lang}`
     ).then((data) => {
       refetchManifestoText();
       setIsLoading(false);
@@ -39,7 +35,7 @@ export default function CheckSync({
 
   if (lang === i18n.defaultLocale) {
     return (
-      <div className="ml-4 inline-block">
+      <div className="ml-4 inline-block text-xs font-bold">
         <a target="_blank" href="https://github.com/syncArt/manifesto">
           Collaborate
         </a>
@@ -48,7 +44,7 @@ export default function CheckSync({
   }
 
   return (
-    <div className="ml-4 inline-block">
+    <div className="text-xs ml-4 inline-block">
       {checkIfStale ? (
         <button onClick={handleSync}>
           {isLoading ? "please wait..." : "sync!"}
@@ -58,4 +54,4 @@ export default function CheckSync({
       )}
     </div>
   );
-}
+};

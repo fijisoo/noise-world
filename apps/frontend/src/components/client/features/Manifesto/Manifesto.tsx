@@ -4,17 +4,14 @@ import "./github-markdown.css";
 
 import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 
-export default function Manifesto({ queryRef }: any) {
+export const Manifesto = ({ queryRef }: any) => {
   const { data } = useReadQuery(queryRef);
+  const manifestoText = (data as any)?.strapi_manifestoIntls?.data?.[0]
+    ?.attributes?.manifesto_text;
 
   return (
     <div className="markdown-body">
-      <ReactMarkdown>
-        {
-          (data as any)?.strapi_manifestoIntls?.data?.[0]?.attributes
-            ?.manifesto_text
-        }
-      </ReactMarkdown>
+      <ReactMarkdown>{manifestoText}</ReactMarkdown>
     </div>
   );
-}
+};

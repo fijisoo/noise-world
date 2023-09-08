@@ -2,7 +2,7 @@
 
 import { Dropdown } from "./Dropdown";
 import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { i18n } from "../../../i18n-config";
+import { i18n } from "../../../../i18n-config";
 import Link from "next/link";
 
 export const LanguagesDropdown = ({ lang, queryRef }: any) => {
@@ -17,7 +17,10 @@ export const LanguagesDropdown = ({ lang, queryRef }: any) => {
   );
 
   const parsedData = availableLocales.map((el: any) => {
-    return { name: el.attributes.name, href: `/${el.attributes.code}` };
+    return {
+      name: el.attributes.name,
+      href: `/${el.attributes.code}/manifesto`,
+    };
   });
 
   return (

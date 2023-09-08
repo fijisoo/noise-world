@@ -1,5 +1,10 @@
-import { HomeTemplate } from "../components/templates/HomeTemplate";
+import { LandingTemplate } from "../components/templates/LandingTemplate";
+import { GlobalLayout } from "../components/templates/GlobalLayout";
 
-export default async function Page() {
-  return <HomeTemplate lang="en" />;
+export default function Page() {
+  return (
+    <GlobalLayout>
+      <LandingTemplate />
+    </GlobalLayout>
+  );
 }

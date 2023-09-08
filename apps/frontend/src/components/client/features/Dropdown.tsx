@@ -14,7 +14,7 @@ export const Dropdown = ({
 }: any) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="flex bg-gray-300 w-full items-center justify-center rounded-md border border-transparent px-3 py-2 text-base font-medium text-black no-underline hover:bg-white">
+      <Menu.Button className="flex bg-brandDark w-full items-center justify-center rounded-md border border-transparent px-6 py-2 text-xxs font-bold text-brandWhite no-underline hover:bg-brandDarkHover">
         {selectedLanguage}
       </Menu.Button>
       <Transition
@@ -36,7 +36,7 @@ export const Dropdown = ({
                       href={href}
                       className={classNames(
                         active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
+                        "block px-4 py-2 text-xs"
                       )}
                     >
                       {name}
