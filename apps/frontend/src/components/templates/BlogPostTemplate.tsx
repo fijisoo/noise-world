@@ -1,24 +1,19 @@
-import Image from "next/image";
+"use client";
+
+import { useBackgroundQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { BlogPost } from "../client/features/Blog/BlogPost";
+import { GET_BLOG_POST } from "../../requests/queries/getBlogPost";
 
 export const BlogPostTemplate = ({ slug }: any) => {
-  const { featuredImgSrc, title, content, publishDate, altText } = {
-    title: "Title of the post #0",
-    content:
-      "Description of the post Description of the postDescription of the postDescription of the postDescription of the postDescription of the postDescription of the postDescription of the post",
-    publishDate: "09.09.2023",
-    featuredImgSrc:
-      "https://www.ibisbis.com.au/adm/thumb2.aspx?src=/userfiles/Images/News/Work%20in%20Progress.jpg",
-    altText: "Post image #1",
-  };
+  const id = slug.slice("-s:")[0];
 
-  return (
-    <div className="flex max-w-[600px] flex-col">
-      <div className="relative flex w-full w-[600px] h-[300px]">
-        <Image src={featuredImgSrc} alt={altText} fill unoptimized />
-      </div>
-      <div className="flex w-full justify-end text-xxs">{publishDate}</div>
-      <div className="flex w-full text-base font-bold">{title}</div>
-      <div className="flex w-full text-xs">{content}</div>
-    </div>
-  );
+  const [blogPostQuery] = useBackgroundQuery(GET_BLOG_POST, {
+    queryKey: `getBlogPost-${slug}`,
+    variables: {
+      id,
+    },
+    fetchPolicy: "cache-first",
+  });
+
+  return <BlogPost queryRef={blogPostQuery} />;
 };

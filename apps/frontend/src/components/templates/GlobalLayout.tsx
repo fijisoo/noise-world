@@ -1,6 +1,5 @@
 "use client";
 
-import { Logo } from "../client/Logo";
 import { NavItem } from "../server/NavItem";
 import { useState } from "react";
 import Image from "next/image";
@@ -41,7 +40,8 @@ export const GlobalLayout = ({ children }: any) => {
               <a href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">{companyName}</span>
                 <div className="relative h-[55px] max-h-[55px] w-[100px] max-w-[100px]">
-                  <Logo />
+                  {/*<Logo />*/}
+                  <Image src={"/syncArt2.svg"} alt={"Logo"} fill />
                 </div>
               </a>
             </div>
