@@ -6,7 +6,7 @@ export const HeroText = () => {
         Collect, Exchange and Share
       </h1>
       <h4 className="flex text-xxs">
-        THAT WAS THE BEST CONCERT OF MY LIFE! I'M SO SAD IT ENDED... ALL I HAVE
+        THAT WAS THE BEST CONCERT OF MY LIFE! I&quot;M SO SAD IT ENDED... ALL I HAVE
         IS ONE BLURRY PICTURE OF MYSELF
         <br />
         ...WILL ANYONE EVEN BELIEVE I WAS THERE?

@@ -78,7 +78,7 @@ export const ManifestoTemplate = ({ lang }: any) => {
               <p>
                 If you want{" "}
                 <a href="https://github.com/syncArt/manifesto"> collaborate</a>{" "}
-                and you're not familiar with github click{" "}
+                and you&quot;re not familiar with github click{" "}
                 <a href="https://www.loom.com/share/955fdcb13424487eaeebe297a13b8aa5?sid=dbc89fca-c591-4c33-adaa-bf9c50655e18">
                   {" "}
                   here
