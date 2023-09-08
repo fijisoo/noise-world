@@ -9,7 +9,7 @@ export const LandingTemplate = () => {
         <HeroAnnouncement />
         <HeroText />
       </div>
-      <div className="noScrollbar relative top-0 z-10 m-0 p-0 pt-16 md:top-32 md:-ml-[300px] md:-left-32 lg:-right-16 lg:top-24 lg:-ml-[700px] lg:h-[650px] lg:overflow-auto lg:pl-[400px] lg:pr-52">
+      <div className="noScrollbar relative top-0 z-10 m-0 p-0 pb-16 pt-16 md:-left-32 md:top-32 md:-ml-[300px] lg:-right-16 lg:left-20 lg:top-24 lg:-ml-[700px] lg:h-[650px] lg:overflow-auto lg:pl-[400px] lg:pr-0">
         <HeroCardSection />
       </div>
     </div>
