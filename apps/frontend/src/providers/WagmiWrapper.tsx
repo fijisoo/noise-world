@@ -2,9 +2,19 @@
 
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { base, sepolia } from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from "@wagmi/core/providers/jsonRpc";
 
-const { chains, publicClient } = configureChains([sepolia], [publicProvider()]);
+const { chains, publicClient } = configureChains(
+  [sepolia],
+  [
+    jsonRpcProvider({
+      rpc: () => ({
+        http: `https://rpc2.sepolia.org/`,
+      }),
+    }),
+  ],
+  { rank: true } as any
+);
 
 const wagmiConfig = createConfig({
   autoConnect: true,
@@ -12,6 +22,5 @@ const wagmiConfig = createConfig({
 });
 
 export const WagmiWrapper = ({ children }: any) => {
-  console.log("network", wagmiConfig);
   return <WagmiConfig config={wagmiConfig as any}>{children}</WagmiConfig>;
 };

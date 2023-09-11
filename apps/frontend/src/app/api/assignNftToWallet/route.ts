@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({
-      message: "There was a problem with fetching collections",
+      message: "There was a problem while fetching collections",
       success: false,
     });
   }
