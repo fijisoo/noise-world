@@ -9,11 +9,26 @@ const { chains, publicClient } = configureChains(
   [
     jsonRpcProvider({
       rpc: () => ({
-        http: `https://rpc2.sepolia.org/`,
+        http: `https://ethereum-sepolia.blockpi.network/v1/rpc/public`,
+      }),
+    }),
+    jsonRpcProvider({
+      rpc: () => ({
+        http: `https://endpoints.omniatech.io/v1/eth/sepolia/public`,
+      }),
+    }),
+    jsonRpcProvider({
+      rpc: () => ({
+        http: `https://rpc.sepolia.org/`,
+      }),
+    }),
+    jsonRpcProvider({
+      rpc: () => ({
+        http: `https://eth-sepolia.g.alchemy.com/v2/demo`,
       }),
     }),
   ],
-  { rank: true } as any
+  { rank: true, stallTimeout: 5000 } as any
 );
 
 const wagmiConfig = createConfig({
