@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { metadataShared } from "../utils/metadata";
 import { inter, teko } from "../utils/fonts";
 import { ApolloWrapper } from "../providers/ApolloWrapper";
+import { GlobalLayout } from "../components/templates/GlobalLayout";
 
 export const metadata = metadataShared;
 
@@ -13,7 +14,9 @@ export default async function RootLayout({ children }: any) {
     <html lang="en" dir={dir("en")}>
       <body className={`${inter.className} ${teko.className}`}>
         <Analytics />
-        <ApolloWrapper>{children}</ApolloWrapper>
+        <ApolloWrapper>
+          <GlobalLayout>{children}</GlobalLayout>
+        </ApolloWrapper>
       </body>
     </html>
   );

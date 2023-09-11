@@ -21,7 +21,7 @@ export const BlogPost = ({ queryRef }: any) => {
     <div className="flex max-w-[600px] flex-col">
       <div className="relative flex h-[300px] w-[600px] w-full">
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_CMS}${url}`}
+          src={"/blog-post-placeholder.png"} //`${process.env.NEXT_PUBLIC_API_CMS}${url}` ||
           alt={alternativeText || "featured Image"}
           fill
           unoptimized

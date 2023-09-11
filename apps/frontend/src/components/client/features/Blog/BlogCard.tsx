@@ -19,7 +19,7 @@ export const BlogCard = ({
           <div className="absolute flex h-[90px] w-[170px] bg-brandDark" />
           <div className="relative flex h-[90px] max-h-[90px] w-[170px] max-w-[170px]">
             <Image
-              src={`${process.env.NEXT_PUBLIC_API_CMS}${url}`}
+              src={"/blog-post-placeholder.png"} //`${process.env.NEXT_PUBLIC_API_CMS}${url}` ||
               alt={alternativeText || "blog post"}
               unoptimized
               fill

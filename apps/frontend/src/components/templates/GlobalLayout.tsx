@@ -48,7 +48,7 @@ export const GlobalLayout = ({ children }: any) => {
             <div className="ml-[20px] hidden lg:flex lg:gap-x-12">
               <NavItem href="/en/manifesto" text="Manifesto" />
               <NavItem href="/blog" text="Blog" />
-              <NavItem href="#" text="Live Stamps" />
+              <NavItem href="/collection" text="Live Stamps" />
               <NavItem href="/contact" text="Contact" />
             </div>
           </div>
@@ -133,7 +133,7 @@ export const GlobalLayout = ({ children }: any) => {
                   <div className="space-y-2 py-6">
                     <NavItem isMobile href="/en/manifesto" text="Manifesto" />
                     <NavItem isMobile href="/blog" text="Blog" />
-                    <NavItem isMobile href="#" text="Live Stamps" />
+                    <NavItem isMobile href="/collection" text="Live Stamps" />
                     <NavItem isMobile href="/contact" text="Contact" />
                   </div>
                 </div>
