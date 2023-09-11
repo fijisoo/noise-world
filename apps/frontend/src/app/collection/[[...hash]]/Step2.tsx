@@ -21,12 +21,6 @@ export const Step2 = ({
     };
   }, []);
 
-  // const x = {
-  //   code,
-  //   contractAddress,
-  //   nftName,
-  // };
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-col">
