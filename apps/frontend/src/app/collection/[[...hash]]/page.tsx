@@ -27,8 +27,6 @@ export default function Page() {
   const {
     isLoading: isMintingLoading,
     isSuccess: isMintingSuccess,
-    prepareError,
-    isPrepareError,
     handleMint,
   } = useMintNft(collectionParams.contractAddress, collectionParams.nftName);
 
@@ -37,23 +35,22 @@ export default function Page() {
   const isSuccess = collectionParams.isSuccess;
 
   useEffect(() => {
-    const assignNftToWallet = async () => {
-      await axios
-        .post("api/assignNftToWallet", {
-          minterWallet: address,
-          collectionName: collectionParams.contractAddress,
-          nftName: collectionParams.nftName,
-          imgUrl: nftImgData,
-        })
-        .then(() => {
-          redirect("/yourCollection?success=true");
-        });
-
-      if (isMintingSuccess) {
+    if (isMintingSuccess) {
+      const assignNftToWallet = async () => {
+        await axios
+          .post("api/assignNftToWallet", {
+            minterWallet: address,
+            collectionName: collectionParams.contractAddress,
+            nftName: collectionParams.nftName,
+            imgUrl: nftImgData,
+          })
+          .then(() => {
+            redirect("/yourCollection?success=true");
+          });
         assignNftToWallet();
-      }
-    };
-  }, [isMintingSuccess]);
+      };
+    }
+  }, [isMintingSuccess, nftImgData, collectionParams, address]);
 
   const renderComponent = useCallback(() => {
     if (!isConnected) {
@@ -105,8 +102,8 @@ export default function Page() {
                 alt="chevron"
               />
               <p className="flex text-xs">
-                have enough ETH coins (since we're on sepolia testnet, use
-                sepolia faucet to get free SepoliaETH)
+                {`have enough ETH coins (since we're on sepolia testnet, use
+                sepolia faucet to get free SepoliaETH)`}
               </p>
             </div>
 

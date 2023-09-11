@@ -31,7 +31,7 @@ export const useGetCollectionParams = () => {
     const rawLocalStorage = localStorage.getItem("nftData");
 
     if (rawLocalStorage) {
-      const localStorageData = JSON.parse(localStorage.getItem("nftData"));
+      const localStorageData = JSON.parse(rawLocalStorage);
 
       setLocalStorageData(localStorageData);
       setContractAddress(localStorageData?.contractAddress);
