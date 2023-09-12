@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { User } from "../misc/models/User";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
@@ -87,7 +88,13 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      console.log('minterWallet', data.minterWallet, data.collectionName, data.nftName, data.imgUrl)
+      console.log(
+        "minterWallet",
+        data.minterWallet,
+        data.collectionName,
+        data.nftName,
+        data.imgUrl
+      );
       await UserModel.findOneAndUpdate(
         { minterWallet: data.minterWallet },
         {

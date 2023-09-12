@@ -5,6 +5,7 @@ import { uid } from "uid";
 import { QrCodeSchemaData } from "../misc/models/QrCodes";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function POST(request: NextRequest) {
   const { collectionHostWallet, collectionName, uniqueNFTsAmount } =
