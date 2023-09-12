@@ -124,7 +124,6 @@ export default function Page() {
               onClick={handleMint}
               disabled={
                 isMintingSuccess ||
-                isPrepareError ||
                 isMintingLoading ||
                 isUserUpdateLoading
               }

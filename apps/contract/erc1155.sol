@@ -71,10 +71,7 @@ contract Premade is Initializable, ERC1155Upgradeable, OwnableUpgradeable, Pausa
     {
         require(id < 1, "Sorry, you trying to mint wrong NFT");
         require(msg.value == minPublicPrice * amount, "Default price (0.01 eth) should be multiplied by amount!");
-
-        require(bytes(nftAttributes[id].mp3).length == 0, "Attributes already set");
         nftAttributes[id] = predefinedAttributes;
-
         _mint(msg.sender, id, amount, "");
     }
 
