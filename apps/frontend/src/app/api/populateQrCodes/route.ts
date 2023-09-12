@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import { uid } from "uid";
 import { QrCodeSchemaData } from "../misc/models/QrCodes";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   const { collectionHostWallet, collectionName, uniqueNFTsAmount } =
     await request.json();

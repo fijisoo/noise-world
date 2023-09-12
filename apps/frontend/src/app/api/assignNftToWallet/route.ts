@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { User } from "../misc/models/User";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   const data = await request.json();
 

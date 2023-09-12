@@ -3,6 +3,8 @@ import { QrCodeSchemaData } from "../misc/models/QrCodes";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   const data = await request.json();
 
