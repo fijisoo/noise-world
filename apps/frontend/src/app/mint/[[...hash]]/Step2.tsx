@@ -2,18 +2,18 @@ import { Input } from "../../../components/client/Input";
 import React, { useEffect } from "react";
 
 export const Step2 = ({
+  data,
+  setToggleForm,
+  toggleForm,
+  handleRedeemCode,
+  isLoading,
   code,
   contractAddress,
   nftName,
-  data,
   handleNftCode,
   handleNftContractAddress,
   handleNftName,
-  setToggleForm,
-  toggleForm,
   nftImgData,
-  handleRedeemCode,
-  isLoading,
 }: any) => {
   useEffect(() => {
     return () => {
@@ -60,7 +60,7 @@ export const Step2 = ({
         )}
         {!toggleForm && data && (
           <button
-            className="flex"
+            className="flex text-xxs"
             onClick={() => {
               setToggleForm((prev: any) => !prev);
             }}

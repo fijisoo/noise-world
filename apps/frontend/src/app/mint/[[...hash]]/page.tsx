@@ -17,29 +17,29 @@ export default function Page() {
     address: address,
   });
   const [toggleForm, setToggleForm] = useState(false);
-  const collectionParams = useGetCollectionParams();
-  const nftImgData = useReadNftData(
-    collectionParams.contractAddress,
-    collectionParams.nftName
-  );
+  const {
+    contractAddress,
+    nftName,
+    handleRedeemCode,
+    localStorageData,
+    isSuccess: isRedeemSuccess,
+    errorMessage,
+    isLoading: isRedeemLoading,
+    code,
+    handleNftCode,
+    handleNftContractAddress,
+    handleNftName,
+  } = useGetCollectionParams();
+  const nftImgData = useReadNftData(contractAddress, nftName);
   const {
     isLoading: isMintingLoading,
     isUserUpdateLoading,
     isSuccess: isMintingSuccess,
     isPrepareError,
     handleMint,
-  } = useMintNft(
-    collectionParams.contractAddress,
-    collectionParams.nftName,
-    address,
-    nftImgData
-  );
+  } = useMintNft(contractAddress, nftName, address, nftImgData);
 
-  const handleRedeemCode = collectionParams.handleRedeemCode;
-  const isRedeemLoading = collectionParams.isLoading;
-  const isRedeemSuccess = collectionParams.isSuccess;
-
-  const renderComponent = useCallback(() => {
+  const renderComponent = () => {
     if (!isConnected) {
       return <Step1 />;
     }
@@ -47,17 +47,23 @@ export default function Page() {
     if (isConnected && !isRedeemSuccess) {
       return (
         <Step2
-          data={collectionParams.localStorageData}
-          {...collectionParams}
+          data={localStorageData}
           setToggleForm={setToggleForm}
           toggleForm={toggleForm}
           handleRedeemCode={handleRedeemCode}
           isLoading={isRedeemLoading}
+          code={code}
+          contractAddress={contractAddress}
+          nftName={nftName}
+          handleNftCode={handleNftCode}
+          handleNftContractAddress={handleNftContractAddress}
+          handleNftName={handleNftName}
+          nftImgData={nftImgData}
         />
       );
     }
     return <></>;
-  }, [handleRedeemCode, isRedeemSuccess, isRedeemLoading]);
+  };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -94,15 +100,17 @@ export default function Page() {
               </p>
             </div>
 
-            <p className="my-2 ml-4 flex text-xs">
-              {isConnected
-                ? !!balance &&
-                  !!balance.formatted &&
-                  Number(balance.formatted) > 0.01
-                  ? `you have sufficient amount of: ${balance?.formatted}SepoliaETH 😎`
-                  : `u have to have at least 0.1 SepoliaETH. Your balance is: ${balance?.formatted}`
-                : ""}
-            </p>
+            {isConnected ? (
+              !!balance &&
+              !!balance.formatted &&
+              Number(balance.formatted) > 0.01 ? (
+                <p className="my-2 ml-4 flex text-xs">{`you have sufficient amount of: ${balance?.formatted}SepoliaETH 😎`}</p>
+              ) : (
+                <p className="my-2 ml-4 flex text-xs">{`u have to have at least 0.1 SepoliaETH. Your balance is: ${balance?.formatted}`}</p>
+              )
+            ) : (
+              ""
+            )}
           </div>
           <div className="flex w-full items-start">
             <Icon
@@ -116,16 +124,14 @@ export default function Page() {
             </p>
           </div>
         </div>
-        {renderComponent()}
+        <div className="my-3 flex">{renderComponent()}</div>
         {isConnected && isRedeemSuccess ? (
           <>
             <button
               className="mt-3 flex w-fit flex-grow-0 justify-center rounded-md bg-brandDark px-3 py-2 text-xxs font-bold text-white hover:bg-brandDarkHover"
               onClick={handleMint}
               disabled={
-                isMintingSuccess ||
-                isMintingLoading ||
-                isUserUpdateLoading
+                isMintingSuccess || isMintingLoading || isUserUpdateLoading
               }
             >
               {isMintingLoading
@@ -141,9 +147,9 @@ export default function Page() {
           <></>
         )}
         <div className="text-red flex flex-col">
-          <p className="test-xxs flex">{collectionParams.errorMessage}</p>
+          <p className="test-xxs flex">{errorMessage}</p>
           {isPrepareError && (
-            <p className="text-xxs flex">
+            <p className="flex text-xxs">
               There was a problem preparing contract info
             </p>
           )}
