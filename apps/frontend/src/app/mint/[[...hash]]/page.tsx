@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useConnectWallet } from "../../../hooks/useConnectWallet";
 import { Step1 } from "./Step1";
 import { Step2 } from "./Step2";
@@ -10,8 +10,6 @@ import { useGetCollectionParams } from "../../../hooks/useGetCollectionParams";
 import { useReadNftData } from "../../../hooks/useReadNftData";
 import Image from "next/image";
 import { useMintNft } from "../../../hooks/useMintNft";
-import axios from "axios";
-import { redirect } from "next/navigation";
 
 export default function Page() {
   const { isConnected, address } = useConnectWallet();
@@ -26,38 +24,27 @@ export default function Page() {
   );
   const {
     isLoading: isMintingLoading,
+    isUserUpdateLoading,
     isSuccess: isMintingSuccess,
+    isPrepareError,
     handleMint,
-  } = useMintNft(collectionParams.contractAddress, collectionParams.nftName);
+  } = useMintNft(
+    collectionParams.contractAddress,
+    collectionParams.nftName,
+    address,
+    nftImgData
+  );
 
   const handleRedeemCode = collectionParams.handleRedeemCode;
-  const isLoading = collectionParams.isLoading;
-  const isSuccess = collectionParams.isSuccess;
-
-  useEffect(() => {
-    if (isMintingSuccess) {
-      const assignNftToWallet = async () => {
-        await axios
-          .post("api/assignNftToWallet", {
-            minterWallet: address,
-            collectionName: collectionParams.contractAddress,
-            nftName: collectionParams.nftName,
-            imgUrl: nftImgData,
-          })
-          .then(() => {
-            redirect("/yourCollection?success=true");
-          });
-        assignNftToWallet();
-      };
-    }
-  }, [isMintingSuccess, nftImgData, collectionParams, address]);
+  const isRedeemLoading = collectionParams.isLoading;
+  const isRedeemSuccess = collectionParams.isSuccess;
 
   const renderComponent = useCallback(() => {
     if (!isConnected) {
       return <Step1 />;
     }
 
-    if (isConnected && !isSuccess) {
+    if (isConnected && !isRedeemSuccess) {
       return (
         <Step2
           data={collectionParams.localStorageData}
@@ -65,12 +52,12 @@ export default function Page() {
           setToggleForm={setToggleForm}
           toggleForm={toggleForm}
           handleRedeemCode={handleRedeemCode}
-          isLoading={isLoading}
+          isLoading={isRedeemLoading}
         />
       );
     }
     return <></>;
-  }, [handleRedeemCode, isSuccess, isLoading]);
+  }, [handleRedeemCode, isRedeemSuccess, isRedeemLoading]);
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -119,7 +106,9 @@ export default function Page() {
           </div>
           <div className="flex w-full items-start">
             <Icon
-              src={isConnected && isSuccess ? "/check.svg" : "/chevron.svg"}
+              src={
+                isConnected && isRedeemSuccess ? "/check.svg" : "/chevron.svg"
+              }
               alt="chevron"
             />
             <p className="flex text-xs">
@@ -128,13 +117,25 @@ export default function Page() {
           </div>
         </div>
         {renderComponent()}
-        {isConnected && isSuccess ? (
+        {isConnected && isRedeemSuccess ? (
           <>
             <button
               className="mt-3 flex w-fit flex-grow-0 justify-center rounded-md bg-brandDark px-3 py-2 text-xxs font-bold text-white hover:bg-brandDarkHover"
               onClick={handleMint}
+              disabled={
+                isMintingSuccess ||
+                isPrepareError ||
+                isMintingLoading ||
+                isUserUpdateLoading
+              }
             >
-              {isMintingLoading ? "Loading..." : "MINT NFT!"}
+              {isMintingLoading
+                ? "Minting..."
+                : isUserUpdateLoading
+                ? "Assigning NFT..."
+                : nftImgData
+                ? "Mint!"
+                : "Error loading nft data..."}
             </button>
           </>
         ) : (
@@ -142,7 +143,11 @@ export default function Page() {
         )}
         <div className="text-red flex flex-col">
           <p className="test-xxs flex">{collectionParams.errorMessage}</p>
-          {/*{isPrepareError && <p className="test-xxs flex">There was a problem preparing contract info</p>}*/}
+          {isPrepareError && (
+            <p className="text-xxs flex">
+              There was a problem preparing contract info
+            </p>
+          )}
         </div>
       </div>
       <div className="flex">
@@ -154,7 +159,7 @@ export default function Page() {
               fill
               unoptimized
               style={{
-                filter: !isSuccess ? `blur(10px)` : "",
+                filter: !isRedeemSuccess ? `blur(10px)` : "",
                 transition: "all 0.3s ease-in",
               }}
             />

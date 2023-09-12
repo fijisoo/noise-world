@@ -7,10 +7,10 @@ export const useGetCollectionParams = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { address } = useConnectWallet();
   const [contractAddress, setContractAddress] = useState("");
   const [nftName, setNftName] = useState("");
   const [code, setCode] = useState("");
+  const { address } = useConnectWallet();
 
   const handleNftCode = (id: any, value: any) => {
     setCode(value);

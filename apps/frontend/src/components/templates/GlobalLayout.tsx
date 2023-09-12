@@ -3,9 +3,11 @@
 import { NavItem } from "../server/NavItem";
 import { useState } from "react";
 import Image from "next/image";
+import { useAccount } from "wagmi";
 
 export const GlobalLayout = ({ children }: any) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { address, isConnected } = useAccount();
 
   const companyName = "syncArt";
 
@@ -48,8 +50,11 @@ export const GlobalLayout = ({ children }: any) => {
             <div className="ml-[20px] hidden lg:flex lg:gap-x-12">
               <NavItem href="/en/manifesto" text="Manifesto" />
               <NavItem href="/blog" text="Blog" />
-              <NavItem href="/collection" text="Live Stamps" />
+              <NavItem href="/mint" text="Live Stamps" />
               <NavItem href="/contact" text="Contact" />
+              {isConnected && address && (
+                <NavItem href="/collection" text="Your collection" />
+              )}
             </div>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -133,8 +138,15 @@ export const GlobalLayout = ({ children }: any) => {
                   <div className="space-y-2 py-6">
                     <NavItem isMobile href="/en/manifesto" text="Manifesto" />
                     <NavItem isMobile href="/blog" text="Blog" />
-                    <NavItem isMobile href="/collection" text="Live Stamps" />
+                    <NavItem isMobile href="/mint" text="Live Stamps" />
                     <NavItem isMobile href="/contact" text="Contact" />
+                    {isConnected && address && (
+                      <NavItem
+                        isMobile
+                        href="/collection"
+                        text="Your collection"
+                      />
+                    )}
                   </div>
                 </div>
               </div>

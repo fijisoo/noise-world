@@ -11,8 +11,20 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Premade is Initializable, ERC1155Upgradeable, OwnableUpgradeable, PausableUpgradeable, ERC1155BurnableUpgradeable, ERC1155SupplyUpgradeable {
     uint256 public minPublicPrice = 0.01 ether;
-    uint256 public maxMintAmountPerWalletInOneTransaction = 2;
+    address public account;
+
     string private _baseUri = "ipfs://bafybeigyc2yediwsnmtrfawccdyqphae4csguiilo7japp5xsfauw53w2q/";
+    string public mp3 = "ipfs://bafybeih2bkuwuqbivwhnyyr7vcdcigfd6sqrtjkm4rf6dgf5k2rrwm4iuy";
+
+    mapping(uint256 => NftAttributes) public nftAttributes;
+
+    struct NftAttributes {
+        string mp3;
+    }
+
+    NftAttributes public predefinedAttributes = NftAttributes(
+        "ipfs://bafybeih2bkuwuqbivwhnyyr7vcdcigfd6sqrtjkm4rf6dgf5k2rrwm4iuy"
+    );
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -49,13 +61,20 @@ contract Premade is Initializable, ERC1155Upgradeable, OwnableUpgradeable, Pausa
         _unpause();
     }
 
+    function getNftAttributes(uint256 id) public view returns (NftAttributes memory) {
+        return nftAttributes[id];
+    }
+
     function mint(uint256 id, uint256 amount)
     public
     payable
     {
         require(id < 1, "Sorry, you trying to mint wrong NFT");
         require(msg.value == minPublicPrice * amount, "Default price (0.01 eth) should be multiplied by amount!");
-        require(totalSupply(id) + amount <= maxMintAmountPerWalletInOneTransaction, "You cant mint max 2 nfts");
+
+        require(bytes(nftAttributes[id].mp3).length == 0, "Attributes already set");
+        nftAttributes[id] = predefinedAttributes;
+
         _mint(msg.sender, id, amount, "");
     }
 

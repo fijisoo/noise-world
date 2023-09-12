@@ -181,6 +181,19 @@ export const abi = [
         "type": "event"
     },
     {
+        "inputs": [],
+        "name": "account",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -296,6 +309,32 @@ export const abi = [
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getNftAttributes",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "mp3",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct Premade.NftAttributes",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "string",
                 "name": "baseUri",
                 "type": "string"
@@ -325,19 +364,6 @@ export const abi = [
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "maxMintAmountPerWalletInOneTransaction",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -404,6 +430,38 @@ export const abi = [
     },
     {
         "inputs": [],
+        "name": "mp3",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "nftAttributes",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "mp3",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "owner",
         "outputs": [
             {
@@ -430,6 +488,19 @@ export const abi = [
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "predefinedAttributes",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "mp3",
+                "type": "string"
             }
         ],
         "stateMutability": "view",
@@ -616,4 +687,4 @@ export const abi = [
         "stateMutability": "view",
         "type": "function"
     }
-];
+]
