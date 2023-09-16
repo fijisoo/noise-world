@@ -77,7 +77,7 @@ export const ContactTemplate = () => {
             />
           </div>
           <div className="flex flex-col">
-            <FormInputbg-brandWhite
+            <FormInput
               type="phone"
               errorMessage={errors?.phoneNumber?.message}
               registerFormElement={{ ...register("phoneNumber") }}
