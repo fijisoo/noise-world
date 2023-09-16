@@ -1,40 +1,29 @@
 "use client";
 
-import { Label } from "../client/Label";
-import { Input } from "../client/Input";
-import { Textarea } from "../client/Textarea";
 import { Switch } from "../client/Switch";
-import { useState } from "react";
-import axios from "axios";
+import { FormInput } from "../client/FormInput";
+import { useContact } from "../../hooks/useContact";
+import { Controller } from "react-hook-form";
 
 export const ContactTemplate = () => {
-  const [formState, setFormState] = useState({});
-  const [response, setResponse] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleValue = (id: any, value: any) => {
-    setFormState((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
-
-  const handleSubmit = () => {
-    setIsLoading(true);
-    axios
-      .post("/api/mailSender", {
-        ...formState,
-      })
-      .then((data) => {
-        console.log(data);
-        setResponse(data.data.message);
-        setIsLoading(false);
-      });
-  };
+  const {
+    handleSubmit,
+    register,
+    errors,
+    isSubmitting,
+    isSubmitted,
+    isDirty,
+    onSubmit,
+    control,
+  } = useContact();
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="flex max-w-[600px] flex-grow flex-col">
+    <div className="flex w-full justify-center bg-brandWhite md:bg-transparent">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        className="flex max-w-[600px] flex-grow flex-col rounded-md border bg-none p-0 md:max-w-[650px] md:bg-brandWhite md:p-10"
+      >
         <div className="flex flex-col">
           <h1 className="flex w-full justify-center text-xl font-bold">
             Contact us
@@ -49,38 +38,73 @@ export const ContactTemplate = () => {
         <div className="mt-3 flex flex-col">
           <div className="flex w-full flex-col md:flex-row md:gap-3">
             <div className="flex flex-grow flex-col">
-              <Label text="First name" id="first_name" />
-              <Input id="first_name" handleValue={handleValue} />
+              <FormInput
+                type="text"
+                errorMessage={errors?.firstName?.message}
+                registerFormElement={{ ...register("firstName") }}
+                id="first_name"
+                labelText="First name"
+                required
+              />
             </div>
             <div className="flex flex-grow flex-col">
-              <Label text="Second name" id="second_name" />
-              <Input id="second_name" handleValue={handleValue} />
+              <FormInput
+                type="text"
+                errorMessage={errors?.secondName?.message}
+                registerFormElement={{ ...register("secondName") }}
+                id="second_name"
+                labelText="Second name"
+              />
             </div>
           </div>
           <div className="flex flex-col">
-            <Label text="Company /artist name (optional)" id="company" />
-            <Input id="company" handleValue={handleValue} />
+            <FormInput
+              type="text"
+              errorMessage={errors?.company?.message}
+              registerFormElement={{ ...register("company") }}
+              id="company"
+              labelText="Company /artist name (optional)"
+            />
           </div>
           <div className="flex flex-col">
-            <Label text="Email" id="email" />
-            <Input id="email" handleValue={handleValue} />
+            <FormInput
+              type="email"
+              errorMessage={errors?.email?.message}
+              registerFormElement={{ ...register("email") }}
+              id="email"
+              labelText="Email"
+              required
+            />
           </div>
           <div className="flex flex-col">
-            <Label text="Phone number" id="phone_number" />
-            <Input id="phone_number" handleValue={handleValue} />
+            <FormInput
+              type="phone"
+              errorMessage={errors?.phoneNumber?.message}
+              registerFormElement={{ ...register("phoneNumber") }}
+              id="phone_number"
+              labelText="Phone number"
+            />
           </div>
           <div className="flex flex-col">
-            <Label text="Message" id="message" />
-            <Textarea
+            <FormInput
+              type="textarea"
+              errorMessage={errors?.message?.message}
+              registerFormElement={{ ...register("message") }}
               id="message"
-              name="message"
-              placeholder=""
-              handleValue={handleValue}
+              labelText="Message"
+              required
             />
           </div>
         </div>
         <div className="my-2 flex items-center text-xxs">
-          <Switch id="privacy_policy" handleValue={handleValue} />{" "}
+          {" "}
+          <Controller
+            control={control}
+            name="privacyPolicy"
+            render={({ field: { ref, ...field } }) => (
+              <Switch id="privacy_policy" {...field} />
+            )}
+          />
           <p className="ml-2">
             By selecting this, you agree to our{" "}
             <a className="font-bold" href="/privacy-policy">
@@ -89,16 +113,23 @@ export const ContactTemplate = () => {
             .
           </p>
         </div>
+        {!!errors?.privacyPolicy?.message && (
+          <div className="flex text-xxs text-[red]">
+            {errors?.privacyPolicy?.message}
+          </div>
+        )}
         <div className="my-2 flex items-center text-xxs">
           <button
-            onClick={handleSubmit}
+            type="submit"
             className="flex w-full flex-grow-0 justify-center rounded-md bg-brandDark px-3 py-2 text-xxs font-bold text-white hover:bg-brandDarkHover disabled:cursor-not-allowed"
           >
-            {isLoading ? "Please wait..." : "Lets talk"}
+            {isSubmitting ? "Please wait..." : "Lets talk"}
           </button>
         </div>
-        <div className="flex w-full">{response}</div>
-      </div>
+        {isSubmitted && (
+          <div className="flex w-full">We'll contact you soon!</div>
+        )}
+      </form>
     </div>
   );
 };

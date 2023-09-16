@@ -7,8 +7,6 @@ export const revalidate = 0;
 export async function POST(request: NextRequest) {
   const data = await request.json();
 
-  console.log('data', data)
-
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -21,9 +19,9 @@ export async function POST(request: NextRequest) {
   });
 
   const mailData = {
-    from: `"${data?.first_name} ${data?.second_name}" ${data?.email}`,
+    from: `"${data?.firstName} ${data?.secondName}" ${data?.email}`,
     to: "contact@sync.art",
-    subject: `Company:${data?.company} Phone:${data?.phone_number}`,
+    subject: `Company:${data?.company} Phone:${data?.phoneNumber}`,
     text: `${data?.message}`,
     auth: {
       user: "syncart0073@gmail.com",
