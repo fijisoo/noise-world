@@ -77,7 +77,7 @@ export const ContactTemplate = () => {
             />
           </div>
           <div className="flex flex-col">
-            <FormInput
+            <FormInputbg-brandWhite
               type="phone"
               errorMessage={errors?.phoneNumber?.message}
               registerFormElement={{ ...register("phoneNumber") }}
@@ -127,7 +127,7 @@ export const ContactTemplate = () => {
           </button>
         </div>
         {isSubmitted && (
-          <div className="flex w-full">We'll contact you soon!</div>
+          <div className="flex w-full">{`We'll contact you soon!`}</div>
         )}
       </form>
     </div>
