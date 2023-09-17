@@ -1,4 +1,3 @@
-const nodemailer = require("nodemailer");
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -7,32 +6,27 @@ export const revalidate = 0;
 export async function POST(request: NextRequest) {
   const data = await request.json();
 
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      type: "OAuth2",
-      clientId: process.env.GMAIL_CLIENT_ID,
-      clientSecret: process.env.GMAIL_CLIENT_SECRET,
-    },
-  });
-
-  const mailData = {
-    from: `"${data?.firstName} ${data?.secondName}" ${data?.email}`,
-    to: "contact@sync.art",
-    subject: `Company:${data?.company} Phone:${data?.phoneNumber}`,
-    text: `${data?.message}`,
-    auth: {
-      user: "syncart0073@gmail.com",
-      refreshToken: process.env.GMAIL_REFRESH_TOKEN,
-      accessToken: process.env.GMAIL_ACCESS_TOKEN,
-      expires: new Date().getTime(),
-    },
-  };
+  const { company, firstName, secondName, email, phoneNumber, message } = data;
 
   try {
-    await transporter.sendMail(mailData);
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(
+        {
+          formName: "Contact form",
+          subject: `Company:${company} Phone:${phoneNumber}`,
+          from: `"${firstName} ${secondName}" ${email}`,
+          message,
+          ["access_key"]: process.env.WEB3FORMS_KEY,
+        },
+        null,
+        2
+      ),
+    });
     return NextResponse.json({ message: "Message sent", success: true });
   } catch (error) {
     console.log(error);

@@ -11,10 +11,12 @@ export const ContactTemplate = () => {
     register,
     errors,
     isSubmitting,
-    isSubmitted,
-    isDirty,
+    isValid,
     onSubmit,
     control,
+    httpError,
+    isSending,
+    isSent,
   } = useContact();
 
   return (
@@ -121,14 +123,18 @@ export const ContactTemplate = () => {
         <div className="my-2 flex items-center text-xxs">
           <button
             type="submit"
-            className="flex w-full flex-grow-0 justify-center rounded-md bg-brandDark px-3 py-2 text-xxs font-bold text-white hover:bg-brandDarkHover disabled:cursor-not-allowed"
+            disabled={!isValid}
+            className={`${
+              !isValid ? "" : "disabled"
+            } flex w-full flex-grow-0 justify-center rounded-md bg-brandDark px-3 py-2 text-xxs font-bold text-white hover:bg-brandDarkHover disabled:cursor-not-allowed disabled:bg-brandDarkHover`}
           >
-            {isSubmitting ? "Please wait..." : "Lets talk"}
+            {isSubmitting || isSending ? "Please wait..." : "Lets talk"}
           </button>
         </div>
-        {isSubmitted && (
+        {isSent && !httpError && (
           <div className="flex w-full">{`We'll contact you soon!`}</div>
         )}
+        {!!httpError && <div className="flex w-full">{httpError}</div>}
       </form>
     </div>
   );
