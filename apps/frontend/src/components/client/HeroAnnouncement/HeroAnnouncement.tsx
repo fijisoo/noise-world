@@ -17,7 +17,7 @@ export const HeroAnnouncement = () => {
         </p>
         <b className="ml-1 flex shrink-0 justify-end font-bold">{`Read more ->`}</b>
       </span>
-      <span className="hidden w-fit rounded-full border border-black px-2 py-1 text-xxs md:flex">
+      <span className="hidden bg-brandWhite w-fit rounded-full border border-black px-2 py-1 text-xxs md:flex">
         {latestPostTitle?.title}.{" "}
         <b className="ml-1 font-bold">{`Read more ->`}</b>
       </span>

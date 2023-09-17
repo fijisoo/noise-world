@@ -2,9 +2,10 @@
 
 import { BlogCard } from "./BlogCard";
 import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+
 export const BlogListing = ({ queryRef }: any) => {
   const { data } = useReadQuery(queryRef);
-  const blogPosts = (data as any)?.strapi_blogs?.data
+  const blogPosts = (data as any)?.strapi_blogs?.data;
 
   return (
     <div className="flex flex-wrap gap-3">

@@ -114,7 +114,7 @@ export const GlobalLayout = ({ children }: any) => {
                   onClick={() => {
                     setIsMenuOpen((prev) => !prev);
                   }}
-                  className="-m-2.5 mt-2.5 flex rounded-md p-2.5 text-gray-700"
+                  className="-m-2.5 mt-[7px] flex rounded-md p-2.5 text-gray-700"
                 >
                   <span className="sr-only">Close menu</span>
                   <svg
