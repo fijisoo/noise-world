@@ -42,12 +42,12 @@ export const BlogTemplate = () => {
               itemScope
               itemType="https://schema.org/ListItem"
             >
-              <a className="flex flex-nowrap" itemProp="item" href="/blog">
+              <div className="flex flex-nowrap" itemProp="item">
                 <span className="flex pl-1 text-xs">/</span>
                 <span className="flex text-xs" itemProp="name">
                   Blog
                 </span>
-              </a>
+              </div>
               <meta itemProp="position" content="2" />
             </li>
           </ol>
