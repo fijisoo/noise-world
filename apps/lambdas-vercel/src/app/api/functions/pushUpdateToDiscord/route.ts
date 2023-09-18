@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
         fields: [
           {
             name: `NEW POST: ${data?.entry?.title}`,
-            value: `https://www.sync.art/blog/${data?.entry?.slug}`,
+            value: `https://www.sync.art/blog/${data?.entry?.id}-s:${data?.entry?.slug}`,
           },
         ],
       },
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     try {
       await client.v2.tweet({
-        text: `New blog post: https://www.sync.art/blog/${data?.entry?.slug}`,
+        text: `New blog post: https://www.sync.art/blog/${data?.entry?.id}-s:${data?.entry?.slug}`,
       });
     } catch (e) {
       console.error("COULD NOT POST TO TWITTER!", e);
