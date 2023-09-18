@@ -38,6 +38,7 @@
     "react-zdog": "^1.2.2",
     "tailwind-config": "workspace:*",
     "tailwindcss": "^3.3.2",
+    "twitter-api-v2": "^1.15.1",
     "ui": "workspace:*",
     "uid": "^2.0.2",
     "viem": "^1.10.8",

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import fetch from "node-fetch";
+import { TwitterApi } from "twitter-api-v2";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
@@ -25,11 +26,31 @@ export async function POST(request: NextRequest) {
     attachments: [],
   };
   try {
-    await fetch(webhookUri, {
-      method: "POST",
-      headers: customHeaders,
-      body: JSON.stringify(body),
+    try {
+      await fetch(webhookUri, {
+        method: "POST",
+        headers: customHeaders,
+        body: JSON.stringify(body),
+      });
+    } catch (e) {
+      console.error("COULD NO POST TO DISCORD!", e);
+    }
+
+    const client = new TwitterApi({
+      appKey: process.env.TWITTER_APP_KEY,
+      appSecret: process.env.TWITTER_APP_SECRET,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,
+      accessSecret: process.env.TWITTER_ACCESS_SECRET,
     });
+
+    try {
+      await client.v2.tweet({
+        text: `New blog post: https://www.sync.art/blog/${data?.entry?.slug}`,
+      });
+    } catch (e) {
+      console.error("COULD NOT POST TO TWITTER!", e);
+    }
+
     return NextResponse.json({
       body: JSON.stringify({ message: "MSSG SENT" }),
       headers: {
@@ -43,7 +64,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (e) {
     return NextResponse.json({
-      body: JSON.stringify({ message: "COULDNT SENT MSSG INTERNAL SERVER ERROR" }),
+      body: JSON.stringify({
+        message: "COULDNT SENT MSSG INTERNAL SERVER ERROR",
+      }),
       headers: {
         "Cache-Control": "no-cache",
         "CDN-Cache-Control": "no-cache",
