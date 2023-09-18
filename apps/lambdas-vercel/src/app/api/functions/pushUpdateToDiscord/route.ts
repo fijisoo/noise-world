@@ -4,7 +4,7 @@ import { TwitterApi } from "twitter-api-v2";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-  const webhookUri = process.env.DISCORD_WEBHOOK_URI;
+  const webhookUri = process.env.DISCORD_WEBHOOK_URI || "";
 
   const customHeaders = {
     "Content-Type": "application/json",
@@ -27,11 +27,12 @@ export async function POST(request: NextRequest) {
   };
   try {
     try {
-      await fetch(webhookUri, {
-        method: "POST",
-        headers: customHeaders,
-        body: JSON.stringify(body),
-      });
+      if (webhookUri)
+        await fetch(webhookUri, {
+          method: "POST",
+          headers: customHeaders,
+          body: JSON.stringify(body),
+        });
     } catch (e) {
       console.error("COULD NO POST TO DISCORD!", e);
     }
