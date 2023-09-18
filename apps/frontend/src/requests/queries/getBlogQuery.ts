@@ -16,14 +16,6 @@ export const GET_BLOG = gql`
           slug
           title
           description
-          featuredImage {
-            data {
-              attributes {
-                url
-                alternativeText
-              }
-            }
-          }
           content
           publishedAt
         }

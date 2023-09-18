@@ -9,14 +9,6 @@ export const GET_BLOG_POST = gql`
           slug
           title
           description
-          featuredImage {
-            data {
-              attributes {
-                alternativeText
-                url
-              }
-            }
-          }
           content
         }
       }

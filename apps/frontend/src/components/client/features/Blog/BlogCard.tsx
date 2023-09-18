@@ -2,14 +2,12 @@ import Image from "next/image";
 import { formatData } from "../../../../utils/strapiDataFormat";
 
 export const BlogCard = ({
-  featuredImage,
   publishedAt: dataISO8601,
   title,
   description,
   slug,
   id,
 }: any) => {
-  const { alternativeText, url } = featuredImage?.data?.attributes;
   const publishedAt = formatData(dataISO8601);
 
   return (
@@ -24,7 +22,7 @@ export const BlogCard = ({
             <div className="relative bottom-0 left-0 right-0 right-0 flex h-[90px] max-h-[90px] w-[170px] max-w-[170px] translate-x-[6px] translate-y-[6px]">
               <Image
                 src={"/blog-post-placeholder.png"} //`${process.env.NEXT_PUBLIC_API_CMS}${url}` ||
-                alt={alternativeText || "blog post"}
+                alt={"blog post"}
                 unoptimized
                 fill
                 placeholder="blur"

@@ -9,12 +9,10 @@ export const BlogPost = ({ queryRef }: any) => {
 
   const {
     title,
-    featuredImage,
     publishedAt: dataISO8601,
     content,
   } = (data as any)?.strapi_blog?.data?.attributes;
 
-  const { alternativeText, url } = featuredImage?.data?.attributes;
   const publishedAt = formatData(dataISO8601);
 
   return (
@@ -55,14 +53,14 @@ export const BlogPost = ({ queryRef }: any) => {
             <meta itemProp="position" content="2" />
           </li>
           <li
-            className="text-clip truncate"
+            className="truncate text-clip"
             itemProp="itemListElement"
             itemScope
             itemType="https://schema.org/ListItem"
           >
             <div className="flex flex-nowrap" itemProp="item">
               <span className="flex pl-1 text-xs">/</span>
-              <span className="text-xs text-clip truncate" itemProp="name">
+              <span className="truncate text-clip text-xs" itemProp="name">
                 {title}
               </span>
             </div>
@@ -74,7 +72,7 @@ export const BlogPost = ({ queryRef }: any) => {
         <div className="relative flex max-h-[300px] min-h-[150px] w-full min-w-[150px] max-w-[600px] md:min-h-[300px]">
           <Image
             src={"/blog-post-placeholder.png"} //`${process.env.NEXT_PUBLIC_API_CMS}${url}` ||
-            alt={alternativeText || "featured Image"}
+            alt={"featured Image"}
             fill
             style={{
               objectFit: "cover",
