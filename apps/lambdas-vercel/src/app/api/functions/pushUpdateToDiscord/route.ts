@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       appSecret: process.env.TWITTER_APP_SECRET,
       accessToken: process.env.TWITTER_ACCESS_TOKEN,
       accessSecret: process.env.TWITTER_ACCESS_SECRET,
-    });
+    } as any);
 
     try {
       await client.v2.tweet({
