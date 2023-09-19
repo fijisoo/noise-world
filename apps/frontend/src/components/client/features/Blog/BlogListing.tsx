@@ -1,10 +1,9 @@
-"use client";
-
 import { BlogCard } from "./BlogCard";
-import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { getBlogListing } from "../../../../requests/actions/getBlogListing";
 
-export const BlogListing = ({ queryRef }: any) => {
-  const { data } = useReadQuery(queryRef);
+export const BlogListing = async () => {
+  const { data } = await getBlogListing();
+
   const blogPosts = (data as any)?.strapi_blogs?.data;
 
   return (

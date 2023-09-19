@@ -1,11 +1,11 @@
 "use server";
 
-import { GET_BLOG_POST } from "../queries/getBlogPost";
+import { GET_LANGUAGES_QUERY } from "../queries/getLanguagesListQuery";
 
-export async function getBlogPost({ id }: any) {
+export async function getLanguages() {
   return await fetch(process.env.NEXT_PUBLIC_API_GATEWAY_URL!, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query: GET_BLOG_POST, variables: { id } }),
+    body: JSON.stringify({ query: GET_LANGUAGES_QUERY }),
   }).then((data) => data.json());
 }

@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const GET_BLOG_POST = gql`
+export const GET_BLOG_POST = `
   query getBlogPost($id: ID!) {
     strapi_blog(id: $id) {
       data {
@@ -10,6 +8,15 @@ export const GET_BLOG_POST = gql`
           title
           description
           content
+          keywords
+          featuredImage{
+              data{
+                attributes{
+                  alternativeText
+                  url
+                }
+              }
+          }
         }
       }
     }

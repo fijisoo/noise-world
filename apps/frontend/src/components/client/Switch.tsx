@@ -2,8 +2,6 @@ import { Switch as SwitchHeadlessUI } from "@headlessui/react";
 
 export const Switch = ({ value, id, onChange }: any) => {
 
-  console.log(value)
-
   return (
     <SwitchHeadlessUI
       checked={value}

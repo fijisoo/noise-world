@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const GET_MANIFEST_VERSIONS_COMPARISON = gql`
+export const GET_MANIFEST_VERSIONS_COMPARISON = `
   query getManifestVersionsComparison($locale: strapi_I18NLocaleCode!) {
     xManifesto: strapi_manifestoIntls(locale: $locale) {
       data {

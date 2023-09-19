@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const GET_LATEST_BLOG = gql`
+export const GET_LATEST_BLOG = `
     query getLatestBlog {
         strapi_blogs(sort: "createdAt:desc", pagination: { limit: 1 }) {
             data {

@@ -1,11 +1,8 @@
-"use client";
 import ReactMarkdown from "react-markdown";
-import "./github-markdown.css";
+import "./../../../../styles/github-markdown.css";
 
-import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-
-export const Manifesto = ({ queryRef }: any) => {
-  const { data } = useReadQuery(queryRef);
+export const Manifesto = ({ manifesto }: any) => {
+  const data = manifesto?.data;
   const manifestoText = (data as any)?.strapi_manifestoIntls?.data?.[0]
     ?.attributes?.manifesto_text;
 

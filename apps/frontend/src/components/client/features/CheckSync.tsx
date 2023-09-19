@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { i18n } from "../../../../i18n-config";
 
-export const CheckSync = ({ lang, queryRef, refetchManifestoText }: any) => {
+export const CheckSync = ({
+  manifestoDiff,
+  lang,
+  patchManifestoAndRevalidate,
+}: any) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { data } = useReadQuery(queryRef);
+  const data = manifestoDiff?.data;
 
-  const toExtract = data as any;
-
-  const { enManifesto: enManifestoData, xManifesto: xManifestoData } =
-    toExtract || { enManifesto: null, xManifesto: null };
+  const { enManifesto: enManifestoData, xManifesto: xManifestoData } = data || {
+    enManifesto: null,
+    xManifesto: null,
+  };
 
   const ejectFromData = (data: any) => {
     return data?.data?.[0]?.attributes?.version;
@@ -23,10 +26,9 @@ export const CheckSync = ({ lang, queryRef, refetchManifestoText }: any) => {
 
   const handleSync = async () => {
     setIsLoading(true);
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_FUNCTIONS_URL}pushManifestIntlToStrapi?locale=${lang}`
-    ).then((data) => {
-      refetchManifestoText();
+    await patchManifestoAndRevalidate({
+      lang,
+    }).then(() => {
       setIsLoading(false);
     });
   };
@@ -44,7 +46,7 @@ export const CheckSync = ({ lang, queryRef, refetchManifestoText }: any) => {
   }
 
   return (
-    <div className="text-xs ml-4 inline-block">
+    <div className="ml-4 inline-block text-xs">
       {checkIfStale ? (
         <button onClick={handleSync}>
           {isLoading ? "please wait..." : "sync!"}

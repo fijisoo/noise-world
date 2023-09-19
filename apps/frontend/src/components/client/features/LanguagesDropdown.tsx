@@ -1,12 +1,10 @@
-"use client";
-
 import { Dropdown } from "./Dropdown";
-import { useReadQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { i18n } from "../../../../i18n-config";
 import Link from "next/link";
 
-export const LanguagesDropdown = ({ lang, queryRef }: any) => {
-  const { data } = useReadQuery(queryRef);
+export const LanguagesDropdown = async ({ languages, lang }: any) => {
+
+  const data = languages.data;
 
   const filteredDefault = (data as any)?.strapi_i18NLocales?.data?.filter(
     (el: any) => el.attributes.code === lang

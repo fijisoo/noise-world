@@ -1,15 +1,8 @@
-"use client";
-
 import { BlogListing } from "../client/features/Blog/BlogListing";
-import { GET_BLOG } from "../../requests/queries/getBlogQuery";
-import { useBackgroundQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import Image from "next/image";
-
 export const BlogTemplate = () => {
-  const [blogQuery] = useBackgroundQuery(GET_BLOG);
-
   return (
     <div className="flex flex-col">
       <div className="flex">
@@ -59,7 +52,7 @@ export const BlogTemplate = () => {
         <Suspense
           fallback={<div className="text-xxs text-black">Loading...</div>}
         >
-          <BlogListing queryRef={blogQuery} />
+          <BlogListing />
         </Suspense>
       </ErrorBoundary>
     </div>

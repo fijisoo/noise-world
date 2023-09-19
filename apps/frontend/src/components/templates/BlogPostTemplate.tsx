@@ -1,19 +1,8 @@
-"use client";
-
-import { useBackgroundQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { BlogPost } from "../client/features/Blog/BlogPost";
-import { GET_BLOG_POST } from "../../requests/queries/getBlogPost";
+import { getBlogPost } from "../../requests/actions/getBlogPost";
 
-export const BlogPostTemplate = ({ slug }: any) => {
+export const BlogPostTemplate = async ({ slug }: any) => {
   const id = slug.slice("-s:")[0];
-
-  const [blogPostQuery] = useBackgroundQuery(GET_BLOG_POST, {
-    queryKey: `getBlogPost-${slug}`,
-    variables: {
-      id,
-    },
-    fetchPolicy: "cache-first",
-  });
-
-  return <BlogPost queryRef={blogPostQuery} />;
+  const data = await getBlogPost({ id });
+  return <BlogPost data={data?.data} />;
 };

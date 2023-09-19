@@ -1,63 +1,39 @@
-"use client";
-
-import { Manifesto } from "../client/features/Manifesto";
-import { CheckSync } from "../client/features/CheckSync";
 import { Suspense } from "react";
 import { LanguagesDropdown } from "../client/features/LanguagesDropdown";
 import { ErrorBoundary } from "react-error-boundary";
-import { GET_LANGUAGES_QUERY } from "../../requests/queries/getLanguagesListQuery";
-import { useBackgroundQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { GET_MANIFEST_VERSIONS_COMPARISON } from "../../requests/queries/getManifestVersionsComparisonQuery";
-import { i18n } from "../../../i18n-config";
-import { GET_MANIFEST_TEXT } from "../../requests/queries/getManifestTextQuery";
 
-export const ManifestoTemplate = ({ lang }: any) => {
-  const [languagesQuery] = useBackgroundQuery(GET_LANGUAGES_QUERY, {
-    queryKey: `languages-${lang}`,
-    fetchPolicy: "cache-first",
-  });
+import dynamic from "next/dynamic";
+import { getManifestoDiff } from "../../requests/actions/getManifestoDiff";
+import { getLanguages } from "../../requests/actions/getLanguages";
+import { getManifestoText } from "../../requests/actions/getManifestoText";
+import { CheckSync } from "../client/features/CheckSync";
+import { patchManifestoAndRevalidate } from "../../requests/actions/patchManifestoAndRevalidate";
 
-  const [manifestoVersionsComparisonQuery] = useBackgroundQuery(
-    GET_MANIFEST_VERSIONS_COMPARISON,
-    {
-      queryKey: `manifestoVersions-${lang}`,
-      variables: {
-        locale: lang as any,
-        defaultLocale: i18n.defaultLocale as any,
-      },
-      fetchPolicy: "cache-first",
-    }
-  );
+const Manifesto = dynamic(() =>
+  import("../client/features/Manifesto").then((data) => data.Manifesto)
+);
 
-  const [manifestTextQuery, { refetch: refetchManifestoText }] =
-    useBackgroundQuery(GET_MANIFEST_TEXT, {
-      queryKey: `manifestText-${lang}`,
-      variables: {
-        locale: lang as any,
-      },
-      fetchPolicy: "cache-first",
-    });
+export const ManifestoTemplate = async ({ lang }: any) => {
+  const manifestoDiffData = getManifestoDiff({ lang });
+  const languagesData = getLanguages();
+  const manifestoData = getManifestoText({ lang });
+
+  const [manifestoDiff, languages, manifesto] = await Promise.all([
+    manifestoDiffData,
+    languagesData,
+    manifestoData,
+  ]);
 
   return (
     <div className="flex flex-col">
       <div className="z-11 mb-6 w-full items-start justify-between font-mono lg:mb-4 lg:flex">
         <div className="w-auto items-center justify-start gap-3 lg:flex">
-          <ErrorBoundary
-            fallback={<div className="text-xxs text-black">Couldnt load data</div>}
-          >
-            <Suspense fallback={<div className="text-xxs text-black">Loading...</div>}>
-              <LanguagesDropdown lang={lang} queryRef={languagesQuery} />
-            </Suspense>
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<div>Couldnt load data</div>}>
-            <Suspense fallback={<div className="text-xxs text-black">Loading...</div>}>
-              <CheckSync
-                lang={lang}
-                queryRef={manifestoVersionsComparisonQuery}
-                refetchManifestoText={refetchManifestoText}
-              />
-            </Suspense>
-          </ErrorBoundary>
+          <LanguagesDropdown languages={languages} lang={lang} />
+          <CheckSync
+            manifestoDiff={manifestoDiff}
+            lang={lang}
+            patchManifestoAndRevalidate={patchManifestoAndRevalidate}
+          />
         </div>
       </div>
       <div className="z-5 mb-4 flex flex-col gap-4 pt-4">
@@ -93,7 +69,7 @@ export const ManifestoTemplate = ({ lang }: any) => {
           <div className="flex rounded-md bg-[#D9D9D9] px-8 py-10">
             <ErrorBoundary fallback={<div>Couldnt load data</div>}>
               <Suspense fallback={<div className="text-black">Loading...</div>}>
-                <Manifesto queryRef={manifestTextQuery} />
+                <Manifesto manifesto={manifesto} />
               </Suspense>
             </ErrorBoundary>
           </div>

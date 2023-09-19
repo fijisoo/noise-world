@@ -7,8 +7,10 @@ export const BlogCard = ({
   description,
   slug,
   id,
+  featuredImage,
 }: any) => {
   const publishedAt = formatData(dataISO8601);
+  const featuredImageUrl = featuredImage?.data?.attributes?.url;
 
   return (
     <a
@@ -21,9 +23,8 @@ export const BlogCard = ({
             <div className="absolute flex h-[90px] w-[170px] bg-brandDark" />
             <div className="relative bottom-0 left-0 right-0 right-0 flex h-[90px] max-h-[90px] w-[170px] max-w-[170px] translate-x-[6px] translate-y-[6px]">
               <Image
-                src={"/blog-post-placeholder.png"} //`${process.env.NEXT_PUBLIC_API_CMS}${url}` ||
+                src={featuredImageUrl || "/blog-post-placeholder.png"}
                 alt={"blog post"}
-                unoptimized
                 fill
                 placeholder="blur"
                 blurDataURL="/blog-post-placeholder.png"

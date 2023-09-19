@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const GET_LANGUAGES_QUERY = gql`
+export const GET_LANGUAGES_QUERY = `
   query LanguagesList {
     strapi_i18NLocales {
       data {
