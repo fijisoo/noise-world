@@ -25,12 +25,14 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    await connectToMongoDB('QrCodes');
+    await connectToMongoDB("QrCodes");
     try {
       const qrCodeSchema = new mongoose.Schema(QrCodeSchemaData, {
         collection: collectionName,
       });
-      const QrCodesModel = mongoose.models[collectionName] || mongoose.model(collectionName, qrCodeSchema);
+      const QrCodesModel =
+        mongoose.models[collectionName] ||
+        mongoose.model(collectionName, qrCodeSchema);
       await QrCodesModel.createCollection({
         capped: true,
         size: 1048576,
@@ -66,5 +68,10 @@ export async function POST(request: NextRequest) {
         success: false,
       });
     }
-  } catch (e) {}
+  } catch (e) {
+    return NextResponse.json({
+      message: `General error while populateQRCodes: ${e}`,
+      success: false,
+    });
+  }
 }
