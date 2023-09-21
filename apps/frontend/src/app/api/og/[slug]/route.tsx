@@ -1,9 +1,7 @@
 import { NextRequest, ImageResponse } from "next/server";
 import { getBlogPost } from "../../../../requests/actions/getBlogPost";
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
