@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
 
   if (!ogImageExternalUrl && !ogImageInternalUrl) {
     return defaultOfImageGenerator(
-      featuredImageUrl || "http://localhost:3020/og-blog-post.png",
+      featuredImageUrl || "http://sync.art/og-blog-post.png",
       markup,
       title
     );
