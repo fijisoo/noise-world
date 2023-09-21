@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         url: `https://www.sync.art/blog/${data?.entry?.id}-s:${data?.entry?.slug}`,
         color: 16774400,
         image: {
-          url: `https://www.sync.art/api/og/${data?.entry?.id}-s:${data?.entry?.slug}`,
+          url: `https://www.sync.art/api/og/${data?.entry?.id}-s:${data?.entry?.slug}.png`,
         },
       },
     ],
