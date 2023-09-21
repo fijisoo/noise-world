@@ -10,7 +10,6 @@ export async function GET(req: NextRequest) {
   const { pathname } = url;
   const slug = pathname.split("/")[3];
   const id = slug.slice("-s:" as any)[0];
-
   const { data } = await getBlogPost({ id: id });
 
   const {
