@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: `http://localhost:3020/api/og/${params.slug}`,
+      url: `https://sync.art/api/og/${params.slug}`,
       title: site.name,
       description: site.description,
       siteName: site.name,
