@@ -45,8 +45,27 @@ export async function POST(request: NextRequest) {
     } as any);
 
     try {
+      const newKeywords = data?.entry?.keywords
+        .split(",")
+        .map((el: string) => el.trim());
+
+      const hashTags =
+        "#" +
+        newKeywords
+          .map((el) =>
+            el
+              .split(/[-\s]+/)
+              .map((el2, index) =>
+                index > 0 ? el2.charAt(0).toUpperCase() + el2.slice(1) : el2
+              )
+              .join("")
+          )
+          .join(" #");
+
       await client.v2.tweet({
-        text: `New blog post: https://www.sync.art/blog/${data?.entry?.id}-s:${data?.entry?.slug}`,
+        text: `
+         ${data?.entry?.description}\n\nRead more!\n${hashTags}\n
+         https://www.sync.art/blog/${data?.entry?.id}-s:${data?.entry?.slug}`,
       });
     } catch (e) {
       console.error("COULD NOT POST TO TWITTER!", e);

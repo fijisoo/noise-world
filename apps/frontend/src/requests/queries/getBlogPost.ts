@@ -9,6 +9,15 @@ export const GET_BLOG_POST = `
           description
           content
           keywords
+          ogImageExternalUrl
+          ogImageInternalUrl {
+              data {
+                attributes{
+                  alternativeText
+                  url
+                }
+              }
+          }
           featuredImage{
               data{
                 attributes{

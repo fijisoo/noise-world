@@ -50,7 +50,7 @@ export const HeroCardSection = () => {
             <p className="flex flex-col px-3 py-4 text-xxs text-white">
               You can easily scan your QR code with your smartphone camera and
               receive unique ID which after the login process you able to put on
-              a page collection.sync.art. This will allow you to mint NFT.
+              a page sync.art/mint. This will allow you to mint NFT.
             </p>
           }
           sideTextElement={
