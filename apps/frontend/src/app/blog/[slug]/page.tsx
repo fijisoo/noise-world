@@ -37,6 +37,19 @@ export async function generateMetadata({ params }: any) {
       shortcut: "/icon.png",
       apple: "/icon.png",
     },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        "max-video-preview": "none",
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
   };
 }
 
