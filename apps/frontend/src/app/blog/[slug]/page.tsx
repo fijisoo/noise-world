@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: any) {
       title: `${title} || ${site.name}`,
       description: description,
       siteName: site.name,
+      image: `https://sync.art/api/og/${params.slug}`,
     },
     twitter: {
       card: "summary_large_image",
