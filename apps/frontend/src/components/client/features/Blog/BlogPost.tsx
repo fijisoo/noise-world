@@ -5,10 +5,16 @@ import "./../../../../styles/github-markdown.css";
 
 export const BlogPost = ({ data }: any) => {
   const {
-    title,
-    publishedAt: dataISO8601,
-    content,
-    featuredImage,
+    title = "",
+    publishedAt: dataISO8601 = "",
+    content = "",
+    featuredImage = {
+      data: {
+        attributes: {
+          url: "",
+        },
+      },
+    },
   } = (data as any)?.strapi_blog?.data?.attributes;
   const featuredImageUrl = featuredImage?.data?.attributes?.url;
 

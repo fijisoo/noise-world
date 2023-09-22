@@ -6,8 +6,11 @@ export async function generateMetadata({ params }: any) {
   const id = params.slug.slice("-s:")[0];
   const { data } = await getBlogPost({ id });
 
-  const { keywords, description, title } = (data as any)?.strapi_blog?.data
-    ?.attributes;
+  const {
+    keywords = "",
+    description = "",
+    title = "",
+  } = (data as any)?.strapi_blog?.data?.attributes;
 
   const parsedKeywords = keywords.split(",").map((el: string) => el.trim());
 
