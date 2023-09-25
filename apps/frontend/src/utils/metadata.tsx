@@ -6,7 +6,8 @@ export const metadataShared = {
   icon: ["./icon.ico"],
   keywords: [
     "art",
-    "concert",
+    "nft",
+    "event",
     "web3",
     "decentralization",
     "festival",
@@ -15,11 +16,11 @@ export const metadataShared = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://sync.art/og-main.png",
+    url: site.ogImage,
     title: site.name,
     description: site.description,
     siteName: site.name,
-    images: ["https://sync.art/og-main.png"],
+    images: [site.ogImage],
   },
   twitter: {
     card: "summary_large_image",
