@@ -15,11 +15,11 @@ export const metadataShared = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://sync.art/og-syncart.png",
+    url: "https://sync.art/og-main.png",
     title: site.name,
     description: site.description,
     siteName: site.name,
-    images: ["https://sync.art/og-syncart.png"],
+    images: ["https://sync.art/og-main.png"],
   },
   twitter: {
     card: "summary_large_image",
