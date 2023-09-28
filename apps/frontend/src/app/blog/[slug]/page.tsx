@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "error";
 
 export default function Page({ params: { slug } }: any) {
   return <BlogPostTemplate slug={slug} />;

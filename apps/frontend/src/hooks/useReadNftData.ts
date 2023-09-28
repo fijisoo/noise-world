@@ -13,7 +13,7 @@ export const useReadNftData = (contractAddress: any, nftName: any) => {
     functionName: nftName && contractAddress ? "uri" : "",
     watch: true,
     args: [nftName] as any,
-  });
+  } as any);
 
   useEffect(() => {
     const getData = async () => {
