@@ -49,14 +49,23 @@
       "type": "string"
     },
     "ogImageInternalUrl": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "chatGPT": {
+      "type": "customField",
+      "customField": "plugin::ai-text-generation.text-ai"
+    },
+    "onlyForSEO": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

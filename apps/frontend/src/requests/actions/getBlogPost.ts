@@ -7,5 +7,6 @@ export async function getBlogPost({ id }: any) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query: GET_BLOG_POST, variables: { id } }),
-  }).then((data) => data.json());
+    next: { tags: [`blog-id-${id}`] },
+  } as any).then((data) => data.json());
 }

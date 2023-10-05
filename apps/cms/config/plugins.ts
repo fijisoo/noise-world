@@ -1,4 +1,11 @@
 export default {
+  "ai-text-generation": {
+    enabled: true,
+    config: {
+      apiToken: process.env.OPEN_AI_API_TOKEN,
+    },
+    resolve: "./src/plugins/ai-text-generation",
+  },
   graphql: {
     config: {
       endpoint: "/graphql",
@@ -24,6 +31,15 @@ export default {
       actionOptions: {
         upload: {},
         delete: {},
+      },
+    },
+  },
+  ckeditor: {
+    enabled: true,
+    config: {
+      plugin: {},
+      editor: {
+        removePlugins: [""],
       },
     },
   },
