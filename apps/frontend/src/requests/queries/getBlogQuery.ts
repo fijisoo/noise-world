@@ -1,6 +1,6 @@
 export const GET_BLOG = `
   query getBlog {
-    strapi_blogs {
+    strapi_blogs (sort: "id:DESC") {
       meta {
         pagination {
           total

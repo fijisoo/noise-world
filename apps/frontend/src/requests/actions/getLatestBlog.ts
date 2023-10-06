@@ -7,5 +7,6 @@ export async function getLatestBlog() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query: GET_LATEST_BLOG }),
-  }).then((data) => data.json());
+    next: { revalidate: 86400 },
+  } as any).then((data) => data.json());
 }

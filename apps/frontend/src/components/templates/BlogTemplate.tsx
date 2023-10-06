@@ -2,6 +2,7 @@ import { BlogListing } from "../client/features/Blog/BlogListing";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import Image from "next/image";
+
 export const BlogTemplate = () => {
   return (
     <div className="flex flex-col">

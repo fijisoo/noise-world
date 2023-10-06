@@ -7,5 +7,6 @@ export async function getBlogListing() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query: GET_BLOG }),
-  }).then((data) => data.json());
+    next: { revalidate: 86400 },
+  } as any).then((data) => data.json());
 }
