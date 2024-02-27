@@ -40,7 +40,7 @@
     "netlify-cli": "^15.8.0"
   },
   "resolutions": {
-    "graphql": "16.6.0"
+    "graphql": "15.5.1"
   },
   "packageManager": "yarn@1.22.19"
 }
