@@ -20,9 +20,6 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
     "featuredImage": {
       "type": "media",
       "multiple": false,
@@ -33,17 +30,6 @@
         "videos",
         "audios"
       ]
-    },
-    "keywords": {
-      "type": "string"
-    },
-    "content": {
-      "type": "customField",
-      "options": {
-        "output": "Markdown",
-        "preset": "rich"
-      },
-      "customField": "plugin::ckeditor.CKEditor"
     },
     "ogImageExternalUrl": {
       "type": "string"
@@ -59,13 +45,28 @@
         "audios"
       ]
     },
-    "chatGPT": {
-      "type": "customField",
-      "customField": "plugin::ai-text-generation.text-ai"
-    },
     "onlyForSEO": {
       "type": "boolean",
       "default": true
+    },
+    "description": {
+      "type": "customField",
+      "customField": "plugin::ai-text-generation-description.text-ai"
+    },
+    "keywords": {
+      "type": "customField",
+      "customField": "plugin::ai-text-generation-keywords.text-ai"
+    },
+    "content": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "rich"
+      },
+      "customField": "plugin::ckeditor.CKEditor"
+    },
+    "prompt": {
+      "type": "text"
     }
   }
 }

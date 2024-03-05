@@ -1,10 +1,24 @@
 export default {
-  "ai-text-generation": {
+  "ckeditor": {
     enabled: true,
     config: {
       apiToken: process.env.OPEN_AI_API_TOKEN,
     },
-    resolve: "./src/plugins/ai-text-generation",
+    resolve: "./src/plugins/ckeditor",
+  },
+  "ai-text-generation-description": {
+    enabled: true,
+    config: {
+      apiToken: process.env.OPEN_AI_API_TOKEN,
+    },
+    resolve: "./src/plugins/ai-text-generation-description",
+  },
+  "ai-text-generation-keywords": {
+    enabled: true,
+    config: {
+      apiToken: process.env.OPEN_AI_API_TOKEN,
+    },
+    resolve: "./src/plugins/ai-text-generation-keywords",
   },
   graphql: {
     config: {
@@ -31,15 +45,6 @@ export default {
       actionOptions: {
         upload: {},
         delete: {},
-      },
-    },
-  },
-  ckeditor: {
-    enabled: true,
-    config: {
-      plugin: {},
-      editor: {
-        removePlugins: [""],
       },
     },
   },

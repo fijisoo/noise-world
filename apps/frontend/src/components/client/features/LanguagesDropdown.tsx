@@ -14,7 +14,7 @@ export const LanguagesDropdown = async ({ languages, lang }: any) => {
     (el: any) => i18n.locales?.includes(el.attributes.code)
   );
 
-  const parsedData = availableLocales.map((el: any) => {
+  const parsedData = availableLocales?.map((el: any) => {
     return {
       name: el.attributes.name,
       href: `/${el.attributes.code}/manifesto`,
