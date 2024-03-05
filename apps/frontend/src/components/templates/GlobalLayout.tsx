@@ -48,9 +48,9 @@ export const GlobalLayout = ({ children }: any) => {
               </a>
             </div>
             <div className="ml-[20px] hidden lg:flex lg:gap-x-12">
-              <NavItem href="/en/manifesto" text="Manifesto" />
-              <NavItem href="/blog" text="Blog" />
-              <NavItem href="/mint" text="Live Stamps" />
+              <NavItem href="/en/manifesto" text="Manifesto" isDisabled />
+              <NavItem href="/blog" text="Blog" isDisabled />
+              <NavItem href="/live" text="Live" isDisabled />
               <NavItem href="/contact" text="Contact" />
               {isConnected && address && (
                 <NavItem href="/collection" text="Your collection" />
