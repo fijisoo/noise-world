@@ -44,6 +44,9 @@ sources:
         selectQueryOrMutationField:
           - fieldName: "TranslateText" # OAS field name
             type: Query # switch method GET from default Mutation into Query
+        operationHeaders:
+          Authorization: Bearer {env.DEEPL_ACCESS_TOKEN}
+          User-Agent: GraphQL Mesh
     transforms:
       - prefix:
           value: deepl_translation_
