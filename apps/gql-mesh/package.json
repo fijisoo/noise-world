@@ -9,13 +9,13 @@
     "dev": "mesh dev"
   },
   "dependencies": {
-    "@graphql-mesh/cache-localforage": "0.93.1",
-    "@graphql-mesh/cli": "0.82.35",
-    "@graphql-mesh/graphql": "^0.94.2",
-    "@graphql-mesh/openapi": "^0.94.6",
-    "@graphql-mesh/plugin-http-details-extensions": "^0.94.2",
-    "@graphql-mesh/transform-prefix": "0.94.2",
-    "deepl-node": "^1.10.2",
+    "@graphql-mesh/cache-localforage": "^0.97.0",
+    "@graphql-mesh/cli": "^0.89.0",
+    "@graphql-mesh/graphql": "^0.97.0",
+    "@graphql-mesh/openapi": "^0.99.0",
+    "@graphql-mesh/plugin-http-details-extensions": "^0.97.0",
+    "@graphql-mesh/transform-prefix": "^0.97.0",
+    "deepl-node": "^1.12.0",
     "graphql": "^16.6.0"
   },
   "resolutions": {
