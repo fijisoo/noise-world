@@ -1,14 +1,13 @@
 openapi: 3.0.3
 info:
   title: DeepL API Documentation
-  description:
-    The DeepL API provides programmatic access to DeepL’s machine translation
+  description: The DeepL API provides programmatic access to DeepL’s machine translation
     technology.
   termsOfService: https://www.deepl.com/pro-license/
   contact:
     name: DeepL - Contact us
     url: https://www.deepl.com/contact-us
-  version: 2.11.0
+  version: 2.12.0
 externalDocs:
   description: DeepL Pro - Plans and pricing
   url: https://www.deepl.com/pro#developer?cta=header-prices/
@@ -21,29 +20,30 @@ tags:
   - name: TranslateText
     description: |-
       The text-translation API currently consists of a single endpoint, `translate`, which is described below.
-
+      
       To learn more about context in DeepL API translations, we recommend [this article](https://www.deepl.com/docs-api/general/working-with-context).
   - name: TranslateDocuments
     description: |-
       The document translation API allows you to translate whole documents and supports the following file types and extensions:
         * `docx` - Microsoft Word Document
         * `pptx` - Microsoft PowerPoint Document
+        * `xlsx` - Microsoft Excel Document
         * `pdf` - Portable Document Format
         * `htm / html` - HTML Document
         * `txt` - Plain Text Document
         * `xlf / xliff` - XLIFF Document, version 2.1
-
-      Please note that with every submitted document of type .pptx, .docx, or .pdf,
+      
+      Please note that with every submitted document of type .pptx, .docx, .xlsx, or .pdf,
       you are billed a minimum of 50,000 characters with the DeepL API plan,
       no matter how many characters are included in the document.
-
-
+      
+      
       Translating a document usually involves three types of HTTP requests:
         - [upload](https://www.deepl.com/docs-api/documents/translate-document) the document to be translated,
         - periodically [check the status](https://www.deepl.com/docs-api/documents/get-document-status) of the document translation,
         - once the status call reports `done`, [download](https://www.deepl.com/docs-api/documents/download-document) the translated document.
-
-
+      
+      
       To learn more about context in DeepL API translations, we recommend [this article](https://www.deepl.com/docs-api/general/working-with-context).
   - name: ManageGlossaries
     description: |-
@@ -51,38 +51,39 @@ tags:
       Glossaries created with the glossary function can be used in translate requests by specifying the
       `glossary_id` parameter.
       If you encounter issues, please let us know at support@DeepL.com.
-
+      
       The DeepL API supports glossaries in any combination of two languages from the following list, enabling a total of
-      55 possible glossary language pairs:
-
+      66 possible glossary language pairs:
+      
       - DE (German)
       - EN (English)
       - ES (Spanish)
       - FR (French)
       - IT (Italian)
       - JA (Japanese)
+      - KO (Korean)
       - NL (Dutch)
       - PL (Polish)
       - PT (Portuguese)
       - RU (Russian)
       - ZH (Chinese)
-
+      
       The maximum size limit for a glossary is 10 MiB = 10485760 bytes and each source/target text,
       as well as the name of the glossary, is limited to 1024 UTF-8 bytes.
       A total of 1000 glossaries are allowed per account.
-
+      
       When creating a glossary with target language `EN` or `PT`, it's not necessary to specify a variant (e.g. `EN-US`, `EN-GB`, `PT-PT` or `PT-BR`).
       Glossaries with target language `EN` can be used in translations with either English variant.
       Similarly `PT` glossaries can be used in translations with either Portuguese variant.
-
-
+      
+      
       Glossaries created via the DeepL API are distinct from glossaries created via the DeepL website and DeepL apps.
       This means API glossaries cannot be used on the website and vice versa.
-
-
-
+      
+      
+      
       Note that glossaries are immutable: once created, the glossary entries for a given glossary ID cannot be modified.
-
+      
       As a workaround for effectively editable glossaries, we suggest to identify glossaries by name instead of ID in your application
       and then use the following procedure for modifications:
       - [download](https://www.deepl.com/docs-api/glossaries/get-glossary-entries) and store the current glossary's entries,
@@ -126,33 +127,35 @@ paths:
                     type: string
                     example: Hello, World!
                 source_lang:
-                  $ref: "#/components/schemas/SourceLanguage"
+                  $ref: '#/components/schemas/SourceLanguageText'
                 target_lang:
-                  $ref: "#/components/schemas/TargetLanguage"
+                  $ref: '#/components/schemas/TargetLanguageText'
+                context:
+                  $ref: '#/components/schemas/Context'
                 split_sentences:
-                  $ref: "#/components/schemas/SplitSentencesOption"
+                  $ref: '#/components/schemas/SplitSentencesOption'
                 preserve_formatting:
-                  $ref: "#/components/schemas/PreserveFormattingOption"
+                  $ref: '#/components/schemas/PreserveFormattingOption'
                 formality:
-                  $ref: "#/components/schemas/Formality"
+                  $ref: '#/components/schemas/Formality'
                 glossary_id:
                   allOf:
-                    - $ref: "#/components/schemas/GlossaryId"
+                    - $ref: '#/components/schemas/GlossaryId'
                     - description: |-
                         Specify the glossary to use for the translation. **Important:** This requires the `source_lang`
                         parameter to be set and the language pair of the glossary has to match the language pair of the
                         request.
                       type: string
                 tag_handling:
-                  $ref: "#/components/schemas/TagHandlingOption"
+                  $ref: '#/components/schemas/TagHandlingOption'
                 outline_detection:
-                  $ref: "#/components/schemas/OutlineDetectionOption"
+                  $ref: '#/components/schemas/OutlineDetectionOption'
                 non_splitting_tags:
-                  $ref: "#/components/schemas/NonSplittingTagList"
+                  $ref: '#/components/schemas/NonSplittingTagList'
                 splitting_tags:
-                  $ref: "#/components/schemas/SplittingTagList"
+                  $ref: '#/components/schemas/SplittingTagList'
                 ignore_tags:
-                  $ref: "#/components/schemas/IgnoreTagList"
+                  $ref: '#/components/schemas/IgnoreTagList'
           application/x-www-form-urlencoded:
             examples:
               Basic:
@@ -168,7 +171,7 @@ paths:
                     - Hello, world!
                   target_lang: DE
                   source_lang: EN
-                  glossary_id: "[yourGlossaryId]"
+                  glossary_id: '[yourGlossaryId]'
               MultipleSentences:
                 summary: Multiple Sentences
                 value:
@@ -190,8 +193,7 @@ paths:
                 - target_lang
               properties:
                 text:
-                  description:
-                    Text to be translated. Only UTF-8-encoded plain text
+                  description: Text to be translated. Only UTF-8-encoded plain text
                     is supported. The parameter may be specified multiple times and
                     translations are returned in the same order as they are requested.
                     Each of the parameter values may contain multiple sentences.
@@ -199,40 +201,40 @@ paths:
                   items:
                     type: string
                 source_lang:
-                  $ref: "#/components/schemas/SourceLanguage"
+                  $ref: '#/components/schemas/SourceLanguageText'
                 target_lang:
-                  $ref: "#/components/schemas/TargetLanguage"
+                  $ref: '#/components/schemas/TargetLanguageText'
+                context:
+                  $ref: '#/components/schemas/Context'
                 split_sentences:
-                  $ref: "#/components/schemas/SplitSentencesOption"
+                  $ref: '#/components/schemas/SplitSentencesOption'
                 preserve_formatting:
-                  $ref: "#/components/schemas/PreserveFormattingOptionStr"
+                  $ref: '#/components/schemas/PreserveFormattingOptionStr'
                 formality:
-                  $ref: "#/components/schemas/Formality"
+                  $ref: '#/components/schemas/Formality'
                 glossary_id:
                   allOf:
-                    - $ref: "#/components/schemas/GlossaryId"
-                  description:
-                    Specify the glossary to use for the translation. **Important:**
+                    - $ref: '#/components/schemas/GlossaryId'
+                  description: Specify the glossary to use for the translation. **Important:**
                     This requires the `source_lang` parameter to be set and the language
                     pair of the glossary has to match the language pair of the request.
                 tag_handling:
-                  $ref: "#/components/schemas/TagHandlingOption"
+                  $ref: '#/components/schemas/TagHandlingOption'
                 outline_detection:
-                  $ref: "#/components/schemas/OutlineDetectionOptionStr"
+                  $ref: '#/components/schemas/OutlineDetectionOptionStr'
                 non_splitting_tags:
-                  $ref: "#/components/schemas/NonSplittingTagCommaSeparatedList"
+                  $ref: '#/components/schemas/NonSplittingTagCommaSeparatedList'
                 splitting_tags:
-                  $ref: "#/components/schemas/SplittingTagCommaSeparatedList"
+                  $ref: '#/components/schemas/SplittingTagCommaSeparatedList'
                 ignore_tags:
-                  $ref: "#/components/schemas/IgnoreTagCommaSeparatedList"
+                  $ref: '#/components/schemas/IgnoreTagCommaSeparatedList'
             encoding:
               text:
                 style: form
                 explode: true
       responses:
         200:
-          description:
-            The translate function returns a JSON representation of the
+          description: The translate function returns a JSON representation of the
             translations in the order the text parameters have been specified.
           content:
             application/json:
@@ -247,9 +249,8 @@ paths:
                       properties:
                         detected_source_language:
                           allOf:
-                            - $ref: "#/components/schemas/SourceLanguage"
-                          description:
-                            The language detected in the source text. It
+                            - $ref: '#/components/schemas/SourceLanguage'
+                          description: The language detected in the source text. It
                             reflects the value of the `source_lang` parameter, when
                             specified.
                         text:
@@ -280,25 +281,25 @@ paths:
                       - detected_source_language: EN
                         text: Dies ist der dritte Satz.
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         403:
-          $ref: "#/components/responses/Forbidden"
+          $ref: '#/components/responses/Forbidden'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         414:
-          $ref: "#/components/responses/URITooLong"
+          $ref: '#/components/responses/URITooLong'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         504:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /document:
@@ -337,14 +338,14 @@ paths:
                 summary: Basic Document Translation
                 value:
                   target_lang: DE
-                  file: "@document.docx"
+                  file: '@document.docx'
               Glossary:
                 summary: Using a Glossary
                 value:
                   source_lang: EN
                   target_lang: DE
-                  file: "@document.docx"
-                  glossary_id: "[yourGlossaryId]"
+                  file: '@document.docx'
+                  glossary_id: '[yourGlossaryId]'
             schema:
               type: object
               required:
@@ -352,9 +353,9 @@ paths:
                 - file
               properties:
                 source_lang:
-                  $ref: "#/components/schemas/SourceLanguage"
+                  $ref: '#/components/schemas/SourceLanguage'
                 target_lang:
-                  $ref: "#/components/schemas/TargetLanguage"
+                  $ref: '#/components/schemas/TargetLanguage'
                 file:
                   type: string
                   format: binary
@@ -362,23 +363,28 @@ paths:
                     The document file to be translated. The file name should be included in this part's content disposition. As an alternative, the filename parameter can be used. The following file types and extensions are supported:
                       * `docx` - Microsoft Word Document
                       * `pptx` - Microsoft PowerPoint Document
+                      * `xlsx` - Microsoft Excel Document
                       * `pdf` - Portable Document Format
                       * `htm / html` - HTML Document
                       * `txt` - Plain Text Document
                       * `xlf / xliff` - XLIFF Document, version 2.1
                 filename:
                   type: string
-                  description:
-                    The name of the uploaded file. Can be used as an alternative
+                  description: The name of the uploaded file. Can be used as an alternative
                     to including the file name in the file part's content disposition.
+                output_format:
+                  type: string
+                  description: |-
+                    File extension of desired format of translated file, for example: `docx`. If unspecified, by default the translated file will be in the same format as the input file.
+
+                    Note: Not all combinations of input file and translation file extensions are permitted. See [Document Format Conversions](https://www.deepl.com/docs-api/documents/format-conversions) for the permitted combinations.
                 formality:
-                  $ref: "#/components/schemas/Formality"
+                  $ref: '#/components/schemas/Formality'
                 glossary_id:
-                  $ref: "#/components/schemas/GlossaryId"
+                  $ref: '#/components/schemas/GlossaryId'
       responses:
         200:
-          description:
-            The document function returns a JSON object containing the
+          description: The document function returns a JSON object containing the
             ID and encryption key assigned to the uploaded document. Once received
             by the server, uploaded documents are immediately encrypted using a uniquely
             generated encryption key. This key is not persistently stored on the server.
@@ -390,14 +396,12 @@ paths:
                 type: object
                 properties:
                   document_id:
-                    description:
-                      A unique ID assigned to the uploaded document and
+                    description: A unique ID assigned to the uploaded document and
                       the translation process. Must be used when referring to this
                       particular document in subsequent API requests.
                     type: string
                   document_key:
-                    description:
-                      A unique key that is used to encrypt the uploaded
+                    description: A unique key that is used to encrypt the uploaded
                       document as well as the resulting translation on the server
                       side. Must be provided with every subsequent API request regarding
                       this particular document.
@@ -406,23 +410,23 @@ paths:
                 document_id: 04DE5AD98A02647D83285A36021911C6
                 document_key: 0CB0054F1C132C1625B392EADDA41CB754A742822F6877173029A6C487E7F60A
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         403:
-          $ref: "#/components/responses/Forbidden"
+          $ref: '#/components/responses/Forbidden'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         504:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /document/{document_id}:
@@ -435,13 +439,13 @@ paths:
         If the translation is still in progress, the estimated time remaining is also included in the response.
       operationId: getDocumentStatus
       parameters:
-        - $ref: "#/components/parameters/DocumentID"
+        - $ref: '#/components/parameters/DocumentID'
       requestBody:
         required: true
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/DocumentKey"
+              $ref: '#/components/schemas/DocumentKey'
             examples:
               basic:
                 summary: Basic
@@ -449,11 +453,10 @@ paths:
                   document_key: 0CB0054F1C132C1625B392EADDA41CB754A742822F6877173029A6C487E7F60A
           application/json:
             schema:
-              $ref: "#/components/schemas/DocumentKey"
+              $ref: '#/components/schemas/DocumentKey'
       responses:
         200:
-          description:
-            The document status request returns a JSON object containing
+          description: The document status request returns a JSON object containing
             the document ID that was used in the request as well as string indicating
             the current status of the translation process. While the translation is
             running, the estimated number of seconds remaining until the process is
@@ -467,8 +470,7 @@ paths:
                   - status
                 properties:
                   document_id:
-                    description:
-                      A unique ID assigned to the uploaded document and
+                    description: A unique ID assigned to the uploaded document and
                       the requested translation process. The same ID that was used
                       when requesting the translation status.
                     type: string
@@ -491,8 +493,7 @@ paths:
                       This parameter is only included while `status` is `"translating"`.
                     type: integer
                   billed_characters:
-                    description:
-                      The number of characters billed to your account.
+                    description: The number of characters billed to your account.
                       The characters will only be billed after a successful download
                       request.
                     type: integer
@@ -527,23 +528,23 @@ paths:
                     status: error
                     message: Source and target language are equal.
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         403:
-          $ref: "#/components/responses/Forbidden"
+          $ref: '#/components/responses/Forbidden'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         504:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /document/{document_id}/result:
@@ -558,13 +559,13 @@ paths:
 
         For privacy reasons the translated document is automatically removed from the server once it was downloaded and cannot be downloaded again.
       parameters:
-        - $ref: "#/components/parameters/DocumentID"
+        - $ref: '#/components/parameters/DocumentID'
       requestBody:
         required: true
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/DocumentKey"
+              $ref: '#/components/schemas/DocumentKey'
             examples:
               basic:
                 summary: Basic
@@ -572,11 +573,10 @@ paths:
                   document_key: 0CB0054F1C132C1625B392EADDA41CB754A742822F6877173029A6C487E7F60A
           application/json:
             schema:
-              $ref: "#/components/schemas/DocumentKey"
+              $ref: '#/components/schemas/DocumentKey'
       responses:
         200:
-          description:
-            The document is provided as a download. There is no other data
+          description: The document is provided as a download. There is no other data
             included in the response besides the document data. The content type used
             in the response corresponds to the document type.
           content:
@@ -589,25 +589,25 @@ paths:
                   summary: OK
                   description: binary document data
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         403:
-          $ref: "#/components/responses/Forbidden"
+          $ref: '#/components/responses/Forbidden'
         404:
-          $ref: "#/components/responses/NotFound404DocTransDownload"
+          $ref: '#/components/responses/NotFound404DocTransDownload'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable503DocTransDownload"
+          $ref: '#/components/responses/ServiceUnavailable503DocTransDownload'
         504:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /glossary-language-pairs:
@@ -619,8 +619,7 @@ paths:
       operationId: listGlossaryLanguages
       responses:
         200:
-          description:
-            A JSON object containing the language pairs in its `supported_languages`
+          description: A JSON object containing the language pairs in its `supported_languages`
             property.
           content:
             application/json:
@@ -637,13 +636,11 @@ paths:
                         - target_lang
                       properties:
                         source_lang:
-                          description:
-                            The language in which the source texts in the
+                          description: The language in which the source texts in the
                             glossary are specified.
                           type: string
                         target_lang:
-                          description:
-                            The language in which the target texts in the
+                          description: The language in which the target texts in the
                             glossary are specified.
                           type: string
               example:
@@ -653,27 +650,27 @@ paths:
                   - source_lang: en
                     target_lang: de
         400:
-          $ref: "#/components/responses/BadRequestGlossaries"
+          $ref: '#/components/responses/BadRequestGlossaries'
         401:
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: "#/components/responses/ForbiddenGlossaries"
+          $ref: '#/components/responses/ForbiddenGlossaries'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         415:
-          $ref: "#/components/responses/UnsupportedMediaTypeGlossaries"
+          $ref: '#/components/responses/UnsupportedMediaTypeGlossaries'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /glossaries:
@@ -687,7 +684,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateGlossaryParameters"
+              $ref: '#/components/schemas/CreateGlossaryParameters'
             examples:
               Basic:
                 name: Basic
@@ -699,39 +696,38 @@ paths:
                   entries_format: tsv
           application/x-www-form-urlencoded:
             schema:
-              $ref: "#/components/schemas/CreateGlossaryParameters"
+              $ref: '#/components/schemas/CreateGlossaryParameters'
       responses:
         201:
-          description:
-            The function for creating a glossary returns a JSON object
+          description: The function for creating a glossary returns a JSON object
             containing the ID of the newly created glossary and a boolean flag that
             indicates if the created glossary can already be used in translate requests.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Glossary"
+                $ref: '#/components/schemas/Glossary'
         400:
-          $ref: "#/components/responses/BadRequestGlossaries"
+          $ref: '#/components/responses/BadRequestGlossaries'
         401:
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: "#/components/responses/ForbiddenGlossaries"
+          $ref: '#/components/responses/ForbiddenGlossaries'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         415:
-          $ref: "#/components/responses/UnsupportedMediaTypeGlossaries"
+          $ref: '#/components/responses/UnsupportedMediaTypeGlossaries'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
     get:
@@ -739,8 +735,7 @@ paths:
         - ManageGlossaries
       summary: List all Glossaries
       operationId: listGlossaries
-      description:
-        List all glossaries and their meta-information, but not the glossary
+      description: List all glossaries and their meta-information, but not the glossary
         entries.
       responses:
         200:
@@ -753,7 +748,7 @@ paths:
                   glossaries:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Glossary"
+                      $ref: '#/components/schemas/Glossary'
               example:
                 glossaries:
                   - glossary_id: def3a26b-3e84-45b3-84ae-0c0aaf3525f7
@@ -761,30 +756,30 @@ paths:
                     ready: true
                     source_lang: EN
                     target_lang: DE
-                    creation_time: "2021-08-03T14:16:18.329Z"
+                    creation_time: '2021-08-03T14:16:18.329Z'
                     entry_count: 1
         400:
-          $ref: "#/components/responses/BadRequestGlossaries"
+          $ref: '#/components/responses/BadRequestGlossaries'
         401:
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: "#/components/responses/ForbiddenGlossaries"
+          $ref: '#/components/responses/ForbiddenGlossaries'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         415:
-          $ref: "#/components/responses/UnsupportedMediaTypeGlossaries"
+          $ref: '#/components/responses/UnsupportedMediaTypeGlossaries'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /glossaries/{glossary_id}:
@@ -792,49 +787,48 @@ paths:
       tags:
         - ManageGlossaries
       summary: Retrieve Glossary Details
-      description:
-        Retrieve meta information for a single glossary, omitting the glossary
+      description: Retrieve meta information for a single glossary, omitting the glossary
         entries.
       operationId: getGlossary
       parameters:
-        - $ref: "#/components/parameters/GlossaryID"
+        - $ref: '#/components/parameters/GlossaryID'
       responses:
         200:
           description: JSON object containing the glossary meta-information.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Glossary"
+                $ref: '#/components/schemas/Glossary'
               example:
                 glossary_id: def3a26b-3e84-45b3-84ae-0c0aaf3525f7
                 name: My Glossary
                 ready: true
                 source_lang: EN
                 target_lang: DE
-                creation_time: "2021-08-03T14:16:18.329Z"
+                creation_time: '2021-08-03T14:16:18.329Z'
                 entry_count: 1
         400:
-          $ref: "#/components/responses/BadRequestGlossaries"
+          $ref: '#/components/responses/BadRequestGlossaries'
         401:
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: "#/components/responses/ForbiddenGlossaries"
+          $ref: '#/components/responses/ForbiddenGlossaries'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         415:
-          $ref: "#/components/responses/UnsupportedMediaTypeGlossaries"
+          $ref: '#/components/responses/UnsupportedMediaTypeGlossaries'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
     delete:
@@ -844,32 +838,32 @@ paths:
       description: Deletes the specified glossary.
       operationId: deleteGlossary
       parameters:
-        - $ref: "#/components/parameters/GlossaryID"
+        - $ref: '#/components/parameters/GlossaryID'
       responses:
         204:
           description: Returns no content upon success.
         400:
-          $ref: "#/components/responses/BadRequestGlossaries"
+          $ref: '#/components/responses/BadRequestGlossaries'
         401:
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: "#/components/responses/ForbiddenGlossaries"
+          $ref: '#/components/responses/ForbiddenGlossaries'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         415:
-          $ref: "#/components/responses/UnsupportedMediaTypeGlossaries"
+          $ref: '#/components/responses/UnsupportedMediaTypeGlossaries'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /glossaries/{glossary_id}/entries:
@@ -878,11 +872,10 @@ paths:
         - ManageGlossaries
       summary: Retrieve Glossary Entries
       operationId: getGlossaryEntries
-      description:
-        List the entries of a single glossary in the format specified by
+      description: List the entries of a single glossary in the format specified by
         the `Accept` header.
       parameters:
-        - $ref: "#/components/parameters/GlossaryID"
+        - $ref: '#/components/parameters/GlossaryID'
         - name: Accept
           in: header
           schema:
@@ -890,8 +883,7 @@ paths:
             enum:
               - text/tab-separated-values
             default: text/tab-separated-values
-          description:
-            The requested format of the returned glossary entries. Currently,
+          description: The requested format of the returned glossary entries. Currently,
             supports only `text/tab-separated-values`.
           examples:
             tsv:
@@ -906,27 +898,27 @@ paths:
             text/tab-separated-values:
               example: "Hello!\tGuten Tag!"
         400:
-          $ref: "#/components/responses/BadRequestGlossaries"
+          $ref: '#/components/responses/BadRequestGlossaries'
         401:
-          $ref: "#/components/responses/Unauthorized"
+          $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: "#/components/responses/ForbiddenGlossaries"
+          $ref: '#/components/responses/ForbiddenGlossaries'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         415:
-          $ref: "#/components/responses/UnsupportedMediaTypeGlossaries"
+          $ref: '#/components/responses/UnsupportedMediaTypeGlossaries'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         503:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /usage:
@@ -958,38 +950,32 @@ paths:
                 type: object
                 properties:
                   character_count:
-                    description:
-                      Characters translated so far in the current billing
+                    description: Characters translated so far in the current billing
                       period.
                     type: integer
                     format: int64
                   character_limit:
-                    description:
-                      Current maximum number of characters that can be
+                    description: Current maximum number of characters that can be
                       translated per billing period.
                     type: integer
                     format: int64
                   document_limit:
-                    description:
-                      Documents translated so far in the current billing
+                    description: Documents translated so far in the current billing
                       period.
                     type: integer
                     format: int64
                   document_count:
-                    description:
-                      Current maximum number of documents that can be translated
+                    description: Current maximum number of documents that can be translated
                       per billing period.
                     type: integer
                     format: int64
                   team_document_limit:
-                    description:
-                      Documents translated by all users in the team so
+                    description: Documents translated by all users in the team so
                       far in the current billing period.
                     type: integer
                     format: int64
                   team_document_count:
-                    description:
-                      Current maximum number of documents that can be translated
+                    description: Current maximum number of documents that can be translated
                       by the team per billing period.
                     type: integer
                     format: int64
@@ -997,23 +983,23 @@ paths:
                 character_count: 180118
                 character_limit: 1250000
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         403:
-          $ref: "#/components/responses/Forbidden"
+          $ref: '#/components/responses/Forbidden'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         504:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
   /languages:
@@ -1021,9 +1007,13 @@ paths:
       tags:
         - MetaInformation
       summary: Retrieve Supported Languages
-      description:
-        Retrieve the list of languages that are currently supported for
-        translation, either as source or target language, respectively.
+      description: |-
+        Retrieve the list of languages that are currently supported for translation, either as source or target language, respectively.
+
+        As of January 2024, Arabic (AR) is supported as a source and target language for text translation, 
+        but it is not yet supported for document translation. Therefore, Arabic has not yet been added to 
+        the `/languages` endpoint. We will add Arabic to the `/languages` endpoint after document translation 
+        support is added.
       operationId: getLanguages
       parameters:
         - name: type
@@ -1064,8 +1054,7 @@ paths:
                       description: Name of the language in English.
                       type: string
                     supports_formality:
-                      description:
-                        Denotes formality support in case of a target language
+                      description: Denotes formality support in case of a target language
                         listing.
                       type: boolean
               example:
@@ -1163,31 +1152,30 @@ paths:
                   name: Chinese (simplified)
                   supports_formality: false
         400:
-          $ref: "#/components/responses/BadRequest"
+          $ref: '#/components/responses/BadRequest'
         403:
-          $ref: "#/components/responses/Forbidden"
+          $ref: '#/components/responses/Forbidden'
         404:
-          $ref: "#/components/responses/NotFound"
+          $ref: '#/components/responses/NotFound'
         413:
-          $ref: "#/components/responses/PayloadTooLarge"
+          $ref: '#/components/responses/PayloadTooLarge'
         429:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
         456:
-          $ref: "#/components/responses/QuotaExceeded"
+          $ref: '#/components/responses/QuotaExceeded'
         500:
-          $ref: "#/components/responses/InternalServerError"
+          $ref: '#/components/responses/InternalServerError'
         504:
-          $ref: "#/components/responses/ServiceUnavailable"
+          $ref: '#/components/responses/ServiceUnavailable'
         529:
-          $ref: "#/components/responses/TooManyRequests"
+          $ref: '#/components/responses/TooManyRequests'
       security:
         - auth_header: []
 components:
   parameters:
     DocumentID:
       name: document_id
-      description:
-        The document ID that was sent to the client when the document was
+      description: The document ID that was sent to the client when the document was
         uploaded to the API.
       in: path
       required: true
@@ -1205,13 +1193,13 @@ components:
       name: source_lang
       in: query
       schema:
-        $ref: "#/components/schemas/SourceLanguage"
+        $ref: '#/components/schemas/SourceLanguage'
     TargetLanguage:
       name: target_lang
       in: query
       required: true
       schema:
-        $ref: "#/components/schemas/TargetLanguage"
+        $ref: '#/components/schemas/TargetLanguage'
   responses:
     BadRequest:
       description: Bad request. Please check error message and your parameters.
@@ -1230,33 +1218,28 @@ components:
                 type: string
           example:
             message: Invalid glossary entries provided
-            detail:
-              Key with the index 1 (starting at position 13) duplicates key
+            detail: Key with the index 1 (starting at position 13) duplicates key
               with the index 0 (starting at position 0)
     Unauthorized:
-      description:
-        Authorization failed. Please supply a valid `DeepL-Auth-Key` via
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via
         the `Authorization` header.
     Forbidden:
-      description:
-        Authorization failed. Please supply a valid `DeepL-Auth-Key` via
+      description: Authorization failed. Please supply a valid `DeepL-Auth-Key` via
         the `Authorization` header.
     ForbiddenGlossaries:
-      description:
-        Forbidden. The access to the requested resource is denied, because
+      description: Forbidden. The access to the requested resource is denied, because
         of insufficient access rights.
     NotFound:
       description: The requested resource could not be found.
     NotFound404DocTransDownload:
-      description:
-        Trying to download a document using a non-existing document ID
+      description: Trying to download a document using a non-existing document ID
         or the wrong document key will result in a 404 error. As stated above, documents
         can only be downloaded once before they are deleted from the server and their
         document ID is invalidated.
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DocumentTranslationError"
+            $ref: '#/components/schemas/DocumentTranslationError'
           examples:
             NotFound:
               summary: Not Found
@@ -1265,13 +1248,11 @@ components:
     PayloadTooLarge:
       description: The request size exceeds the limit.
     URITooLong:
-      description:
-        The request URL is too long. You can avoid this error by using
+      description: The request URL is too long. You can avoid this error by using
         a POST request instead of a GET request, and sending the parameters in the
         HTTP body.
     UnsupportedMediaTypeGlossaries:
-      description:
-        The requested entries format specified in the `Accept` header is
+      description: The requested entries format specified in the `Accept` header is
         not supported.
     TooManyRequests:
       description: Too many requests. Please wait and resend your request.
@@ -1288,7 +1269,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DocumentTranslationError"
+            $ref: '#/components/schemas/DocumentTranslationError'
           examples:
             AlreadyDownloaded:
               summary: Already Downloaded
@@ -1297,12 +1278,43 @@ components:
   securitySchemes:
     auth_header:
       type: apiKey
-      description:
-        Authentication with `Authorization` header and `DeepL-Auth-Key`
+      description: Authentication with `Authorization` header and `DeepL-Auth-Key`
         authentication scheme
       name: Authorization
       in: header
   schemas:
+    Context:
+      description: |-
+        The `context` parameter makes it possible to include additional context that can influence a translation but is not translated itself. 
+        This additional context can potentially improve translation quality when translating short, low-context source texts such 
+        as product names on an e-commerce website, article headlines on a news website, or UI elements.
+
+
+        For example...
+          - When translating a product name, you might pass the product description as context. 
+          - When translating a news article headline, you might pass the first few sentences or a summary of the article as context.
+
+
+        For best results, we recommend sending a few complete sentences of context. There is no size limit for the `context` parameter itself, but 
+        the request body size limit of 128 KiB still applies to all text translation requests. 
+
+
+        If you send a request with multiple `text` parameters, the `context` parameter will be applied to each one. 
+
+
+        The `context` parameter is an **alpha feature** as defined in section 3.1.5 of our [terms and conditions](https://www.deepl.com/en/pro-license). 
+        This means it could be changed or deprecated by DeepL at any point and without advance notice. While the feature is still labeled as "alpha", 
+        context will not be counted toward billing (i.e. there is no additional cost for sending context). This is subject to change if the "alpha" 
+        label is removed and the feature becomes generally available. If we decide to deprecate the `context` parameter, requests that include it will not 
+        break; the context will simply be ignored. 
+
+
+        For these reasons, **the `context` parameter is not intended to be used in production** as long as the alpha label still applies.
+
+
+        We're eager to hear how the `context` parameter is working for you and how we can improve the feature! You can share your feedback 
+        by emailing api-feedback@deepl.com.
+      type: string
     CreateGlossaryParameters:
       type: object
       required:
@@ -1317,12 +1329,11 @@ components:
           type: string
           example: My Glossary
         source_lang:
-          $ref: "#/components/schemas/GlossarySourceLanguage"
+          $ref: '#/components/schemas/GlossarySourceLanguage'
         target_lang:
-          $ref: "#/components/schemas/GlossaryTargetLanguage"
+          $ref: '#/components/schemas/GlossaryTargetLanguage'
         entries:
-          description:
-            The entries of the glossary. The entries have to be specified
+          description: The entries of the glossary. The entries have to be specified
             in the format provided by the `entries_format` parameter.
           type: string
           example: "Hello\tGuten Tag"
@@ -1351,8 +1362,7 @@ components:
         - document_key
       properties:
         document_key:
-          description:
-            The document encryption key that was sent to the client when
+          description: The document encryption key that was sent to the client when
             the document was uploaded to the API.
           type: string
           example: 0CB0054F1C132C1625B392EADDA41CB754A742822F6877173029A6C487E7F60A
@@ -1394,7 +1404,7 @@ components:
       type: object
       properties:
         glossary_id:
-          $ref: "#/components/schemas/GlossaryId"
+          $ref: '#/components/schemas/GlossaryId'
         name:
           description: Name associated with the glossary.
           type: string
@@ -1405,13 +1415,12 @@ components:
             of the glossary before using it in a `translate` request.
           type: boolean
         source_lang:
-          $ref: "#/components/schemas/GlossarySourceLanguage"
+          $ref: '#/components/schemas/GlossarySourceLanguage'
         target_lang:
-          $ref: "#/components/schemas/GlossaryTargetLanguage"
+          $ref: '#/components/schemas/GlossaryTargetLanguage'
         creation_time:
-          description:
-            "The creation time of the glossary in the ISO 8601-1:2019 format
-            (e.g.: `2021-08-03T14:16:18.329Z`)."
+          description: 'The creation time of the glossary in the ISO 8601-1:2019 format
+            (e.g.: `2021-08-03T14:16:18.329Z`).'
           type: string
           format: date-time
         entry_count:
@@ -1423,7 +1432,7 @@ components:
         name: My Glossary
         source_lang: en
         target_lang: de
-        creation_time: "2021-08-03T14:16:18.329Z"
+        creation_time: '2021-08-03T14:16:18.329Z'
         entry_count: 1
     GlossarySourceLanguage:
       type: string
@@ -1435,6 +1444,7 @@ components:
         - fr
         - it
         - ja
+        - ko
         - nl
         - pl
         - pt
@@ -1451,6 +1461,7 @@ components:
         - fr
         - it
         - ja
+        - ko
         - nl
         - pl
         - pt
@@ -1523,7 +1534,7 @@ components:
         While this approach is slightly more complicated, it allows for greater control over the structure of the translation output.
       type: string
       enum:
-        - "0"
+        - '0'
     PreserveFormattingOption:
       description: |-
         Sets whether the translation engine should respect the original formatting, even if it would usually correct some aspects.
@@ -1544,9 +1555,9 @@ components:
          * Upper/lower case at the beginning of the sentence
       type: string
       enum:
-        - "0"
-        - "1"
-      default: "0"
+        - '0'
+        - '1'
+      default: '0'
     SplitSentencesOption:
       description: |-
         Sets whether the translation engine should first split the input into sentences. For text translations where 
@@ -1569,10 +1580,10 @@ components:
         Please note that newlines will split sentences when `split_sentences=1`. We recommend cleaning files so they don't contain breaking sentences or setting the parameter `split_sentences` to `nonewlines`.
       type: string
       enum:
-        - "0"
-        - "1"
+        - '0'
+        - '1'
         - nonewlines
-      default: "1"
+      default: '1'
     SourceLanguage:
       type: string
       description: |-
@@ -1639,6 +1650,79 @@ components:
         - UK
         - ZH
       example: EN
+    SourceLanguageText:
+      type: string
+      description: |-
+        Language of the text to be translated. Options currently available:
+         * `AR` - Arabic [1]
+         * `BG` - Bulgarian
+         * `CS` - Czech
+         * `DA` - Danish
+         * `DE` - German
+         * `EL` - Greek
+         * `EN` - English
+         * `ES` - Spanish
+         * `ET` - Estonian
+         * `FI` - Finnish
+         * `FR` - French
+         * `HU` - Hungarian
+         * `ID` - Indonesian
+         * `IT` - Italian
+         * `JA` - Japanese
+         * `KO` - Korean
+         * `LT` - Lithuanian
+         * `LV` - Latvian
+         * `NB` - Norwegian (Bokmål)
+         * `NL` - Dutch
+         * `PL` - Polish
+         * `PT` - Portuguese (all Portuguese varieties mixed)
+         * `RO` - Romanian
+         * `RU` - Russian
+         * `SK` - Slovak
+         * `SL` - Slovenian
+         * `SV` - Swedish
+         * `TR` - Turkish
+         * `UK` - Ukrainian
+         * `ZH` - Chinese
+
+        If this parameter is omitted, the API will attempt to detect the language of the text and translate it.
+
+        [1] Please note that Arabic has not yet been added to the `/languages` endpoint because it does not 
+        yet support document translation; only text translation is supported for Arabic at this time. When 
+        document translation support is added for Arabic, we will a) remove this note and b) add Arabic to 
+        the `/languages` endpoint.
+      enum:
+        - AR
+        - BG
+        - CS
+        - DA
+        - DE
+        - EL
+        - EN
+        - ES
+        - ET
+        - FI
+        - FR
+        - HU
+        - ID
+        - IT
+        - JA
+        - KO
+        - LT
+        - LV
+        - NB
+        - NL
+        - PL
+        - PT
+        - RO
+        - RU
+        - SK
+        - SL
+        - SV
+        - TR
+        - UK
+        - ZH
+      example: EN
     TagHandlingOption:
       description: |-
         Sets which kind of tags should be handled. Options currently available:
@@ -1650,7 +1734,7 @@ components:
         - html
     NonSplittingTagCommaSeparatedList:
       allOf:
-        - $ref: "#/components/schemas/TagCommaSeparatedList"
+        - $ref: '#/components/schemas/TagCommaSeparatedList'
       description: |-
         Comma-separated list of XML tags which never split sentences.
 
@@ -1680,7 +1764,7 @@ components:
         This time, the sentence is translated as a whole. The XML tags are now considered markup and copied into the translated sentence. As the translation of the words "had been" has moved to another position in the German sentence, the two par tags are duplicated (which is expected here).
     NonSplittingTagList:
       allOf:
-        - $ref: "#/components/schemas/TagList"
+        - $ref: '#/components/schemas/TagList'
       description: |-
         List of XML tags which never split sentences.
 
@@ -1710,7 +1794,7 @@ components:
         This time, the sentence is translated as a whole. The XML tags are now considered markup and copied into the translated sentence. As the translation of the words "had been" has moved to another position in the German sentence, the two par tags are duplicated (which is expected here).
     SplittingTagCommaSeparatedList:
       allOf:
-        - $ref: "#/components/schemas/TagCommaSeparatedList"
+        - $ref: '#/components/schemas/TagCommaSeparatedList'
       description: |-
         Comma-separated list of XML tags which always cause splits.
 
@@ -1718,7 +1802,7 @@ components:
         See the example in the `outline_detection` parameter's description.
     SplittingTagList:
       allOf:
-        - $ref: "#/components/schemas/TagList"
+        - $ref: '#/components/schemas/TagList'
       description: |-
         List of XML tags which always cause splits.
 
@@ -1726,7 +1810,7 @@ components:
         See the example in the `outline_detection` parameter's description.
     IgnoreTagCommaSeparatedList:
       allOf:
-        - $ref: "#/components/schemas/TagCommaSeparatedList"
+        - $ref: '#/components/schemas/TagCommaSeparatedList'
       description: |-
         Comma-separated list of XML tags that indicate text not to be translated.
 
@@ -1742,7 +1826,7 @@ components:
            ```
     IgnoreTagList:
       allOf:
-        - $ref: "#/components/schemas/TagList"
+        - $ref: '#/components/schemas/TagList'
       description: |-
         List of XML tags that indicate text not to be translated.
 
@@ -1807,6 +1891,83 @@ components:
          * `UK` - Ukrainian
          * `ZH` - Chinese (simplified)
       enum:
+        - BG
+        - CS
+        - DA
+        - DE
+        - EL
+        - EN-GB
+        - EN-US
+        - ES
+        - ET
+        - FI
+        - FR
+        - HU
+        - ID
+        - IT
+        - JA
+        - KO
+        - LT
+        - LV
+        - NB
+        - NL
+        - PL
+        - PT-BR
+        - PT-PT
+        - RO
+        - RU
+        - SK
+        - SL
+        - SV
+        - TR
+        - UK
+        - ZH
+      example: DE
+    TargetLanguageText:
+      type: string
+      description: |-
+        The language into which the text should be translated. Options currently available:
+         * `AR` - Arabic [1]
+         * `BG` - Bulgarian
+         * `CS` - Czech
+         * `DA` - Danish
+         * `DE` - German
+         * `EL` - Greek
+         * `EN` - English (unspecified variant for backward compatibility; please select `EN-GB` or `EN-US` instead)
+         * `EN-GB` - English (British)
+         * `EN-US` - English (American)
+         * `ES` - Spanish
+         * `ET` - Estonian
+         * `FI` - Finnish
+         * `FR` - French
+         * `HU` - Hungarian
+         * `ID` - Indonesian
+         * `IT` - Italian
+         * `JA` - Japanese
+         * `KO` - Korean
+         * `LT` - Lithuanian
+         * `LV` - Latvian
+         * `NB` - Norwegian (Bokmål)
+         * `NL` - Dutch
+         * `PL` - Polish
+         * `PT` - Portuguese (unspecified variant for backward compatibility; please select `PT-BR` or `PT-PT` instead)
+         * `PT-BR` - Portuguese (Brazilian)
+         * `PT-PT` - Portuguese (all Portuguese varieties excluding Brazilian Portuguese)
+         * `RO` - Romanian
+         * `RU` - Russian
+         * `SK` - Slovak
+         * `SL` - Slovenian
+         * `SV` - Swedish
+         * `TR` - Turkish
+         * `UK` - Ukrainian
+         * `ZH` - Chinese (simplified)
+
+         [1] Please note that Arabic has not yet been added to the `/languages` endpoint because 
+         it does not yet support document translation; only text translation is supported for Arabic 
+         at this time. When document translation support is added for Arabic, we will a) remove this 
+         note and b) add Arabic to the `/languages` endpoint.
+      enum:
+        - AR
         - BG
         - CS
         - DA
